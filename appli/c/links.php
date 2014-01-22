@@ -30,7 +30,7 @@ class Links extends \MVC\Controleur {
             }
             $saved = \MVC\A::get('saved') == '' ? 0 : 1;
             $link = array(
-                'title' => htmlspecialchars(utf8_encode(\MVC\A::get('title'))),
+                'title' => htmlspecialchars(\MVC\A::get('title')),
                 'url' => htmlspecialchars(\MVC\A::get('url')),
                 'description' => htmlspecialchars(\MVC\A::get('description')),
                 'linkdate' => $linkDate,

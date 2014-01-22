@@ -76,5 +76,19 @@ class Links extends \MVC\Link {
         }
         return $links;
     }
+    
+    public function deleteTag($tagName){
+        $links = $this->getFileData();
+        foreach ( $links as $link){
+            $tagString = '';
+            foreach (explode(' ', $link['tags']) as $tag){
+                if($tagName != $tag){
+                   $tagString .= ' '.$tag; 
+                }
+            }
+            $links[$link['linkdate']]['tags'] = trim($tagString);
+        }
+        return $links;
+    }
         
 }

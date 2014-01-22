@@ -34,12 +34,4 @@ class Vue{
     public function __get($cle){
         return $this->_data[$cle];
     }
-    static function lien($c,$a,$texte,$params=array()){
-        $lien='<a href=".?c='.$c.'&a='.$a;
-        foreach ($params as $cle=>$valeur) {
-            $lien.='&'.$cle.'='.$valeur;            
-        }
-        $lien.='">'.$texte.'</a>';
-        return $lien;
-    }
 }

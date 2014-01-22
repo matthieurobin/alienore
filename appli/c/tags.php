@@ -13,6 +13,12 @@ class Tags extends \MVC\Controleur {
     }
 
     public static function delete() {
+        if (\MVC\A::get('tag') != '') {
+            $objLink = \Appli\M\Links::getInstance();
+            $data = $objLink->deleteTag(\MVC\A::get('tag'));
+            $objLink->setFileData($data);
+            $objLink->saveData($data);
+        }
     }
 
     public static function form() {
@@ -23,7 +29,7 @@ class Tags extends \MVC\Controleur {
         if (\MVC\A::get('tagName') != '' and \MVC\A::get('tag') != '') {
             $newTagName = htmlspecialchars(\MVC\A::get('tagName'));
             $objLink = \Appli\M\Links::getInstance();
-            $data = $objLink->editTagName($newTagName,\MVC\A::get('tag'));
+            $data = $objLink->editTagName($newTagName, \MVC\A::get('tag'));
             $objLink->setFileData($data);
             $objLink->saveData($data);
         }
