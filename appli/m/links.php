@@ -60,5 +60,21 @@ class Links extends \MVC\Link {
         }
         return $links;
     }
+    
+    public function editTagName($newTagName,$tagEdit){
+        $links = $this->getFileData();
+        foreach ( $links as $link){
+            $tagString = '';
+            foreach (explode(' ', $link['tags']) as $tag){
+                if($tag == $tagEdit){
+                    $tagString .= ' '.$newTagName;
+                }else{
+                   $tagString .= ' '.$tag; 
+                }
+            }
+            $links[$link['linkdate']]['tags'] = trim($tagString);
+        }
+        return $links;
+    }
         
 }

@@ -10,4 +10,5 @@ include INSTALL . 'path.php';
 \MVC\Language::loadLanguage();
 
 //index
+header('Content-Type: text/html; charset=utf-8');
 include(MVC . 'index.php');

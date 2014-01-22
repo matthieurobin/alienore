@@ -1,4 +1,4 @@
-<form action="?c=links&a=saved&update=1" method="post">
+<form action="?c=links&a=saved" method="post">
     <?php echo \MVC\Language::T('Title')?>
     <input type="text" name="title" value="<?php echo isset($this->link['title']) ? $this->link['title'] : null; ?>"><br>
     <?php echo \MVC\Language::T('Url')?>

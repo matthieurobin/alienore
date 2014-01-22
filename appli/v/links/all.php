@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -13,7 +12,6 @@
     </head>
     <body>
          <?php var_dump($this->links); ?>
-
         <a href="?c=links&a=form"><?php echo \MVC\Language::T('Addlink') ?></a>
 
         <?php foreach ($this->links as $link): ?>
