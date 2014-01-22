@@ -9,6 +9,9 @@
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>bootstrap.css" rel="stylesheet">
+        <link href="<?php echo \Install\Path::CSS; ?>bootstrap-responsive.css" rel="stylesheet">
+        <!-- Application CSS -->
+        <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
     <body>
          <?php var_dump($this->links); ?>

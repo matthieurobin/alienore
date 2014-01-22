@@ -87,13 +87,19 @@ Abstract class File {
      */
 
     public function savedHtmlPage($url, $fileName) {
+        if(getimagesize($url)){
+            $extension = '.jpg';
+        }else{
+            $extension = '.html';
+        }
+        
         if(!$this->isFileExists($this->directoryName)){
             $this->create($this->directoryName);
         }
-        if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
+        if ($this->isFileExists($this->directoryName, $fileName, $extension)) {
             $this->deleteHtmlFile($fileName);
         }
-        return file_put_contents($this->path . $this->directoryName . $fileName . '.html', file_get_contents($url));
+        return file_put_contents($this->path . $this->directoryName . $fileName . $extension, file_get_contents($url));
     }
 
     /**
@@ -104,6 +110,8 @@ Abstract class File {
     public function deleteHtmlFile($fileName = null) {
         if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
             return unlink($this->path . $this->directoryName . $fileName . '.html');
+        }else if($this->isFileExists($this->directoryName, $fileName, '.jpg')){
+            return unlink($this->path . $this->directoryName . $fileName . '.jpg');
         }
         return false;
     }

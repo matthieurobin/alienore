@@ -48,16 +48,17 @@ class Links extends \MVC\Controleur {
 
     public static function savedLink() {
         //case : saved
-        var_dump(\MVC\A::get('filename'));
         if (\MVC\A::get('saved')) {
-            \Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'));
-            $saved = 0;
-            $dateSaved = '';
+            if(\Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'))){
+                $saved = 0;
+                $dateSaved = '';
+            }
             //case : not saved
         } else {
-            \Appli\M\Page::getInstance()->savedHtmlPage(\MVC\A::get('url'), \MVC\A::get('filename'));
-            $saved = 1;
-            $dateSaved = $linkDate = date('Ymd') . '_' . date('His');
+            if(\Appli\M\Page::getInstance()->savedHtmlPage(\MVC\A::get('url'), \MVC\A::get('filename'))){
+                $saved = 1;
+                $dateSaved = $linkDate = date('Ymd') . '_' . date('His');
+            }
         }
         $link = \Appli\M\Links::getInstance();
         $data = $link->getFileData();
