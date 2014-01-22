@@ -4,7 +4,7 @@ namespace MVC;
 
 Abstract class File {
 
-    private static $path = 'data/';
+    private $path = 'data/';
     private static $phpPrefix = '<?php /* ';
     private static $phpSufix = ' */ ?>';
     private static $_data = array();
@@ -22,11 +22,17 @@ Abstract class File {
     }
 
     /**
-     * cerate the directory
+     * create the directory
      * @param string $directoryName
      */
-    public static function create($directoryName) {
-        mkdir(self::$path . $directoryName);
+    public function create($directoryName) {
+        //if main directory exists
+        if ($this->isFileExists()) {
+            mkdir($this->path . $directoryName, 0777);
+        } else {
+            //main directory is created
+            mkdir($this->path, 0777);
+        }
     }
 
     /**
@@ -35,8 +41,8 @@ Abstract class File {
      * @param string $directoryName
      * @return boolean
      */
-    public function isFileExists($fileName, $extension) {
-        return file_exists(self::$path . $this->directoryName . $fileName . $extension);
+    public function isFileExists($directoryName = null, $fileName = null, $extension = null) {
+        return file_exists($this->path . $directoryName . $fileName . $extension);
     }
 
     /**
@@ -44,14 +50,17 @@ Abstract class File {
      * @return array()
      */
     protected function read() {
-        if ($this->isFileExists($this->fileName, '.php')) {
+        //if file exists
+        if ($this->isFileExists($this->directoryName, $this->fileName, '.php')) {
             return unserialize(gzinflate(
                             base64_decode(
-                                    substr(file_get_contents(self::$path . $this->directoryName . $this->fileName . '.php'), strlen(self::$phpPrefix), - strlen(self::$phpSufix))
+                                    substr(file_get_contents($this->path . $this->directoryName . $this->fileName . '.php'), strlen(self::$phpPrefix), - strlen(self::$phpSufix))
                             )
             ));
         } else {
-            return array();
+            //file is created
+            $this->write(array());
+            return $this->read();
         }
     }
 
@@ -61,9 +70,16 @@ Abstract class File {
      * @return array
      */
     protected function write(array $data) {
-        return file_put_contents(self::$path . $this->directoryName . $this->fileName . '.php', self::$phpPrefix . base64_encode(
-                        gzdeflate(serialize($data)))
-                . self::$phpSufix);
+        //if direcory exists
+        if ($this->isFileExists($this->directoryName)) {
+            return file_put_contents($this->path . $this->directoryName . $this->fileName . '.php', self::$phpPrefix . base64_encode(
+                            gzdeflate(serialize($data)))
+                    . self::$phpSufix);
+        } else {
+            //directory is created
+            $this->create($this->directoryName);
+            return $this->write($data);
+        }
     }
 
     /*
@@ -71,10 +87,13 @@ Abstract class File {
      */
 
     public function savedHtmlPage($url, $fileName) {
-        if ($this->isFileExists($fileName, '.html')) {
+        if(!$this->isFileExists($this->directoryName)){
+            $this->create($this->directoryName);
+        }
+        if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
             $this->deleteHtmlFile($fileName);
         }
-        return file_put_contents(self::$path . $this->directoryName . $fileName . '.html', file_get_contents($url));
+        return file_put_contents($this->path . $this->directoryName . $fileName . '.html', file_get_contents($url));
     }
 
     /**
@@ -83,8 +102,8 @@ Abstract class File {
      * @return boolean
      */
     public function deleteHtmlFile($fileName = null) {
-        if ($this->isFileExists($fileName, '.html')) {
-            return unlink(self::$path . $this->directoryName . $fileName . '.html');
+        if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
+            return unlink($this->path . $this->directoryName . $fileName . '.html');
         }
         return false;
     }

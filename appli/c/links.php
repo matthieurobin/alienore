@@ -13,7 +13,7 @@ class Links extends \MVC\Controleur {
     public static function delete() {
         $link = \Appli\M\Links::getInstance();
         $link->deleteLink(\MVC\A::get('id'));
-        $link->savedb();
+        $link->saveData();
         $link->deleteHtmlFile(\MVC\A::get('filename'));
     }
 
@@ -42,7 +42,7 @@ class Links extends \MVC\Controleur {
             $data = $linkObj->getFileData();
             $data[$linkDate] = $link;
             $linkObj->setFileData($data);
-            $linkObj->savedb(); //save modifications
+            $linkObj->saveData(); //save modifications
         }
     }
 
@@ -64,7 +64,7 @@ class Links extends \MVC\Controleur {
         $data[\MVC\A::get('id')]['saved'] = $saved;
         $data[\MVC\A::get('id')]['datesaved'] = $dateSaved;
         $link->setFileData($data);
-        $link->savedb(); //save modifications
+        $link->saveData(); //save modifications
     }
 
 }
