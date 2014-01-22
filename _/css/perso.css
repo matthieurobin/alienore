@@ -1,10 +1,73 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 22 janv. 2014, 12:41:37
-    Author     : Matthieu
-*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    list-style: none;
+}
+
+#header{
+    margin-top: 50px;
+}
+
+#addlink{
+    background-color: #3d3d3d;
+    padding: 0.5em;
+}
+#addlink a{
+    color: #fff;
+}
+#nbLinks{
+    float: right;
+    color : #999;
+}
+
+.paging, .paging a{
+    background-color: #2A72B0;
+    text-align: center;
+    color: #ededed;
+}
+
+#links > ul > li{
+    border-top: 1px solid #999;
+    padding: 1em 1em 1em 1em;
+}
+
+.link{
+    word-wrap: break-word;
+}
+
+.link-description{
+    color: #999;
+}
+
+.link-description-second{
+    color: #708090;
+}
+
+.link-description-second a{
+    color: #4682B4;
+}
+
+.tags{
+    padding: 0.2em 0em 0.2em 0em;
+}
+
+.link-tools a{
+    color: #fff;
+}
+
+#footer {
+    border-top: 1px solid #999;
+    padding: 0.5em;
+    text-align: center;
+    color: #999;
+}
+
+/* bootstrap modifications*/
+.label{
+    border-radius: 0px;
+    opacity: 0.9;
+}
 

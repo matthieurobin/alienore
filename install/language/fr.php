@@ -23,11 +23,32 @@ $language = array (
     'Save' => 'Sauvegarder',
     'Unsaved' => 'Ne plus sauvegarder',
     
-    //DISPLAY
+    //DEFAULT
+    //header
+    'Home' => 'Accueil',
+    'Tags' => 'Tags',
+    'Tools' => 'Outils',
+    'NbLinks' => 'Nombre de liens',
+    
     '0link' => 'Vous n\'avez pas encore de liens',
     'nothingfound' => 'Aucun résultat',
+    
     'Datesaved' => 'Sauvé le',
-    'Seesavedversion' => 'Voir la version sauvegardée'
+    'Seesavedversion' => 'Voir la version sauvegardée',
+    //navigation
+    'NextPage' => 'Page suivante',
+    'PreviousPage' => 'Page précédente',
+    
+    //Time
+    '%s' => 'Il y a % secondes',
+    '1min' => 'Il y a 1 minuute',
+    '%min' => 'Il y a % minutes',
+    '1h' => 'Il y a 1 heure',
+    '%h' => 'Il y a % heures',
+    '1month' => 'Il y a 1 mois',
+    '%months' => 'Il y a % mois',
+    '1year' => 'Il y a 1 an',
+    '%years' => 'Il y a % ans'
 );
 
 return $language;

@@ -7,7 +7,7 @@ class App {
     CONST C = "links"; //contrôleur par défaut
     CONST A = "all"; //action par défaut
     CONST NAME = 'myLinks'; //application name
-    CONST LANGUAGE = 'en';
-    CONST COPYRIGHT = '';
+    CONST LANGUAGE = 'fr';
+    CONST COPYRIGHT = 'By Matthieu ROBIN';
       
 }
