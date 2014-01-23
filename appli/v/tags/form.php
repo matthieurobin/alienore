@@ -1,4 +1,3 @@
-<?php var_dump($this->tag);?>
 <form action="?c=tags&a=saved" method="post">
     <?php echo \MVC\Language::T('Title')?>
     <input type="text" name="tagName" value="<?php echo $this->tag ?>"><br>

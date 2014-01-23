@@ -18,6 +18,12 @@
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                         <a class="navbar-brand" href="."><?php echo Install\App::NAME; ?></a>
                     </div>
                     <div class="collapse navbar-collapse">
@@ -25,10 +31,16 @@
                             <li class="active"><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
                             <li><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
                             <li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>
+                            <form action="?c=links&a=research" method="post" class="navbar-form navbar-right" role="form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
+                                </div>
+                                <button type="submit" class="btn btn-success"><?php echo \MVC\Language::T('Search'); ?></button>
+                            </form>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
-            </div>
+            </div>    
 
         </div>
         <div id="links">
@@ -50,14 +62,14 @@
                     <li>
                         <div class="link">
                             <h3>
-                                <?php if($link['saved']): ?>
-                                <a href=""><span class="glyphicon glyphicon-new-window"></span></a>
+                                <?php if ($link['saved']): ?>
+                                    <a href="?c=savedlink&a=display&linkdate=<?php echo $link['linkdate'] ?>"><span class="glyphicon glyphicon-new-window"></span></a>
                                 <?php endif; ?>
                                 <a href="<?php echo $link['url'] ?>"><?php echo $link['title'] ?></a>
                             </h3>
                             <p class="link-description-second">
-                                <small><?php echo $link['linkdate']?></small> - 
-                                <a href="<?php echo $link['saved']?>"><?php echo $link['url']?></a>
+                                <small><?php echo \MVC\Date::displayDate($link['linkdate']) ?></small> - 
+                                <a href="<?php echo $link['saved'] ?>"><?php echo $link['url'] ?></a>
                             </p>
                             <p class="link-description"><?php echo $link['description'] ?></p>
                             <div class="tags">

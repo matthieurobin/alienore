@@ -87,19 +87,23 @@ Abstract class File {
      */
 
     public function savedHtmlPage($url, $fileName) {
-        if(getimagesize($url)){
+        $fileName = $this->smallHash($fileName);
+        if (getimagesize($url)) {
             $extension = '.jpg';
-        }else{
+        } else {
             $extension = '.html';
         }
-        
-        if(!$this->isFileExists($this->directoryName)){
+
+        if (!$this->isFileExists($this->directoryName)) {
             $this->create($this->directoryName);
         }
         if ($this->isFileExists($this->directoryName, $fileName, $extension)) {
             $this->deleteHtmlFile($fileName);
         }
-        return file_put_contents($this->path . $this->directoryName . $fileName . $extension, file_get_contents($url));
+        $file = file_get_contents($url);
+        if($file){
+            return file_put_contents($this->path . $this->directoryName . $fileName . $extension, $file);
+        }    
     }
 
     /**
@@ -108,12 +112,30 @@ Abstract class File {
      * @return boolean
      */
     public function deleteHtmlFile($fileName = null) {
+        $fileName = $this->smallHash($fileName);
         if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
             return unlink($this->path . $this->directoryName . $fileName . '.html');
-        }else if($this->isFileExists($this->directoryName, $fileName, '.jpg')){
+        } else if ($this->isFileExists($this->directoryName, $fileName, '.jpg')) {
             return unlink($this->path . $this->directoryName . $fileName . '.jpg');
         }
         return false;
+    }
+    
+    public function getPathToSavedLink($fileName){
+        $fileName = $this->smallHash($fileName);
+        var_dump(1);
+        if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
+            return file_get_contents($this->path . $this->directoryName . $fileName . '.html');
+        } else {
+            var_dump(2);
+            return '<img src="../'.$this->path . $this->directoryName . $fileName . '.jpg"/>';
+        }
+    }
+    
+    
+    public function smallHash($text) {
+        $t = rtrim(hash('crc32', $text), '=');
+        return strtr($t, '+/', '-_');
     }
 
 }

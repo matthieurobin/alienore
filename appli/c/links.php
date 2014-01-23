@@ -26,13 +26,13 @@ class Links extends \MVC\Controleur {
             if (\MVC\A::get('linkdate') != '') {
                 $linkDate = \MVC\A::get('linkdate');
             } else {
-                $linkDate = date('Ymd') . '_' . date('His');
+                $linkDate = \MVC\Date::getDateNow();
             }
             $saved = \MVC\A::get('saved') == '' ? 0 : 1;
             $link = array(
-                'title' => htmlspecialchars(\MVC\A::get('title')),
-                'url' => htmlspecialchars(\MVC\A::get('url')),
-                'description' => htmlspecialchars(\MVC\A::get('description')),
+                'title' => htmlspecialchars(trim(\MVC\A::get('title'))),
+                'url' => htmlspecialchars(trim(\MVC\A::get('url'))),
+                'description' => htmlspecialchars(trim(\MVC\A::get('description'))),
                 'linkdate' => $linkDate,
                 'tags' => trim(htmlspecialchars(\MVC\A::get('tags'))),
                 'saved' => $saved,
@@ -57,7 +57,7 @@ class Links extends \MVC\Controleur {
         } else {
             if(\Appli\M\Page::getInstance()->savedHtmlPage(\MVC\A::get('url'), \MVC\A::get('filename'))){
                 $saved = 1;
-                $dateSaved = $linkDate = date('Ymd') . '_' . date('His');
+                $dateSaved = $linkDate = \MVC\Date::getDateNow();
             }
         }
         $link = \Appli\M\Links::getInstance();
@@ -66,6 +66,10 @@ class Links extends \MVC\Controleur {
         $data[\MVC\A::get('id')]['datesaved'] = $dateSaved;
         $link->setFileData($data);
         $link->saveData(); //save modifications
+    }
+    
+    public static function research(){
+        
     }
 
 }

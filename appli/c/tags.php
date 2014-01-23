@@ -9,7 +9,10 @@ class Tags extends \MVC\Controleur {
     }
 
     public static function linksBytag() {
-        self::getVue()->links = \Appli\M\Links::getInstance()->getLinksByTag(\MVC\A::get('tag'));
+        $links =  \Appli\M\Links::getInstance()->getLinksByTag(\MVC\A::get('tag'));
+        self::getVue()->tag = \MVC\A::get('tag');
+        self::getVue()->links = $links;
+        self::getVue()->nbLinks = sizeof($links);
     }
 
     public static function delete() {

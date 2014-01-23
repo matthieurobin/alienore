@@ -3,6 +3,9 @@
 $language = array (
     
     //FORM
+    //default
+    'Submit' => 'Enregistrer',
+    'Cancel' => 'Annuler',
     //link
     'Title' => 'Titre',
     'Description' => 'Description',
@@ -10,13 +13,11 @@ $language = array (
     'Infotags' => 'Tags séparés par un espace',
     'Tags' => 'Tags',
     'Tagname' => 'Nom du tag',
-    //default
-    'Submit' => 'Enregistrer',
-    'Cancel' => 'Annuler',
     
     //ACTIONS
     //links
-    'Addlink' => 'Ajouter un lien',   
+    'Addlink' => 'Ajouter un lien',
+    'EditLink' => 'Modifier le lien',
     //link
     'Edit' => 'Editer',
     'Delete' => 'Supprimer',
@@ -28,6 +29,7 @@ $language = array (
     'Home' => 'Accueil',
     'Tags' => 'Tags',
     'Tools' => 'Outils',
+    'Search' => 'Rechercher',
     'NbLinks' => 'Nombre de liens',
     
     '0link' => 'Vous n\'avez pas encore de liens',

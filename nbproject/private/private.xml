@@ -5,6 +5,8 @@
         <group>
             <file>file:/C:/wamp/www/frameworkFichier/_/css/perso.css</file>
             <file>file:/C:/wamp/www/frameworkFichier/appli/v/links/all.php</file>
+            <file>file:/C:/wamp/www/frameworkFichier/appli/v/tags/linksbytag.php</file>
+            <file>file:/C:/wamp/www/frameworkFichier/appli/c/links.php</file>
             <file>file:/C:/wamp/www/frameworkFichier/install/language/fr.php</file>
         </group>
     </open-files>
