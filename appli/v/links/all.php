@@ -51,14 +51,19 @@
                 </div>
             </div>
             <div class="paging">
+                <?php if($this->pagination['page'] != 1):?>
                 <span class="glyphicon glyphicon-arrow-left"></span>
-                <a href=""><?php echo \MVC\Language::T('PreviousPage') ?></a>
-                <a href=""><?php echo \MVC\Language::T('NextPage') ?></a>
+                <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] - 1 ?>"><?php echo \MVC\Language::T('PreviousPage') ?></a>
+                <?php endif; ?>
+                <span><?php echo $this->pagination['page'] ?>/<?php echo $this->pagination['nbPages'] ?></span>
+                <?php if($this->pagination['page'] != $this->pagination['nbPages']): ?>
+                    <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] + 1 ?>"><?php echo \MVC\Language::T('NextPage') ?></a> 
                 <span class="glyphicon glyphicon-arrow-right"></span>
+                <?php endif; ?>
             </div>
             <?php //var_dump($this->links); ?>
             <ul>
-                <?php foreach ($this->links as $link): ?>
+                <?php foreach ($this->pagination['links'] as $link): ?>
                     <li>
                         <div class="link">
                             <h3>
@@ -69,7 +74,7 @@
                             </h3>
                             <p class="link-description-second">
                                 <small><?php echo \MVC\Date::displayDate($link['linkdate']) ?></small> - 
-                                <a href="<?php echo $link['saved'] ?>"><?php echo $link['url'] ?></a>
+                                <a href="<?php echo $link['url'] ?>"><?php echo $link['url'] ?></a>
                             </p>
                             <p class="link-description"><?php echo $link['description'] ?></p>
                             <div class="tags">
@@ -119,10 +124,19 @@
                 <?php endforeach; ?>
             </ul>
         </div>
+        <div class="paging">
+            
+        </div>
         <div id="footer">
             <?php echo \Install\App::COPYRIGHT ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
+        <script>
+            $(document).ready(function(){
+                duplicatePaging();
+            });
+        </script>
     </body>
 </html>

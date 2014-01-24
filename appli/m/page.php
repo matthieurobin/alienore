@@ -2,7 +2,7 @@
 
 namespace Appli\M;
 
-class Page extends \MVC\File {
+class Page extends \MVC\SavedLink {
 
     protected $directoryName = 'savedlinks/';
 

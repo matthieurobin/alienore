@@ -6,7 +6,8 @@ class Links extends \MVC\Controleur {
 
     public static function all() {
         $links = \Appli\M\Links::getInstance()->getFileData();
-        self::getVue()->links = $links;
+        $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
+        self::getVue()->pagination = \MVC\Pagination::buildPaging($links,$page);
         self::getVue()->nbLinks = sizeof($links);
     }
 
