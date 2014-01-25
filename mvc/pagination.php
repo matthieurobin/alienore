@@ -16,10 +16,11 @@ class Pagination {
             $keys[] = $key;
         }
 
+        $pagination['page'] = $page;
+        $pagination['nbPages'] = $page;
         if (sizeof($keys) > 0) {
             $nbPages = self::getNumberOfPages(sizeof($keys), $linksPerPage);
             $pagination['nbPages'] = $nbPages;
-            $pagination['page'] = $page;
             $linksToDisplay = array();
 
             $i = ($page - 1 ) * $linksPerPage; // Start index.
@@ -34,7 +35,8 @@ class Pagination {
               return $pagination;
 
         } else {
-            return array();
+            $pagination['links'] = array();
+            return $pagination;
         }
     }
 
