@@ -15,7 +15,7 @@ class Links extends \MVC\Controleur {
         $link = \Appli\M\Links::getInstance();
         $link->deleteLink(\MVC\A::get('id'));
         $link->saveData();
-        $link->deleteHtmlFile(\MVC\A::get('filename'));
+         \Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'));
     }
 
     public static function form() {
