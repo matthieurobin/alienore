@@ -7,6 +7,7 @@ class Links extends \MVC\Controleur {
     public static function all() {
         $links = \Appli\M\Links::getInstance()->getFileData();
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
+        $links = array_reverse($links);
         self::getVue()->pagination = \MVC\Pagination::buildPaging($links,$page);
         self::getVue()->nbLinks = sizeof($links);
     }
@@ -35,7 +36,7 @@ class Links extends \MVC\Controleur {
                 'url' => htmlspecialchars(trim(\MVC\A::get('url'))),
                 'description' => htmlspecialchars(trim(\MVC\A::get('description'))),
                 'linkdate' => $linkDate,
-                'tags' => trim(htmlspecialchars(\MVC\A::get('tags'))),
+                'tags' => strtolower(trim(htmlspecialchars(\MVC\A::get('tags')))),
                 'saved' => $saved,
                 'datesaved' => \MVC\A::get('datesaved')
             );
