@@ -10,6 +10,7 @@ class Date extends \DateTime {
     
     public static function displayDate($date){
         $dateConverted = $date;
+        date_default_timezone_set('UTC');
         switch (\Install\App::LANGUAGE) {
             case 'fr':
                 $dateConverted = date("d/m/Y H:i:s", $date);
