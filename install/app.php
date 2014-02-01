@@ -4,10 +4,11 @@ namespace Install;
 
 class App {
     
-    CONST C = "links"; //contrôleur par défaut
-    CONST A = "all"; //action par défaut
+    CONST C = "links"; //default controller
+    CONST A = "all"; //default action
     CONST NAME = 'myLinks'; //application name
     CONST LANGUAGE = 'fr';
-    CONST COPYRIGHT = 'By Matthieu ROBIN';
+    CONST COPYRIGHT = 'Matthieu ROBIN';
+    CONST VERSION = '';
       
 }
