@@ -27,7 +27,7 @@ class Users extends \MVC\Controleur {
         if (\Appli\M\Users::getInstance()->auth($username, $password)) {
             $users = \Appli\M\Users::getInstance()->getFileData();
             $_SESSION['user'] = $users[$username];
-            self::redirect('links', 'all');
+            //self::redirect('links', 'all');
         } else {
             self::redirect('users', 'login');
         }
