@@ -2,7 +2,7 @@
 
 namespace MVC;
 
-abstract class Tags extends \MVC\Link {
+abstract class Tags extends \MVC\FileData{
 
     public static function displayTags($tags) {
         $tagStr = '';

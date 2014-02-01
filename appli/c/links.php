@@ -17,6 +17,7 @@ class Links extends \MVC\Controleur {
         $link->deleteLink(\MVC\A::get('id'));
         $link->saveData();
          \Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'));
+        self::redirect('links', 'all');
     }
 
     public static function form() {
@@ -46,6 +47,7 @@ class Links extends \MVC\Controleur {
             $linkObj->setFileData($data);
             $linkObj->saveData(); //save modifications
         }
+        self::redirect('links', 'all');
     }
 
     public static function savedLink() {
@@ -68,6 +70,7 @@ class Links extends \MVC\Controleur {
         $data[\MVC\A::get('id')]['datesaved'] = $dateSaved;
         $link->setFileData($data);
         $link->saveData(); //save modifications
+        self::redirect('links', 'all');
     }
     
     public static function research(){

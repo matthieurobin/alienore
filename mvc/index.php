@@ -1,7 +1,8 @@
 <?php
+
 session_start();
 
-$_SESSION['messages'] = array('danger'=>array(),'info'=>array(),'success'=>array());
+$_SESSION['messages'] = array('danger' => array(), 'info' => array(), 'success' => array());
 
 function __autoload($class) {
     $chemins = explode('\\', strtolower($class));
@@ -15,21 +16,26 @@ function __autoload($class) {
         default:
             $fichier = \Install\Path::ROOT . implode('/', $chemins) . '.php';
     }
-    if(file_exists($fichier)){
+    if (file_exists($fichier)) {
         include $fichier;
-    }else{
+    } else {
         var_dump($fichier);
         var_dump($class);
-        
     }
 }
 
-$c=\MVC\A::get('c',  \Install\App::C);
-$a=\MVC\A::get('a',\Install\App::A);
-$controleurNom=  '\APPLI\\C\\'.$c;
+if (isset($_SESSION['user'])) {
+    $c = \MVC\A::get('c', 'links');
+    $a = \MVC\A::get('a', 'all');
+} else {
+    $c = \MVC\A::get('c', \Install\App::C);
+    $a = \MVC\A::get('a', \Install\App::A);
+}
 
-\MVC\Controleur::setVue(new \MVC\Vue($c,$a));
+$controleurNom = '\APPLI\\C\\' . $c;
+
+\MVC\Controleur::setVue(new \MVC\Vue($c, $a));
 
 $controleurNom::$a(\MVC\A::getParams());
- 
+
 $controleurNom::getVue()->display();

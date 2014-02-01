@@ -2,7 +2,7 @@
 
 namespace Appli\M;
 
-class Links extends \MVC\Link {
+class Links extends \MVC\FileData {
     protected $directoryName = 'links/';
     protected $fileName = 'LinksStore';
     

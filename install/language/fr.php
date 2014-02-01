@@ -13,6 +13,11 @@ $language = array (
     'Infotags' => 'Tags séparés par un espace',
     'Tags' => 'Tags',
     'Tagname' => 'Nom du tag',
+    //login
+    'Username' => 'Nom d\'utilisateur',
+    'Password' => 'Mot de passe',
+    'SignIn' => 'Se connecter',
+    'CreateAnAccount' => 'Créer un compte',
     
     //ACTIONS
     //links

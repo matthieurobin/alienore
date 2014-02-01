@@ -2,7 +2,7 @@
 
 namespace MVC;
 
-abstract class Link extends \MVC\File{
+abstract class FileData extends \MVC\File{
     
     private $_fileData;
     

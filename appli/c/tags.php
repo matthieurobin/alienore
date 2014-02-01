@@ -22,6 +22,7 @@ class Tags extends \MVC\Controleur {
             $objLink->setFileData($data);
             $objLink->saveData($data);
         }
+        self::redirect('links', 'all');
     }
 
     public static function form() {
@@ -36,6 +37,7 @@ class Tags extends \MVC\Controleur {
             $objLink->setFileData($data);
             $objLink->saveData($data);
         }
+        self::redirect('links', 'all');
     }
 
 }
