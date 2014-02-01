@@ -11,6 +11,10 @@ li{
     margin-top: 50px;
 }
 
+#dropdown-account{
+    padding-right: 10px;
+}
+
 #navigation li{
     display: inline-block
 }
@@ -73,16 +77,16 @@ li{
     color: #999;
 }
 
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0px auto;
+}
+
 /* bootstrap modifications*/
 .label{
     border-radius: 0px;
     opacity: 0.9;
     font-weight: normal;
     font-size: 0.85em;
-}
-
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0px auto;
 }

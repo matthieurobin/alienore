@@ -5,7 +5,7 @@ namespace MVC;
 class Controleur{
     static private $_vue;
 
-    static public function redirect($c, $a, $params = array()) {
+    static public function redirect($c = null, $a = null, $params = array()) {
         self::$_vue = new Vue($c, $a);
         $nomControleur = '\APPLI\\C\\' . $c;
         $nomControleur::$a($params);

@@ -18,6 +18,7 @@ $language = array (
     'Password' => 'Mot de passe',
     'SignIn' => 'Se connecter',
     'CreateAnAccount' => 'Créer un compte',
+    'Logout' => 'Se déconnecter',
     
     //ACTIONS
     //links
@@ -35,6 +36,7 @@ $language = array (
     'Tags' => 'Tags',
     'Tools' => 'Outils',
     'Search' => 'Rechercher',
+    'Account' => 'Compte',
     'NbLinks' => 'Nombre de liens',
     
     '0link' => 'Vous n\'avez pas encore de liens',

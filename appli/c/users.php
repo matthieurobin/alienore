@@ -15,7 +15,7 @@ class Users extends \MVC\Controleur {
     public static function logout() {
         unset($_SESSION['user']);
         session_destroy();
-        self::redirect('user', 'login');
+        self::redirect('users', 'login');
     }
 
     static function auth() {
@@ -24,7 +24,7 @@ class Users extends \MVC\Controleur {
         if (\Appli\M\Users::getInstance()->auth($username, $password)) {
             $users = \Appli\M\Users::getInstance()->getFileData();
             $_SESSION['user'] = $users[$username];
-            self::redirect('links', 'all');
+            self::redirect();
         } else {
             self::redirect('users', 'login');
         }
