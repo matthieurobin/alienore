@@ -29,6 +29,7 @@ class Users extends \MVC\Controleur {
             $_SESSION['user'] = $users[$username];
             //self::redirect('links', 'all');
         } else {
+            $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
             self::redirect('users', 'login');
         }
     }
@@ -55,9 +56,11 @@ class Users extends \MVC\Controleur {
                 $users->saveData();
                 self::redirect('users', 'login');
             }else{
+                $_SESSION['errors']['danger'][] = \MVC\Language::T('AccountAlreadyExists');
                 self::redirect('users', 'create');
             }
         } else {
+            $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
             self::redirect('users', 'create');
         }
     }

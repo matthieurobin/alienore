@@ -57,7 +57,13 @@ $language = array (
     '1month' => 'Il y a 1 mois',
     '%months' => 'Il y a % mois',
     '1year' => 'Il y a 1 an',
-    '%years' => 'Il y a % ans'
+    '%years' => 'Il y a % ans',
+    
+    //Messages
+    //errors
+    'IncorrectUsername' => 'Nom d\'utilisateur ou mot de passe incorrect',
+    'AccountAlreadyExists' => 'Ce compte existe déjà',
+    'EmptyInputs' => 'Veuillez remplir tous les champs'
 );
 
 return $language;

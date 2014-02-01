@@ -83,6 +83,10 @@ li{
     margin: 0px auto;
 }
 
+.helper{
+    padding: 10px 15px;
+}
+
 /* bootstrap modifications*/
 .label{
     border-radius: 0px;

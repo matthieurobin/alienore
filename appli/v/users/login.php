@@ -14,7 +14,7 @@
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
     <body>
-        <div id="header"><!---
+        <div id="header">
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -36,7 +36,9 @@
 
         </div>
         <div class="container">
-
+            <div class="helper">
+                <?php APPLI\V\Helper::display(); ?>
+            </div>
             <form class="form-signin" role="form" action="?c=users&a=auth" method="post">
                 <h2 class="form-signin-heading">
                     <?php echo \MVC\Language::T('SignIn')?>

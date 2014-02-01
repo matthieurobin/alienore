@@ -2,7 +2,7 @@
 
 session_start();
 
-$_SESSION['messages'] = array('danger' => array(), 'info' => array(), 'success' => array());
+$_SESSION['errors'] = array('danger' => array(), 'info' => array(), 'success' => array());
 
 function __autoload($class) {
     $chemins = explode('\\', strtolower($class));
