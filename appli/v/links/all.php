@@ -44,7 +44,7 @@
                                 <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>
                             </ul>
                         </li>
-                        
+
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>    
@@ -53,7 +53,7 @@
         <div id="links">
             <div id="addlink">
                 <div>
-                    <span><a href="?c=links&a=form"><?php echo \MVC\Language::T('Addlink') ?></a></span>
+                    <span><a href="" data-toggle="modal" data-target="#modal-new-link"><?php echo \MVC\Language::T('Addlink') ?></a></span>
                     <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
                 </div>
             </div>
@@ -131,6 +131,38 @@
                 <?php endforeach; ?>
             </ul>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-new-link" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><?php echo \MVC\Language::T('Addlink') ?></h4>
+                    </div>
+                    <form action="?c=links&a=saved" method="post" id="form-new-link">
+                        <div class="modal-body">
+
+                            <?php echo \MVC\Language::T('Title') ?>
+                            <input class="form-control" type="text" name="title"><br>
+                            <?php echo \MVC\Language::T('Url') ?>
+                            <input class="form-control" type="text" name="url"><br>
+                            <?php echo \MVC\Language::T('Description') ?>
+                            <textarea type="text" name="description" class="form-control" rows="3"></textarea><br>
+                            <?php echo \MVC\Language::T('Tags') ?>
+                            <input class="form-control" type="text" name="tags"><br> 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T('Cancel') ?></button>
+                            <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <div class="paging">
 
         </div>
@@ -143,6 +175,9 @@
         <script>
             $(document).ready(function() {
                 duplicatePaging();
+                $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                    reset($('#form-new-link'));
+                });
             });
         </script>
     </body>

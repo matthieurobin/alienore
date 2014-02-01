@@ -42,6 +42,9 @@ class Users extends \MVC\Controleur {
         }
     }
 
+    /**
+     * permit to save an account
+     */
     static function saved() {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = sha1(\MVC\A::get('password'));

@@ -25,8 +25,8 @@ function __autoload($class) {
 }
 
 if (!isset($_SESSION['user'])) {
-    if(\MVC\A::get('c') == 'users'){
-        $c = \MVC\A::get('c');
+    if(\MVC\A::get('c') === 'users'){
+        $c = 'users';
         $a = \MVC\A::get('a');
     }else{
         $c = \Install\App::C;
