@@ -35,7 +35,11 @@ class Users extends \MVC\Controleur {
     }
 
     static function create() {
-        
+        $users = \Appli\M\Users::getInstance();
+        $data = $users->getFileData();
+        if (sizeof($data) > 0) {
+            self::redirect('users', 'login');
+        }
     }
 
     static function saved() {
