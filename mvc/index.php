@@ -24,12 +24,17 @@ function __autoload($class) {
     }
 }
 
-if (isset($_SESSION['user'])) {
+if (!isset($_SESSION['user'])) {
+    if(\MVC\A::get('c') == 'users'){
+        $c = \MVC\A::get('c');
+        $a = \MVC\A::get('a');
+    }else{
+        $c = \Install\App::C;
+        $a = \Install\App::A;
+    }
+} else {
     $c = \MVC\A::get('c', 'links');
     $a = \MVC\A::get('a', 'all');
-} else {
-    $c = \MVC\A::get('c', \Install\App::C);
-    $a = \MVC\A::get('a', \Install\App::A);
 }
 
 $controleurNom = '\APPLI\\C\\' . $c;

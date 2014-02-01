@@ -14,7 +14,7 @@
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
     <body>
-        <div id="header">
+        <div id="header"><!---
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -41,14 +41,14 @@
                 <h2 class="form-signin-heading">
                     <?php echo \MVC\Language::T('SignIn')?>
                 </h2>
-                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>" required autofocus>
-                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>" required>
+                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>">
+                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>">
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>-->
                 <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo \MVC\Language::T('SignIn')?></button>
             </form>
-
+            
         </div> <!-- /container -->
 
         <div id="footer">
@@ -57,10 +57,5 @@
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
-        <script>
-            $(document).ready(function() {
-                duplicatePaging();
-            });
-        </script>
     </body>
 </html>

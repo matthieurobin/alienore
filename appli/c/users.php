@@ -10,6 +10,9 @@ class Users extends \MVC\Controleur {
         if (sizeof($data) === 0) {
             self::redirect('users', 'create');
         }
+        if(isset($_SESSION['user'])){
+            self::redirect('links', 'all');
+        }
     }
 
     public static function logout() {
@@ -18,13 +21,13 @@ class Users extends \MVC\Controleur {
         self::redirect('users', 'login');
     }
 
-    static function auth() {
+    public static function auth() {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = sha1(\MVC\A::get('password'));
         if (\Appli\M\Users::getInstance()->auth($username, $password)) {
             $users = \Appli\M\Users::getInstance()->getFileData();
             $_SESSION['user'] = $users[$username];
-            self::redirect();
+            self::redirect('links', 'all');
         } else {
             self::redirect('users', 'login');
         }
@@ -50,7 +53,7 @@ class Users extends \MVC\Controleur {
                 $data[$username] = $user;
                 $users->setFileData($data);
                 $users->saveData();
-                self::redirect('links', 'all');
+                self::redirect('users', 'login');
             }else{
                 self::redirect('users', 'create');
             }

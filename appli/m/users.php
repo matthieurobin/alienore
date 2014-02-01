@@ -12,10 +12,12 @@ class Users extends \MVC\FileData {
         if (isset($users[$login])) {
             if ($users[$login]['password'] == $password) {
                 return true;
+            } else {
+                return false;
             }
+        } else {
             return false;
         }
-        return false;
     }
-    
+
 }
