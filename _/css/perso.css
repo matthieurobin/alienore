@@ -47,10 +47,12 @@ li{
 }
 
 .link-description{
+    font-size: 0.85em;
     color: #999;
 }
 
 .link-description-second{
+    font-size: 0.9em; 
     color: #708090;
 }
 
