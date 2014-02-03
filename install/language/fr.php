@@ -38,6 +38,8 @@ $language = array (
     'Search' => 'Rechercher',
     'Account' => 'Compte',
     'NbLinks' => 'Nombre de liens',
+    //footer
+    'By' => 'Par',
     
     '0link' => 'Vous n\'avez pas encore de liens',
     'nothingfound' => 'Aucun résultat',

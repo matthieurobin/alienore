@@ -68,7 +68,6 @@
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 <?php endif; ?>
             </div>
-            <?php //var_dump($this->links); ?>
             <ul>
                 <?php foreach ($this->pagination['links'] as $link): ?>
                     <li>
@@ -167,7 +166,7 @@
 
         </div>
         <div id="footer">
-            <?php echo \Install\App::COPYRIGHT ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
