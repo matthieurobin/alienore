@@ -43,7 +43,7 @@
                 <h2 class="form-signin-heading">
                     <?php echo \MVC\Language::T('SignIn')?>
                 </h2>
-                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>">
+                <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>">
                 <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>">
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
@@ -57,6 +57,11 @@
             <?php echo \Install\App::COPYRIGHT ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#inputUsername').focus();
+            });
+        </script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
     </body>
