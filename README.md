@@ -3,7 +3,6 @@ TODOS
 
 Tâches par versions :
 
-* [0.3.1] autofocus dans le premier input : /appli/v/users/login.php
 * [0.4] revoir les données envoyées aux vues , JSON ?
 * [0.5] plugin jQuery pour le clavier
 * [0.6] modal lors de l'edit d'un lien
