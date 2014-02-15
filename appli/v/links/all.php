@@ -53,7 +53,7 @@
         <div id="links">
             <div id="addlink">
                 <div>
-                    <span><a href="" data-toggle="modal" data-target="#modal-new-link"><?php echo \MVC\Language::T('Addlink') ?></a></span>
+                    <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link"><?php echo \MVC\Language::T('Addlink') ?></a></span>
                     <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
                 </div>
             </div>
@@ -96,11 +96,11 @@
                                 <?php endif; ?>
                             </div>
                             <div class="link-tools">
+                                <?php isset($this->link)? var_dump($this->link):'';?>
                                 <span class="label label-warning">
                                     <a href="?c=links&a=form&id=<?php echo $link['linkdate'] ?>"><?php echo \MVC\Language::T('Edit') ?></a>
                                 </span>
                                 <span class="label label-danger">
-
                                     <a href="?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>"><?php echo \MVC\Language::T('Delete') ?></a>
                                 </span>
                                 <span class="label label-success">
@@ -170,6 +170,7 @@
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
             $(document).ready(function() {

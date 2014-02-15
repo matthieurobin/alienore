@@ -1,3 +1,12 @@
+/**
+ * 
+ * Shortcuts
+ */
+//new link
+key('n', function(){ 
+    $('#a-new-link').click(); 
+});
+
 function duplicatePaging() {
     html = $('.paging:first').html();
     $('.paging').eq(1).html(html);
