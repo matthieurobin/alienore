@@ -38,6 +38,7 @@ $language = array (
     'Search' => 'Rechercher',
     'Account' => 'Compte',
     'NbLinks' => 'Nombre de liens',
+    'NbTags' => 'Nombre de tags',
     //footer
     'By' => 'Par',
     

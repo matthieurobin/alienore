@@ -5,7 +5,10 @@ namespace Appli\C;
 class Tags extends \MVC\Controleur {
 
     public static function all() {
-        self::getVue()->tags = \Appli\M\Links::getInstance()->getAllTagsByUtilisation();
+        $tags = \Appli\M\Links::getInstance()->getAllTagsByUtilisation();
+        self::getVue()->tags = $tags;
+        self::getVue()->nbTags = sizeof($tags);
+        
     }
 
     public static function linksBytag() {

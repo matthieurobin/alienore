@@ -30,6 +30,10 @@ li{
     float: right;
     color : #999;
 }
+#nbTags{
+    text-align: right;
+    color : #999;
+}
 
 .paging, .paging a{
     background-color: #2A72B0;
@@ -48,7 +52,7 @@ li{
 
 .link-description{
     font-size: 0.9em;
-    color: #999;
+    color: #333;
 }
 
 .link-description-second{
@@ -69,7 +73,7 @@ li{
 }
 
 #tags{
-
+    text-align: center;
 }
 
 #footer {
@@ -95,4 +99,8 @@ li{
     opacity: 0.9;
     font-weight: normal;
     font-size: 0.85em;
+}
+
+.glyphicon, hr{
+    opacity: 0.8;
 }
