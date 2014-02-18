@@ -5,11 +5,18 @@ namespace Appli\C;
 class Links extends \MVC\Controleur {
     
     public static function all() {
-        $links = \Appli\M\Links::getInstance()->getFileData();
+        if(\MVC\A::get('tag')){
+            $tag = \MVC\A::get('tag');
+            $links =  \Appli\M\Links::getInstance()->getLinksByTag($tag);
+        }else{
+            $tag = null;
+            $links = \Appli\M\Links::getInstance()->getFileData();
+        }
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $links = array_reverse($links);
         self::getVue()->pagination = \MVC\Pagination::buildPaging($links,$page);
         self::getVue()->nbLinks = sizeof($links);
+        self::getVue()->tag = $tag;
     }
 
     public static function delete() {
@@ -19,8 +26,12 @@ class Links extends \MVC\Controleur {
          \Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'));
     }
 
-    public static function form() {
+    /*public static function form() {
         self::getVue()->link = \Appli\M\Links::getInstance()->get(\MVC\A::get('id'));
+    }*/
+    
+   public static function data_form(){
+        self::getVue()->link = json_encode(\Appli\M\Links::getInstance()->get(\MVC\A::get('id')));
     }
 
     public static function saved() {
@@ -30,7 +41,7 @@ class Links extends \MVC\Controleur {
             } else {
                 $linkDate = \MVC\Date::getDateNow();
             }
-            $saved = \MVC\A::get('saved') == '' ? 0 : 1;
+            $saved = \MVC\A::get('saved') === '' ? 0 : 1;
             $link = array(
                 'title' => htmlspecialchars(trim(\MVC\A::get('title'))),
                 'url' => htmlspecialchars(trim(\MVC\A::get('url'))),

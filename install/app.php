@@ -9,7 +9,7 @@ class App {
     CONST NAME = 'myLinks'; //application name
     CONST LANGUAGE = 'fr';
     CONST COPYRIGHT = 'Matthieu ROBIN';
-    CONST VERSION = '';
+    CONST VERSION = '0.4.0';
     
     static $user = null;
       

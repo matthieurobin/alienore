@@ -25,6 +25,7 @@ li{
 }
 #addlink a{
     color: #fff;
+    padding-right: 10px;
 }
 #nbLinks{
     float: right;

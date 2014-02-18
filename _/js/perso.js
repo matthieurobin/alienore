@@ -3,10 +3,12 @@
  * Shortcuts
  */
 //new link
-key('n', function(){ 
-    $('#a-new-link').click(); 
+key('n', function() {
+    $('#a-new-link').click();
 });
-
+key('e', function() {
+    $('#a-edit-tag').click();
+});
 function duplicatePaging() {
     html = $('.paging:first').html();
     $('.paging').eq(1).html(html);
@@ -30,6 +32,33 @@ function reset(form) {
             case 'checkbox':
             case 'radio':
                 this.checked = false;
+        }
+    });
+}
+
+/*
+ * @param {String} id
+ */
+function editLink(id,languageEdit) {
+    var _url = '?c=links&a=data_form&id=' + id;
+    $.ajax({
+        type: 'GET',
+        url: _url,
+        success: function(resp) {
+            console.log(resp);
+            $('#modal-new-link-title').text(languageEdit);
+            var _res = JSON.parse(resp);
+            $('#input-title').val(_res.title);
+            $('#input-url').val(_res.url);
+            $('#input-description').val(_res.description);
+            $('#input-tags').val(_res.tags);
+            $('#input-linkdate').val(_res.linkdate);
+            $('#input-saved').val(_res.saved);
+            $('#input-datesaved').val(_res.datesaved);
+            $('#modal-new-link').modal('show');
+        },
+        error: function() {
+
         }
     });
 }

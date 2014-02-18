@@ -29,6 +29,8 @@ $language = array (
     'Delete' => 'Supprimer',
     'Save' => 'Sauvegarder',
     'Unsaved' => 'Ne plus sauvegarder',
+    //tag
+    'EditTag' => 'Modifier le tag',
     
     //DEFAULT
     //header

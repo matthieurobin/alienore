@@ -9,7 +9,6 @@
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>bootstrap.css" rel="stylesheet">
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap-responsive.css" rel="stylesheet">
         <!-- Application CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
@@ -52,10 +51,13 @@
         </div>
         <div id="links">
             <div id="addlink">
-                <div>
-                    <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link"><?php echo \MVC\Language::T('Addlink') ?></a></span>
-                    <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
-                </div>
+                <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link"><?php echo \MVC\Language::T('Addlink') ?></a></span>
+                <?php if ($this->tag): ?> 
+                    <span>
+                        <a id="a-edit-tag" href=""  href="" data-toggle="modal" data-target="#modal-edit-tag"><?php echo \MVC\Language::T('EditLink') ?> : <?php echo $this->tag ?></a>
+                    </span>
+                <?php endif; ?>
+                <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
             </div>
             <div class="paging">
                 <?php if ($this->pagination['page'] != 1): ?>
@@ -88,17 +90,16 @@
                                 <?php if (!is_string($tags)): ?>
                                     <?php for ($i = 0; $i < sizeof($tags); ++$i): ?>
                                         <span class="glyphicon glyphicon-tag"></span>
-                                        <a href="?c=tags&a=linksByTag&tag=<?php echo $tags[$i]; ?>"><?php echo $tags[$i]; ?></a></span>
+                                        <a href="?c=links&a=all&tag=<?php echo $tags[$i]; ?>"><?php echo $tags[$i]; ?></a></span>
                                     <?php endfor; ?>
                                 <?php elseif (strlen($tags) > 0): ?>
                                     <span class="glyphicon glyphicon-tag"></span>
-                                    <a href="?c=tags&a=linksByTag&tag=<?php echo $tags; ?>"><?php echo $tags; ?></a>
+                                    <a href="?c=links&a=all&tag=<?php echo $tags; ?>"><?php echo $tags; ?></a>
                                 <?php endif; ?>
                             </div>
                             <div class="link-tools">
-                                <?php isset($this->link)? var_dump($this->link):'';?>
                                 <span class="label label-warning">
-                                    <a href="?c=links&a=form&id=<?php echo $link['linkdate'] ?>"><?php echo \MVC\Language::T('Edit') ?></a>
+                                    <button onclick="editLink(<?php echo strval($link['linkdate']) ?>,'<?php echo \MVC\Language::T('EditLink') ?>')" href=""><?php echo \MVC\Language::T('Edit') ?></button>
                                 </span>
                                 <span class="label label-danger">
                                     <a href="?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>"><?php echo \MVC\Language::T('Delete') ?></a>
@@ -138,19 +139,21 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel"><?php echo \MVC\Language::T('Addlink') ?></h4>
+                        <h4 class="modal-title" id="modal-new-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
                     </div>
                     <form action="?c=links&a=saved" method="post" id="form-new-link">
                         <div class="modal-body">
-
                             <?php echo \MVC\Language::T('Title') ?>
-                            <input class="form-control" type="text" name="title"><br>
+                            <input id="input-title" class="form-control" type="text" name="title"><br>
                             <?php echo \MVC\Language::T('Url') ?>
-                            <input class="form-control" type="text" name="url"><br>
+                            <input id="input-url" class="form-control" type="text" name="url"><br>
                             <?php echo \MVC\Language::T('Description') ?>
-                            <textarea type="text" name="description" class="form-control" rows="3"></textarea><br>
+                            <textarea id="input-description" type="text" name="description" class="form-control" rows="3"></textarea><br>
                             <?php echo \MVC\Language::T('Tags') ?>
-                            <input class="form-control" type="text" name="tags"><br> 
+                            <input id="input-tags" class="form-control" type="text" name="tags"><br> 
+                            <input id="input-linkdate" type="hidden" name="linkdate">
+                            <input id="input-saved" type="hidden" name="saved">
+                            <input id="input-datesaved" type="hidden" name="datesaved">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T('Cancel') ?></button>
@@ -160,25 +163,52 @@
                 </div>
             </div>
         </div>
-
+        
+        <?php if ($this->tag): ?> 
+            <!-- Modal tag -->
+            <div class="modal fade" id="modal-edit-tag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel"><?php echo \MVC\Language::T('EditTag') ?></h4>
+                        </div>
+                        <form action="?c=tags&a=saved" method="post" id="form-edit-tag">
+                            <div class="modal-body">
+                                <?php echo \MVC\Language::T('Title') ?>
+                                <input id="input-tag-title" class="form-control" type="text" name="title" value="<?php echo $this->tag ?>" required><br>
+                                <input id="input-tag-id" type="hidden" name="tag" value="<?php echo $this->tag ?>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T('Cancel') ?></button>
+                                <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <div class="paging">
 
         </div>
         <div id="footer">
-            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
-            $(document).ready(function() {
-                duplicatePaging();
-                $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                    reset($('#form-new-link'));
-                });
-            });
+          $(document).ready(function() {
+             duplicatePaging();
+             $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                 reset($('#form-new-link'));
+             });
+             $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
+                 reset($('#form-edit-tag'));
+             });
+          });
         </script>
     </body>
 </html>

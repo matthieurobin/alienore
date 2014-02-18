@@ -57,11 +57,11 @@
         <div id="tags">
             <?php $tags = $this->tags; ?>
             <?php foreach ($tags as $key => $tag): ?>
-            <span class="tags"><?php echo $tag; ?><a href="?c=tags&a=linksByTag&tag=<?php echo $key; ?>"><b><?php echo $key; ?></b></a></span>
+            <span class="tags"><?php echo $tag; ?><a href="?c=links&a=all&tag=<?php echo $key; ?>"><b><?php echo $key; ?></b></a></span>
             <?php endforeach; ?>
         </div>
         <div id="footer">
-            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?> 
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
