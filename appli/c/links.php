@@ -61,7 +61,7 @@ class Links extends \MVC\Controleur {
 
     public static function savedLink() {
         //case : saved
-        if (\MVC\A::get('saved')) {
+        if (\MVC\A::get('saved') === 1) {
             if(\Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'))){
                 $saved = 0;
                 $dateSaved = '';

@@ -103,7 +103,7 @@
                                 </span>
                                 <span class="label label-danger">
                                     <a href="?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>"><?php echo \MVC\Language::T('Delete') ?></a>
-                                </span>
+                                </span><!--
                                 <span class="label label-success">
                                     <?php if ($link['saved']): ?>
                                         <?php
@@ -124,7 +124,7 @@
                                         ))
                                         ?>
                                     <?php endif; ?>
-                                </span>
+                                </span>-->
                             </div>
                         </div>
                     </li>
