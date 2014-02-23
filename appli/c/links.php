@@ -41,7 +41,7 @@ class Links extends \MVC\Controleur {
             } else {
                 $linkDate = \MVC\Date::getDateNow();
             }
-            $saved = \MVC\A::get('saved') === '' ? 0 : 1;
+            $saved = \MVC\A::get('saved') === '' ? 0 : \MVC\A::get('saved');
             $link = array(
                 'title' => htmlspecialchars(trim(\MVC\A::get('title'))),
                 'url' => htmlspecialchars(trim(\MVC\A::get('url'))),
