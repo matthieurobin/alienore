@@ -98,12 +98,10 @@
                                 <?php endif; ?>
                             </div>
                             <div class="link-tools">
-                                <span class="label label-warning">
-                                    <button onclick="editLink(<?php echo strval($link['linkdate']) ?>,'<?php echo \MVC\Language::T('EditLink') ?>')" href=""><?php echo \MVC\Language::T('Edit') ?></button>
-                                </span>
-                                <span class="label label-danger">
-                                    <a href="?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>"><?php echo \MVC\Language::T('Delete') ?></a>
-                                </span><!--
+                                <div class="btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-warning" onclick="editLink(<?php echo strval($link['linkdate']) ?>,'<?php echo \MVC\Language::T('EditLink') ?>')" href=""><?php echo \MVC\Language::T('Edit') ?></button>
+                                    <button type="button" class="btn btn-danger" onclick="location.href='?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>'"><?php echo \MVC\Language::T('Delete') ?></button>
+                                </div><!--
                                 <span class="label label-success">
                                     <?php if ($link['saved']): ?>
                                         <?php
