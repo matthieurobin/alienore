@@ -26,7 +26,7 @@ class Tags extends \MVC\Controleur {
 
     public static function saved() {
         if (\MVC\A::get('tagName') != '' and \MVC\A::get('tag') != '') {
-            $newTagName = htmlspecialchars(\MVC\A::get('tagName'));
+            $newTagName = strtolower(trim(htmlspecialchars(\MVC\A::get('tagName'))));
             $objLink = \Appli\M\Links::getInstance();
             $data = $objLink->editTagName($newTagName, \MVC\A::get('tag'));
             $objLink->setFileData($data);

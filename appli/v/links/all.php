@@ -176,7 +176,7 @@
                         <form action="?c=tags&a=saved" method="post" id="form-edit-tag">
                             <div class="modal-body">
                                 <?php echo \MVC\Language::T('Title') ?>
-                                <input id="input-tag-title" class="form-control" type="text" name="title" value="<?php echo $this->tag ?>" required><br>
+                                <input id="input-tag-title" class="form-control" type="text" name="tagName" value="<?php echo $this->tag ?>" required><br>
                                 <input id="input-tag-id" type="hidden" name="tag" value="<?php echo $this->tag ?>">
                             </div>
                             <div class="modal-footer">
