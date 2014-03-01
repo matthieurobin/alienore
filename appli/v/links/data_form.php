@@ -1,2 +1,2 @@
-<?php echo $this->link ?>
+<?php echo $this->link;
 
