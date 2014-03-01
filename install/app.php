@@ -9,7 +9,7 @@ class App {
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr';
     CONST COPYRIGHT = 'Matthieu ROBIN';
-    CONST VERSION = '0.5.1';
+    CONST VERSION = '0.5.0';
     
     static $user = null;
       
