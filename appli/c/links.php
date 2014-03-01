@@ -5,18 +5,28 @@ namespace Appli\C;
 class Links extends \MVC\Controleur {
     
     public static function all() {
+        $links = [];
+        $tag = null;
+        $search = null;
+        $text = '';
         if(\MVC\A::get('tag')){
             $tag = \MVC\A::get('tag');
             $links =  \Appli\M\Links::getInstance()->getLinksByTag($tag);
+        }else if(\MVC\A::get('search')){
+            $search = \MVC\A::get('search');
+            $links = \Appli\M\Links::getInstance()->search($search);
+            $text = \MVC\Language::T('No results');
         }else{
-            $tag = null;
             $links = \Appli\M\Links::getInstance()->getFileData();
+            $text = \MVC\Language::T('You do not have links already');
         }
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $links = array_reverse($links);
         self::getVue()->pagination = \MVC\Pagination::buildPaging($links,$page);
         self::getVue()->nbLinks = sizeof($links);
         self::getVue()->tag = $tag;
+        self::getVue()->search = $search;
+        self::getVue()->helper = $text;
     }
 
     public static function delete() {
