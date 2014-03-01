@@ -2,6 +2,9 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
     margin: 0;
     padding: 0;
 }
+.appName{
+    color: #FFA500;
+}
 
 li{
     list-style: none;
@@ -34,6 +37,10 @@ li{
 #nbTags{
     text-align: right;
     color : #999;
+}
+
+.nolinks{
+    text-align: center;
 }
 
 .paging, .paging a{
@@ -69,7 +76,9 @@ li{
     font-size: 1.1em;
     padding: 0.2em 0em 0.2em 0em;
 }
-
+.nbLinksByTag{
+    color: #FF8C00;
+}
 .link-tools a{
     color: #fff;
 }
@@ -103,6 +112,9 @@ li{
     font-size: 0.85em;
 }
 
+.glyphicon{
+    font-size: 13px;
+}
 .glyphicon, hr{
     opacity: 0.8;
 }

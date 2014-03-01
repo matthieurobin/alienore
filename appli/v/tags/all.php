@@ -57,7 +57,11 @@
         <div id="tags">
             <?php $tags = $this->tags; ?>
             <?php foreach ($tags as $key => $nbTag): ?>
-            <span class="tags"><a href="?c=links&a=all&tag=<?php echo $key; ?>"><b><?php echo $nbTag.$key; ?></b></a></span>
+            <span class="tags">
+                <a href="?c=links&a=all&tag=<?php echo $key; ?>">
+                    <b><span class="nbLinksByTag"><?php echo $nbTag ?></span><?php echo $key; ?></b>
+                </a>
+            </span>
             <?php endforeach; ?>
         </div>
         <div id="footer">

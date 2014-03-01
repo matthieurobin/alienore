@@ -29,6 +29,9 @@ $language = array (
     'Delete' => 'Supprimer',
     'Save' => 'Sauvegarder',
     'Unsaved' => 'Ne plus sauvegarder',
+    'You do not have links already' => 'Vous n\'avez pas encore de liens',
+    'No results' => 'Pas de résultats pour',
+    'Go back' => 'Revenir',
     //tag
     'EditTag' => 'Modifier le tag',
     

@@ -15,7 +15,7 @@ class Links extends \MVC\Controleur {
         }else if(\MVC\A::get('search')){
             $search = \MVC\A::get('search');
             $links = \Appli\M\Links::getInstance()->search($search);
-            $text = \MVC\Language::T('No results');
+            $text = \MVC\Language::T('No results').' : "'.$search.'"';
         }else{
             $links = \Appli\M\Links::getInstance()->getFileData();
             $text = \MVC\Language::T('You do not have links already');

@@ -45,7 +45,6 @@ function editLink(id,languageEdit) {
         type: 'GET',
         url: _url,
         success: function(resp) {
-            console.log(resp);
             $('#modal-new-link-title').text(languageEdit);
             var _res = JSON.parse(resp);
             $('#input-title').val(_res.title);
