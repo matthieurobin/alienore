@@ -40,7 +40,9 @@
                         <li id="dropdown-account" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo \MVC\Language::T('Account'); ?><b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>
+                                <li><a href="?c=account&a=help"><?php echo \MVC\Language::T('Help'); ?></a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
                             </ul>
                         </li>
 
@@ -60,13 +62,13 @@
                         <a id="a-goback" href="."><?php echo \MVC\Language::T('Go back') ?> <span class="glyphicon glyphicon-remove"></span></a>
                         <a id="a-edit-tag" href=""   data-toggle="modal" data-target="#modal-edit-tag">
                             <?php echo \MVC\Language::T('EditLink') ?> : <?php echo $this->tag ?>
-                             <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="glyphicon glyphicon-pencil"></span>
                         </a>
                     </span>
                 <?php else: ?>
                     <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
                             <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
-                     </a></span>
+                        </a></span>
                 <?php endif; ?>
                 <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
             </div>
@@ -167,7 +169,7 @@
                             <?php echo \MVC\Language::T('Description') ?>
                             <textarea id="input-description" type="text" name="description" class="form-control" rows="3"></textarea><br>
                             <?php echo \MVC\Language::T('Tags') ?>
-                            <input id="input-tags" class="form-control" type="text" name="tags"><br> 
+                            <input id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>
                             <input id="input-linkdate" type="hidden" name="linkdate">
                             <input id="input-saved" type="hidden" name="saved">
                             <input id="input-datesaved" type="hidden" name="datesaved">
@@ -217,16 +219,16 @@
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
-                                    $(document).ready(function() {
-                                        duplicatePaging();
-                                        $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                                            $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-                                            reset($('#form-new-link'));
-                                        });
-                                        $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
-                                            reset($('#form-edit-tag'));
-                                        });
-                                    });
+                                            $(document).ready(function() {
+                                                duplicatePaging();
+                                                $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                                                    $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
+                                                    reset($('#form-new-link'));
+                                                });
+                                                $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
+                                                    reset($('#form-edit-tag'));
+                                                });
+                                            });
         </script>
     </body>
 </html>

@@ -47,15 +47,20 @@ $language = array (
     'NbTags' => 'Nombre de tags',
     //footer
     'By' => 'Par',
-    
-    '0link' => 'Vous n\'avez pas encore de liens',
-    'nothingfound' => 'Aucun résultat',
-    
+        
     'Datesaved' => 'Sauvé le',
     'Seesavedversion' => 'Voir la version sauvegardée',
     //navigation
     'NextPage' => 'Page suivante',
     'PreviousPage' => 'Page précédente',
+    
+    //help
+    'Help' => 'Aide',
+    'Shortcuts' => 'Raccourcis',
+    'Add a new link' => 'Ajouter un lien.',
+    'Edit the tag' => 'Editer le tag.',
+    'See this page' => 'Voir cette page.',
+    'Close' => 'Fermer',
     
     //Time
     '%s' => 'Il y a % secondes',

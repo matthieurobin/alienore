@@ -5,12 +5,11 @@
 //new link
 key('n', function() {
     $('#a-new-link').click();
+    return false
 });
 key('e', function() {
     $('#a-edit-tag').click();
-});
-key('q', function() {
-    $('#a-goback').click();
+    return false
 });
 function duplicatePaging() {
     html = $('.paging:first').html();
@@ -42,7 +41,7 @@ function reset(form) {
 /*
  * @param {String} id
  */
-function editLink(id,languageEdit) {
+function editLink(id, languageEdit) {
     var _url = '?c=links&a=data_form&id=' + id;
     $.ajax({
         type: 'GET',

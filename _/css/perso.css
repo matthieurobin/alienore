@@ -43,6 +43,7 @@ li{
     background-color: #2A72B0;
     text-align: center;
     color: #ededed;
+    height: 20px;
 }
 
 #links > ul > li{
@@ -111,6 +112,6 @@ li{
 .glyphicon{
     font-size: 13px;
 }
-.glyphicon, hr{
+.glyphicon{
     opacity: 0.8;
 }
