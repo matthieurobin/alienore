@@ -1,4 +1,2 @@
-<?php 
-header('Content-type: application/json');
-echo $this->link;
+<?php echo $this->link ?>
 
