@@ -26,11 +26,6 @@
                         </button>
                         <a class="navbar-brand" href="."><?php echo Install\App::NAME; ?></a>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-
-                        </ul>
-                    </div><!--/.nav-collapse -->
                 </div>
             </div>    
 
@@ -42,9 +37,9 @@
             <form class="form-signin" role="form" action="?c=users&a=auth" method="post">
                 <h2 class="form-signin-heading">
                     <?php echo \MVC\Language::T('SignIn')?>
-                </h2>
-                <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>">
-                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>">
+                </h2><br>
+                <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>"><br>
+                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>"><br>
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>-->
@@ -54,7 +49,7 @@
         </div> <!-- /container -->
 
         <div id="footer">
-            <?php echo \Install\App::COPYRIGHT ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script>

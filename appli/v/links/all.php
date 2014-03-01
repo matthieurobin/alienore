@@ -8,7 +8,7 @@
         <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.css" rel="stylesheet">
+        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
         <!-- Application CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
@@ -28,12 +28,12 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
                         <li><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
-                        <li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>
+                        <!-- <li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>-->
                         <form action="?c=links&a=all" method="post" class="navbar-form navbar-right" role="form">
                             <div class="form-group">
                                 <input name="search" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
                             </div>
-                            <button type="submit" class="btn btn-success"><?php echo \MVC\Language::T('Search'); ?></button>
+                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> <?php echo \MVC\Language::T('Search'); ?></button>
                         </form>  
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -53,11 +53,11 @@
             <div id="addlink">
                 <?php if ($this->search): ?> 
                     <span>
-                        <a id="a-edit-tag" href="."><?php echo \MVC\Language::T('Go back') ?> <span class="glyphicon glyphicon-remove"></span></a>
+                        <a id="a-goback" href="."><?php echo \MVC\Language::T('Go back') ?> <span class="glyphicon glyphicon-remove"></span></a>
                     </span>
                 <?php elseif ($this->tag): ?>
                     <span>
-                        <a id="a-edit-tag" href="."><?php echo \MVC\Language::T('Go back') ?> <span class="glyphicon glyphicon-remove"></span></a>
+                        <a id="a-goback" href="."><?php echo \MVC\Language::T('Go back') ?> <span class="glyphicon glyphicon-remove"></span></a>
                         <a id="a-edit-tag" href=""   data-toggle="modal" data-target="#modal-edit-tag">
                             <?php echo \MVC\Language::T('EditLink') ?> : <?php echo $this->tag ?>
                              <span class="glyphicon glyphicon-pencil"></span>
@@ -111,8 +111,12 @@
                                 </div>
                                 <div class="link-tools">
                                     <div class="btn-group btn-group-sm">
-                                        <button type="button" class="btn btn-warning" onclick="editLink(<?php echo strval($link['linkdate']) ?>, '<?php echo \MVC\Language::T('EditLink') ?>')"><?php echo \MVC\Language::T('Edit') ?></button>
-                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>'"><?php echo \MVC\Language::T('Delete') ?></button>
+                                        <button type="button" class="btn btn-warning" onclick="editLink(<?php echo strval($link['linkdate']) ?>, '<?php echo \MVC\Language::T('EditLink') ?>')">
+                                            <?php echo \MVC\Language::T('Edit') ?> <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>'">
+                                            <?php echo \MVC\Language::T('Delete') ?> <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
                                     </div><!--
                                     <span class="label label-success">
                                     <?php if ($link['saved']): ?>
@@ -209,7 +213,7 @@
             <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>

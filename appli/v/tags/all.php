@@ -8,8 +8,7 @@
         <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Tags'); ?></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.css" rel="stylesheet">
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap-responsive.css" rel="stylesheet">
+        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
         <!-- Application CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
@@ -29,13 +28,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
                         <li class="active"><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
-                        <li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>
-                        <form action="?c=links&a=research" method="post" class="navbar-form navbar-right" role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
-                            </div>
-                            <button type="submit" class="btn btn-success"><?php echo \MVC\Language::T('Search'); ?></button>
-                        </form>  
+                        <!--<li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>--> 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="dropdown-account" class="dropdown">
@@ -68,7 +61,7 @@
             <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?> 
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
     </body>

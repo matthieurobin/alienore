@@ -9,6 +9,9 @@ key('n', function() {
 key('e', function() {
     $('#a-edit-tag').click();
 });
+key('q', function() {
+    $('#a-goback').click();
+});
 function duplicatePaging() {
     html = $('.paging:first').html();
     $('.paging').eq(1).html(html);

@@ -16,6 +16,7 @@ $language = array (
     //login
     'Username' => 'Nom d\'utilisateur',
     'Password' => 'Mot de passe',
+    'Repeat password' => 'Répéter le mot de passe',
     'SignIn' => 'Se connecter',
     'CreateAnAccount' => 'Créer un compte',
     'Logout' => 'Se déconnecter',
@@ -69,9 +70,10 @@ $language = array (
     
     //Messages
     //errors
-    'IncorrectUsername' => 'Nom d\'utilisateur ou mot de passe incorrect',
-    'AccountAlreadyExists' => 'Ce compte existe déjà',
-    'EmptyInputs' => 'Veuillez remplir tous les champs'
+    'IncorrectUsername' => 'Nom d\'utilisateur ou mot de passe incorrect.',
+    'AccountAlreadyExists' => 'Ce compte existe déjà.',
+    'EmptyInputs' => 'Veuillez remplir tous les champs.',
+    'The passwords are differents' => 'Les mots de passe sont différents.'
 );
 
 return $language;

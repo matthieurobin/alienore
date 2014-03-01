@@ -10,7 +10,7 @@ class Users extends \MVC\Controleur {
         if (sizeof($data) === 0) {
             self::redirect('users', 'create');
         }
-        if(isset($_SESSION['user'])){
+        if (isset($_SESSION['user'])) {
             self::redirect('links', 'all');
         }
     }
@@ -48,26 +48,32 @@ class Users extends \MVC\Controleur {
     static function saved() {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = sha1(\MVC\A::get('password'));
-        if ($username != '') {
-            $users = \Appli\M\Users::getInstance();
-            $data = $users->getFileData();
-            if (!isset($data[$username])) {
-                $user = array(
-                    'username' => $username,
-                    'password' => $password,
-                    'userdate' => \MVC\Date::getDateNow()
-                );
+        $passwordRepeat = sha1(\MVC\A::get('passwordRepeat'));
+        if ($password == $passwordRepeat) {
+            if ($username != '') {
+                $users = \Appli\M\Users::getInstance();
+                $data = $users->getFileData();
+                if (!isset($data[$username])) {
+                    $user = array(
+                        'username' => $username,
+                        'password' => $password,
+                        'userdate' => \MVC\Date::getDateNow()
+                    );
 
-                $data[$username] = $user;
-                $users->setFileData($data);
-                $users->saveData();
-                self::redirect('users', 'login');
-            }else{
-                $_SESSION['errors']['danger'][] = \MVC\Language::T('AccountAlreadyExists');
+                    $data[$username] = $user;
+                    $users->setFileData($data);
+                    $users->saveData();
+                    self::redirect('users', 'login');
+                } else {
+                    $_SESSION['errors']['danger'][] = \MVC\Language::T('AccountAlreadyExists');
+                    self::redirect('users', 'create');
+                }
+            } else {
+                $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
                 self::redirect('users', 'create');
             }
-        } else {
-            $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
+        }else{
+            $_SESSION['errors']['danger'][] = \MVC\Language::T('The passwords are differents');
             self::redirect('users', 'create');
         }
     }

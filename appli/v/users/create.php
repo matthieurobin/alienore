@@ -26,23 +26,22 @@
                         </button>
                         <a class="navbar-brand" href="."><?php echo Install\App::NAME; ?></a>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-
-                        </ul>
-                    </div><!--/.nav-collapse -->
                 </div>
             </div>    
 
         </div>
         <div class="container">
+            <div class="helper">
+                <?php APPLI\V\Helper::display(); ?>
+            </div>
 
             <form class="form-signin" role="form" action="?c=users&a=saved" method="post">
                 <h2 class="form-signin-heading">
                     <?php echo \MVC\Language::T('CreateAnAccount')?>
-                </h2>
-                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>" required autofocus>
-                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>" required>
+                </h2><br>
+                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>" required autofocus><br>
+                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>" required><br>
+                <input name="passwordRepeat" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Repeat password')?>" required><br>
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>-->
@@ -52,7 +51,7 @@
         </div> <!-- /container -->
 
         <div id="footer">
-            <?php echo \Install\App::COPYRIGHT ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
