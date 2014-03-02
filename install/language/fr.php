@@ -57,9 +57,9 @@ $language = array (
     //help
     'Help' => 'Aide',
     'Shortcuts' => 'Raccourcis',
-    'Add a new link' => 'Ajouter un lien.',
-    'Edit the tag' => 'Editer le tag.',
-    'See this page' => 'Voir cette page.',
+    'Add a new link' => 'Ajouter un lien',
+    'Edit the tag' => 'Editer le tag',
+    'See this page' => 'Voir cette page',
     'Close' => 'Fermer',
     
     //Time

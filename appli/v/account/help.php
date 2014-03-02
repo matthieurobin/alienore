@@ -51,9 +51,9 @@
                 <h2 class="page-header"><?php echo \MVC\Language::T('Help') ?></h2>
                 <h3><?php echo \MVC\Language::T('Shortcuts'); ?></h3><br>
                 <ul>
-                    <li>'n' : <?php echo \MVC\Language::T('Add a new link'); ?></li>
-                    <li>'e' : <?php echo \MVC\Language::T('Edit the tag'); ?></li>
-                    <li>'h' : <?php echo \MVC\Language::T('See this page'); ?></li>
+                    <li><b>n</b> : <?php echo \MVC\Language::T('Add a new link'); ?></li>
+                    <li><b>e</b> : <?php echo \MVC\Language::T('Edit the tag'); ?></li>
+                    <!--<li><b>h</b> : <?php echo \MVC\Language::T('See this page'); ?></li>-->
                 </ul>
             </div>
         </div>

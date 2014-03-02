@@ -70,8 +70,7 @@ li{
 }
 
 .tags{
-    font-size: 1.1em;
-    padding: 0.2em 0em 0.2em 0em;
+    padding: 0px 2px;
 }
 .nbLinksByTag{
     color: #FF8C00;
