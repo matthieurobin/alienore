@@ -10,7 +10,6 @@ Tâches par versions :
 * gérer l'export et l'import
 * se détacher de bootstrap et/ou jquery ?
 * gérer la sauvegarde des pages html + images
-* nuage de tags : taille des tags en fonction de leur utilisation
 
 Tâches transverses :
 -------------------
@@ -20,8 +19,13 @@ Tâches transverses :
 Changelog :
 ==========
 
+Version 0.6.1:
+--------------
+- amélioiration de l'écran nuage de tags : taille des tags en fonction de leur utilisation
+- corrections mineures sur l'écran aide
+
 Version 0.6:
------------
+------------
 - ajout de la fonctionnalité recherche
 - ajouter un écran d'aide (raccourcis)
 - modification du formulaire de création de compte : le mot de passe doit être saisie deux fois
@@ -29,7 +33,7 @@ Version 0.6:
 - trouver un nom pour l'application
 
 Version 0.5:
------------
+------------
 - mise en page de l'écran Tag
 - ouverture d'une modale lors de l'edit d'un lien
 - l'affichage des liens par tag est effectif

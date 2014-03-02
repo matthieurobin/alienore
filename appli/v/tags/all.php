@@ -55,12 +55,12 @@
             <?php $minSize = 14; $maxSize = 20; ?>
             <?php $max = current($tags); $min = end($tags); ?>
             <?php foreach ($tags as $key => $nbTag): ?>
-            <?php $fontSize = intval($minSize + (($nbTag - $min) * (($maxSize - $minSize) / ($max - $min)))); ?>
-            <span class="tags">
-                <a href="?c=links&a=all&tag=<?php echo $key; ?>">
-                    <b style="font-size: <?php echo $fontSize; ?>px"><span class="nbLinksByTag"><?php echo $nbTag ?></span><?php echo $key; ?></b>
-                </a>
-            </span>
+                <?php $fontSize = intval($minSize + (($nbTag - $min) * (($maxSize - $minSize) / ($max - $min)))); ?>
+                <span class="tags">
+                    <a href="?c=links&a=all&tag=<?php echo $key; ?>">
+                        <b style="font-size: <?php echo $fontSize; ?>px"><span class="nbLinksByTag"><?php echo $nbTag ?></span><?php echo $key; ?></b>
+                    </a>
+                </span>
             <?php endforeach; ?>
         </div>
         <div class="paging"></div>
