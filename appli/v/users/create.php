@@ -24,7 +24,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="."><?php echo Install\App::NAME; ?></a>
+                        <a class="navbar-brand" href="."><img src="<?php echo \Install\Path::IMG; ?>logo.png"></img></a>
                     </div>
                 </div>
             </div>    

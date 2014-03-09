@@ -10,5 +10,5 @@ class Path {
     CONST JS = '_/js/';
     CONST IMG = '_/img/';
     CONST LANGUAGE = 'install/language/';
-
+    
 }
