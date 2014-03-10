@@ -49,6 +49,7 @@ li{
     text-align: center;
     color: #ededed;
     height: 20px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 }
 #account{
     padding-bottom: 10px;
@@ -128,9 +129,10 @@ h3 > a{
 .navbar-inverse{
     background-color: #323132;
     border: none;
+    box-shadow:  0px 4px 4px 0px rgba(0, 0, 0, 0.15)
 }
 .navbar-brand{
-    padding: 5px 0px 5px 0px;
+    padding: 10px 0px;
 }
 .label{
     border-radius: 0px;
