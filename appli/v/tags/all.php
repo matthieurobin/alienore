@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="paging"></div>
-        <div id="tags" class="container">
+        <div id="tags"><div  class="container">
             <?php $tags = $this->tags; ?>
             <?php $minSize = 14; $maxSize = 20; ?>
             <?php $max = current($tags); $min = end($tags); ?>
@@ -62,7 +62,7 @@
                     </a>
                 </span>
             <?php endforeach; ?>
-        </div>
+        </div></div>
         <div class="paging"></div>
         <div id="footer">
             <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?> 

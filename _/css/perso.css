@@ -2,6 +2,11 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
     margin: 0;
     padding: 0;
 }
+
+body{
+    background-color: #f2f2f2;
+}
+
 li{
     list-style: none;
 }
@@ -40,19 +45,38 @@ li{
 }
 
 .paging, .paging a{
-    background-color: #2A72B0;
+    background-color: #2A72AD;
     text-align: center;
     color: #ededed;
     height: 20px;
 }
+#account{
+    padding-bottom: 10px;
+}
+#tags, #account{
+    background-color: #fff;
+}
+#links{
+    background-color: #e5e5e5;
+}
 
 #links > ul > li{
-    border-top: 1px solid #999;
-    padding: 1em 1em 1em 1em;
+    /*border-top: 1px solid #999;*/
+    padding: 5px 10px;
 }
 
 .link{
     word-wrap: break-word;
+    padding: 8px;
+    border:1px solid #d8d8d8;
+    -moz-border-radius:3px;
+    border-radius:3px;
+    background-color:#fff;
+    border-bottom-width:2px;
+}
+
+h3 > a{
+    color: #3c4852;
 }
 
 .link-description{
@@ -70,7 +94,7 @@ li{
 }
 
 .tags{
-    padding: 0px 2px;
+    padding: 2px 0px;
 }
 .nbLinksByTag{
     color: #FF8C00;
@@ -84,7 +108,7 @@ li{
 }
 
 #footer {
-    border-top: 1px solid #999;
+   /* border-top: 1px solid #999;*/
     padding: 0.5em;
     text-align: center;
     color: #999;
@@ -101,6 +125,13 @@ li{
 }
 
 /* bootstrap modifications*/
+.navbar-inverse{
+    background-color: #323132;
+    border: none;
+}
+.navbar-brand{
+    padding: 5px 0px 5px 0px;
+}
 .label{
     border-radius: 0px;
     opacity: 0.9;

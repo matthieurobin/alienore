@@ -46,18 +46,20 @@
 
         </div>
         <div class="paging"></div>
-        <div class="container">
-            <div>
-                <h2 class="page-header"><?php echo \MVC\Language::T('Help') ?></h2>
-                <h3><?php echo \MVC\Language::T('Shortcuts'); ?></h3><br>
-                <ul>
-                    <li><b>n</b> : <?php echo \MVC\Language::T('Add a new link'); ?></li>
-                    <li><b>e</b> : <?php echo \MVC\Language::T('Edit the tag'); ?></li>
-                    <!--<li><b>h</b> : <?php echo \MVC\Language::T('See this page'); ?></li>-->
-                </ul>
+        <div id="account">
+            <div class="container">
+                <div>
+                    <h2 class="page-header"><?php echo \MVC\Language::T('Help') ?></h2>
+                    <h3><?php echo \MVC\Language::T('Shortcuts'); ?></h3><br>
+                    <ul>
+                        <li><b>n</b> : <?php echo \MVC\Language::T('Add a new link'); ?></li>
+                        <li><b>e</b> : <?php echo \MVC\Language::T('Edit the tag'); ?></li>
+                        <!--<li><b>h</b> : <?php echo \MVC\Language::T('See this page'); ?></li>-->
+                    </ul>
+                </div>
             </div>
         </div>
-        <br>
+        <!-- <br> -->
         <div class="paging"></div>
         <div id="footer">
             <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
