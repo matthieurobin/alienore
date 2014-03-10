@@ -51,7 +51,7 @@ class Links extends \MVC\Controleur {
             } else {
                 $linkDate = \MVC\Date::getDateNow();
             }
-            $saved = \MVC\A::get('saved') === '' ? 0 : \MVC\A::get('saved');
+            $saved = \MVC\A::get('saved') == '' ? 0 : \MVC\A::get('saved');
             $link = array(
                 'title' => htmlspecialchars(trim(\MVC\A::get('title'))),
                 'url' => htmlspecialchars(trim(\MVC\A::get('url'))),
@@ -69,26 +69,39 @@ class Links extends \MVC\Controleur {
         }
     }
 
-    public static function savedLink() {
+    public static function data_savedLink() {
+        $linkToSave = \Appli\M\Links::getInstance()->get(\MVC\A::get('id'));
+        $text = '';
+        $id = $linkToSave['linkdate'];
+        $saved = $linkToSave['saved'];
+        $dateSaved = $linkToSave['datesaved'];
         //case : saved
-        if (\MVC\A::get('saved') === 1) {
-            if(\Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'))){
+        if ($linkToSave['saved'] === 1) {
+            if(\Appli\M\Page::getInstance()->deleteHtmlFile($linkToSave['linkdate'])){
                 $saved = 0;
-                $dateSaved = '';
+                $dateSaved = null;
+                $text = \MVC\Language::T('The file was remove from the disk');
+            }else{
+                $text = \MVC\Language::T('An error occured');
             }
             //case : not saved
         } else {
-            if(\Appli\M\Page::getInstance()->savedHtmlPage(\MVC\A::get('url'), \MVC\A::get('filename'))){
+            if(\Appli\M\Page::getInstance()->savedHtmlPage($linkToSave['url'], $linkToSave['linkdate'])){
                 $saved = 1;
-                $dateSaved = $linkDate = \MVC\Date::getDateNow();
+                $dateSaved = \MVC\Date::getDateNow();
+                $text = \MVC\Language::T('The content at: "%" was saved');
+                $text = str_replace('%', $linkToSave['url'], $text);
+            }else{
+                $text = \MVC\Language::T('An error occured');
             }
         }
         $link = \Appli\M\Links::getInstance();
         $data = $link->getFileData();
-        $data[\MVC\A::get('id')]['saved'] = $saved;
-        $data[\MVC\A::get('id')]['datesaved'] = $dateSaved;
+        $data[$linkToSave['linkdate']]['saved'] = $saved;
+        $data[$linkToSave['linkdate']]['datesaved'] = $dateSaved;
         $link->setFileData($data);
         $link->saveData(); //save modifications
+        self::getVue()->data = json_encode(array('text' => $text, 'link' => $data[$linkToSave['linkdate']]));
     }
     
     public static function research(){

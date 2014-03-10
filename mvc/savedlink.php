@@ -17,7 +17,7 @@ class SavedLink extends \MVC\File {
      */
 
     public function savedHtmlPage($url, $fileName) {
-        $fileName = $this->smallHash($fileName);
+        //$fileName = $this->smallHash($fileName);
 
         if (!$this->isFileExists($this->directoryName)) {
             $this->create($this->directoryName);
@@ -26,11 +26,15 @@ class SavedLink extends \MVC\File {
         //  $this->deleteHtmlFile($fileName);
         //}
         $extension = $this->isImg($url);
-        if (!$this->isImg($url)) {
+        if ($extension === '.html') {
             $file = file_get_contents($url);
             if ($file) {
                 return file_put_contents($this->path . $this->directoryName . $fileName . $extension, $file);
+            }else{
+                return false;
             }
+        }else{
+            return false;
         }
     }
 
@@ -40,7 +44,7 @@ class SavedLink extends \MVC\File {
      * @return boolean
      */
     public function deleteHtmlFile($fileName = null) {
-        $fileName = $this->smallHash($fileName);
+        //$fileName = $this->smallHash($fileName);
         if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
             return unlink($this->path . $this->directoryName . $fileName . '.html');
         }
@@ -48,7 +52,7 @@ class SavedLink extends \MVC\File {
     }
 
     public function getPathToSavedLink($fileName) {
-        $fileName = $this->smallHash($fileName);
+        //$fileName = $this->smallHash($fileName);
         if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
             return $this->path . $this->directoryName . $fileName . '.html';
         }

@@ -78,7 +78,10 @@ $language = array (
     'IncorrectUsername' => 'Nom d\'utilisateur ou mot de passe incorrect.',
     'AccountAlreadyExists' => 'Ce compte existe déjà.',
     'EmptyInputs' => 'Veuillez remplir tous les champs.',
-    'The passwords are differents' => 'Les mots de passe sont différents.'
+    'The passwords are differents' => 'Les mots de passe sont différents.',
+    'An error occured' => 'Une erreur est survenue',
+    'The file was remove from the disk' => 'Le fichier a été supprimé du disque',
+    'The content at: "%" was saved' => 'Le contenu à l\'url: "%" a été sauvé'
 );
 
 return $language;

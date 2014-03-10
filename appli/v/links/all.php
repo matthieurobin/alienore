@@ -88,9 +88,9 @@
                     <?php foreach ($this->pagination['links'] as $link): ?>
                         <li>
                             <div class="link">
-                                <h3>
+                                <h3 id="title-<?php echo $link['linkdate'] ?>">
                                     <?php if ($link['saved']): ?>
-                                        <a href="?c=savedlink&a=display&linkdate=<?php echo $link['linkdate'] ?>"><span class="glyphicon glyphicon-new-window"></span></a>
+                                        <a href="?c=savedlink&a=display&linkdate=<?php echo $link['linkdate'] ?>"><span class="glyphicon glyphicon-new-window saved-link"></span></a>
                                     <?php endif; ?>
                                     <a href="<?php echo $link['url'] ?>"><?php echo $link['title'] ?></a>
                                 </h3>
@@ -100,15 +100,12 @@
                                 </p>
                                 <p class="link-description"><?php echo $link['description'] ?></p>
                                 <div class="tags">
-                                    <?php $tags = \MVC\Tags::displayTags($link['tags']); ?>
-                                    <?php if (!is_string($tags)): ?>
+                                    <?php $tags = explode(' ',$link['tags']);?>
+                                    <?php if ($tags[0] != ''): ?>
                                         <?php for ($i = 0; $i < sizeof($tags); ++$i): ?>
                                             <span class="glyphicon glyphicon-tag"></span>
                                             <a href="?c=links&a=all&tag=<?php echo $tags[$i]; ?>"><?php echo $tags[$i]; ?></a></span>
                                         <?php endfor; ?>
-                                    <?php elseif (strlen($tags) > 0): ?>
-                                        <span class="glyphicon glyphicon-tag"></span>
-                                        <a href="?c=links&a=all&tag=<?php echo $tags; ?>"><?php echo $tags; ?></a>
                                     <?php endif; ?>
                                 </div>
                                 <div class="link-tools">
@@ -119,28 +116,18 @@
                                         <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>'">
                                             <?php echo \MVC\Language::T('Delete') ?> <span class="glyphicon glyphicon-trash"></span>
                                         </button>
-                                    </div><!--
-                                    <span class="label label-success">
-                                    <?php if ($link['saved']): ?>
-                                        <?php
-                                        echo \MVC\A::link('links', 'savedLink', \MVC\Language::T('Unsaved'), array(
-                                            'id' => $link['linkdate'],
-                                            'saved' => $link['saved'],
-                                            'filename' => $link['title'],
-                                            'url' => $link['url']
-                                        ))
-                                        ?>
-                                    <?php else: ?>
-                                        <?php
-                                        echo \MVC\A::link('links', 'savedLink', \MVC\Language::T('Save'), array(
-                                            'id' => $link['linkdate'],
-                                            'saved' => $link['saved'],
-                                            'filename' => $link['title'],
-                                            'url' => $link['url']
-                                        ))
-                                        ?>
-                                    <?php endif; ?>
-                                    </span>-->
+                                        <button type="button" class="btn btn-success" onclick="
+                                        savedLink(<?php echo $link['linkdate'] ?>,'<?php echo \MVC\Language::T('Unsaved') ?>','<?php echo \MVC\Language::T('Save')?>')">
+                                            <span id="save-<?php echo $link['linkdate'] ?>">
+                                                <?php if ($link['saved']): ?>
+                                                    <?php echo \MVC\Language::T('Unsaved') ?>
+                                                <?php else: ?>
+                                                    <?php echo \MVC\Language::T('Save')?>
+                                                <?php endif; ?>
+                                            </span>
+                                            <span class="glyphicon glyphicon-download"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </li>

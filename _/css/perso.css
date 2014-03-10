@@ -147,3 +147,7 @@ h3 > a{
 .glyphicon{
     opacity: 0.8;
 }
+
+.saved-link{
+    font-size: 18px;
+}
