@@ -81,7 +81,8 @@ $language = array (
     'The passwords are differents' => 'Les mots de passe sont différents.',
     'An error occured' => 'Une erreur est survenue',
     'The file was remove from the disk' => 'Le fichier a été supprimé du disque',
-    'The content at: "%" was saved' => 'Le contenu à l\'url: "%" a été sauvé'
+    'The content at: "%" was saved' => 'Le contenu à l\'url: "%" a été sauvé',
+    'The url is not valid' => 'L\'url n\'est pas valide' 
 );
 
 return $language;

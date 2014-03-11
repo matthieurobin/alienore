@@ -1,6 +1,6 @@
 
 <?php
 
-include $this->html;
+header('Location:'.$this->html);
 
 

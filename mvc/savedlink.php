@@ -4,36 +4,37 @@ namespace MVC;
 
 class SavedLink extends \MVC\File {
 
-    public function isImg($url) {
-        $extension = '.html';
+    private function isImg($url) {
+        $isImg = false;
         if (getimagesize($url)) {
-            $extension = '.jpg';
+            $isImg = true;
+        }
+        return $isImg;
+    }
+
+    function getExtension($url){
+        if($this->isImg($url)){
+            $size = getimagesize($url);
+            $extension = str_replace('image/', '.', $size['mime']);
+        }else{
+            $extension = '.html';
         }
         return $extension;
     }
-
+    
     /*
      * return boolean
      */
 
     public function savedHtmlPage($url, $fileName) {
-        //$fileName = $this->smallHash($fileName);
-
         if (!$this->isFileExists($this->directoryName)) {
             $this->create($this->directoryName);
         }
-        //if ($this->isFileExists($this->directoryName, $fileName, $extension)) {
-        //  $this->deleteHtmlFile($fileName);
-        //}
-        $extension = $this->isImg($url);
-        if ($extension === '.html') {
-            $file = file_get_contents($url);
-            if ($file) {
-                return file_put_contents($this->path . $this->directoryName . $fileName . $extension, $file);
-            }else{
-                return false;
-            }
-        }else{
+        $extension = $this->getExtension($url);
+        $file = file_get_contents($url);
+        if ($file) {
+            return file_put_contents($this->path . $this->directoryName . $fileName . $extension, $file);
+        } else {
             return false;
         }
     }
@@ -43,18 +44,18 @@ class SavedLink extends \MVC\File {
      * @param string $fileName
      * @return boolean
      */
-    public function deleteHtmlFile($fileName = null) {
+    public function deleteHtmlFile($fileName,$extension) {
         //$fileName = $this->smallHash($fileName);
-        if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
-            return unlink($this->path . $this->directoryName . $fileName . '.html');
+        if ($this->isFileExists($this->directoryName, $fileName, $extension)) {
+            return unlink($this->path . $this->directoryName . $fileName . $extension);
         }
         return false;
     }
 
-    public function getPathToSavedLink($fileName) {
+    public function getPathToSavedLink($fileName,$extension){
         //$fileName = $this->smallHash($fileName);
-        if ($this->isFileExists($this->directoryName, $fileName, '.html')) {
-            return $this->path . $this->directoryName . $fileName . '.html';
+        if ($this->isFileExists($this->directoryName, $fileName, $extension)) {
+            return $this->path . $this->directoryName . $fileName . $extension;
         }
     }
 

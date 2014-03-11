@@ -30,10 +30,10 @@ class Links extends \MVC\Controleur {
     }
 
     public static function delete() {
-        $link = \Appli\M\Links::getInstance();
-        $link->deleteLink(\MVC\A::get('id'));
-        $link->saveData();
-         \Appli\M\Page::getInstance()->deleteHtmlFile(\MVC\A::get('filename'));
+        $linkToDelete= \Appli\M\Links::getInstance()->get(\MVC\A::get('id'));
+        \Appli\M\Links::getInstance()->deleteLink($linkToDelete['linkdate']);
+        \Appli\M\Links::getInstance()->saveData();
+        \Appli\M\Page::getInstance()->deleteHtmlFile($linkToDelete['linkdate'],$linkToDelete['extensionfile']);
     }
 
     /*public static function form() {
@@ -59,7 +59,8 @@ class Links extends \MVC\Controleur {
                 'linkdate' => $linkDate,
                 'tags' => strtolower(trim(htmlspecialchars(\MVC\A::get('tags')))),
                 'saved' => $saved,
-                'datesaved' => \MVC\A::get('datesaved')
+                'datesaved' => \MVC\A::get('datesaved'),
+                'extensionfile' => null
             );
             $linkObj = \Appli\M\Links::getInstance();
             $data = $linkObj->getFileData();
@@ -75,9 +76,11 @@ class Links extends \MVC\Controleur {
         $id = $linkToSave['linkdate'];
         $saved = $linkToSave['saved'];
         $dateSaved = $linkToSave['datesaved'];
+        $extensionFile = (isset($linkToSave['extensionfile'])) ? $linkToSave['extensionfile'] : null;
+        $url = $linkToSave['url'];
         //case : saved
         if ($linkToSave['saved'] === 1) {
-            if(\Appli\M\Page::getInstance()->deleteHtmlFile($linkToSave['linkdate'])){
+            if(\Appli\M\Page::getInstance()->deleteHtmlFile($id,$extensionFile)){
                 $saved = 0;
                 $dateSaved = null;
                 $text = \MVC\Language::T('The file was remove from the disk');
@@ -86,22 +89,29 @@ class Links extends \MVC\Controleur {
             }
             //case : not saved
         } else {
-            if(\Appli\M\Page::getInstance()->savedHtmlPage($linkToSave['url'], $linkToSave['linkdate'])){
-                $saved = 1;
-                $dateSaved = \MVC\Date::getDateNow();
-                $text = \MVC\Language::T('The content at: "%" was saved');
-                $text = str_replace('%', $linkToSave['url'], $text);
+            if(filter_var($url,FILTER_VALIDATE_URL)){
+                if(\Appli\M\Page::getInstance()->savedHtmlPage($url, $id)){
+                    $extensionFile = \Appli\M\Page::getInstance()->getExtension($url);
+                    $saved = 1;
+                    $dateSaved = \MVC\Date::getDateNow();
+                    $text = \MVC\Language::T('The content at: "%" was saved');
+                    $text = str_replace('%', $url, $text);
+                }else{
+                    $text = \MVC\Language::T('An error occured');
+                }
             }else{
-                $text = \MVC\Language::T('An error occured');
+                $text = \MVC\Language::T('The url is not valid');
             }
+            
         }
         $link = \Appli\M\Links::getInstance();
         $data = $link->getFileData();
-        $data[$linkToSave['linkdate']]['saved'] = $saved;
-        $data[$linkToSave['linkdate']]['datesaved'] = $dateSaved;
+        $data[$id]['saved'] = $saved;
+        $data[$id]['datesaved'] = $dateSaved;
+        $data[$id]['extensionfile'] = $extensionFile;
         $link->setFileData($data);
         $link->saveData(); //save modifications
-        self::getVue()->data = json_encode(array('text' => $text, 'link' => $data[$linkToSave['linkdate']]));
+        self::getVue()->data = json_encode(array('helper' => $text, 'link' => $data[$id]));
     }
     
     public static function research(){
