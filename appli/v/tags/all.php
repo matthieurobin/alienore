@@ -28,7 +28,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
                         <li class="active"><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
-                        <!--<li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>--> 
+                        <li><a href="?c=tools&a=all"><?php echo \MVC\Language::T('Tools'); ?></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="dropdown-account" class="dropdown">

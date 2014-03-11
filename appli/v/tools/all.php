@@ -5,7 +5,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
+        <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Tags'); ?></title>
 
         <!-- Bootstrap core CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
                         <li><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
-                        <li><a href="?c=tools&a=all"><?php echo \MVC\Language::T('Tools'); ?></a></li>
+                        <li class="active"><a href="?c=tools&a=all"><?php echo \MVC\Language::T('Tools'); ?></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="dropdown-account" class="dropdown">
@@ -43,42 +43,40 @@
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>    
-
         </div>
         <div class="paging"></div>
-        <div id="account">
+        <div id="tools">
+            <div class="helper">
+                <?php \APPLI\V\Helper::display(); ?>
+            </div>
             <div class="container">
-                <div>
-                    <h2 class="page-header"><?php echo \MVC\Language::T('Help') ?></h2>
-                    <h3><?php echo \MVC\Language::T('Shortcuts'); ?></h3><br>
-                    <ul>
-                        <li><b>n</b> : <?php echo \MVC\Language::T('Add a new link'); ?></li>
-                        <li><b>e</b> : <?php echo \MVC\Language::T('Edit the tag'); ?></li>
-                        <!--<li><b>h</b> : <?php echo \MVC\Language::T('See this page'); ?></li>-->
-                    </ul>
+                <h4><?php echo \MVC\Language::T('Export') ?> :</h4>
+                <div class="tool-body">
+                    <button class="btn btn-default" onclick="location.href = '?c=tools&a=exportHtml'">
+                        <?php echo \MVC\Language::T('Export to html format') ?>
+                    </button>
+                </div>
+                <h4><?php echo \MVC\Language::T('Import') ?> :</h4>
+                <div class="tool-body">
+                    <form id="form-import" action="?c=tools&a=import" method="post" enctype="multipart/form-data">
+                        <input type="file" name="filePath">                        
+                        <input type="hidden" name="MAX_FILE_SIZE" value="100000">
+                        <button onclick="importFile()" type="submit" class="btn btn-primary">
+                            <?php echo \MVC\Language::T('Submit'); ?>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- <br> -->
         <div class="paging"></div>
         <div id="footer">
-            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?> 
         </div>
         <script src="https://code.jquery.com/jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
-        <script>
-                                            $(document).ready(function() {
-                                                duplicatePaging();
-                                                $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                                                    $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-                                                    reset($('#form-new-link'));
-                                                });
-                                                $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
-                                                    reset($('#form-edit-tag'));
-                                                });
-                                            });
-        </script>
     </body>
 </html>
+
+

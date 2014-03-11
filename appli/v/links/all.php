@@ -28,7 +28,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
                         <li><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
-                        <!-- <li><a href=""><?php echo \MVC\Language::T('Tools'); ?></a></li>-->
+                        <li><a href="?c=tools&a=all"><?php echo \MVC\Language::T('Tools'); ?></a></li>
                         <form action="?c=links&a=all" method="post" class="navbar-form navbar-right" role="form">
                             <div class="form-group">
                                 <input name="search" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Search'); ?>">

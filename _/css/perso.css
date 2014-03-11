@@ -54,7 +54,7 @@ li{
 #account{
     padding-bottom: 10px;
 }
-#tags, #account{
+#tags, #account, #tools{
     background-color: #fff;
 }
 #links{
@@ -134,7 +134,12 @@ h3 > a{
     padding:10px;
     margin-bottom: 5px;
 }
-
+#tools{
+    padding: 10px 8px;
+}
+.tool-body{
+    padding: 10px 0px;
+}
 /* bootstrap modifications*/
 .navbar-inverse{
     background-color: #323132;

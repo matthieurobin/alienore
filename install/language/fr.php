@@ -75,13 +75,18 @@ $language = array (
     
     //Messages
     //errors
-    'IncorrectUsername' => 'Nom d\'utilisateur ou mot de passe incorrect.',
     'AccountAlreadyExists' => 'Ce compte existe déjà.',
-    'EmptyInputs' => 'Veuillez remplir tous les champs.',
-    'The passwords are differents' => 'Les mots de passe sont différents.',
     'An error occured' => 'Une erreur est survenue',
-    'The file was remove from the disk' => 'Le fichier a été supprimé du disque',
+    'EmptyInputs' => 'Veuillez remplir tous les champs.',
+    'Export' => 'Exporter',
+    'Export to html format' => 'Exporter au format html',
+    'IncorrectUsername' => 'Nom d\'utilisateur ou mot de passe incorrect.',
+    'Import' => 'Importer',
+    'links imported' => 'liens importés',
     'The content at: "%" was saved' => 'Le contenu à l\'url: "%" a été sauvé',
+    'The file has an unknown file format. Nothing was imported.' => 'Le fichier a un format inconnu. Aucun élément n\'a pu être importé.' ,
+    'The file was remove from the disk' => 'Le fichier a été supprimé du disque',
+    'The passwords are differents' => 'Les mots de passe sont différents.',  
     'The url is not valid' => 'L\'url n\'est pas valide' 
 );
 
