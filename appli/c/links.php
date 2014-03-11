@@ -78,6 +78,7 @@ class Links extends \MVC\Controleur {
         $dateSaved = $linkToSave['datesaved'];
         $extensionFile = (isset($linkToSave['extensionfile'])) ? $linkToSave['extensionfile'] : null;
         $url = $linkToSave['url'];
+        $error = false;
         //case : saved
         if ($linkToSave['saved'] === 1) {
             if(\Appli\M\Page::getInstance()->deleteHtmlFile($id,$extensionFile)){
@@ -86,6 +87,7 @@ class Links extends \MVC\Controleur {
                 $text = \MVC\Language::T('The file was remove from the disk');
             }else{
                 $text = \MVC\Language::T('An error occured');
+                $error = true;
             }
             //case : not saved
         } else {
@@ -98,9 +100,11 @@ class Links extends \MVC\Controleur {
                     $text = str_replace('%', $url, $text);
                 }else{
                     $text = \MVC\Language::T('An error occured');
+                    $error = true;
                 }
             }else{
                 $text = \MVC\Language::T('The url is not valid');
+                $error = true;
             }
             
         }
@@ -111,7 +115,7 @@ class Links extends \MVC\Controleur {
         $data[$id]['extensionfile'] = $extensionFile;
         $link->setFileData($data);
         $link->saveData(); //save modifications
-        self::getVue()->data = json_encode(array('helper' => $text, 'link' => $data[$id]));
+        self::getVue()->data = json_encode(array('helper' => $text, 'error' => $error, 'link' => $data[$id]));
     }
     
     public static function research(){

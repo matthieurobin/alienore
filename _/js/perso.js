@@ -64,22 +64,28 @@ function editLink(id, languageEdit) {
     });
 }
 
-function savedLink(id,unsavedText,saveText){
+function savedLink(id, unsavedText, saveText) {
     var _url = '?c=links&a=data_savedLink&id=' + id;
     $.ajax({
         type: 'GET',
         url: _url,
         success: function(resp) {
             var _res = JSON.parse(resp);
-            if(_res.link.saved){
-                anteriorValue = $('#title-' + _res.link.linkdate).html();
-                 $('#title-' + _res.link.linkdate).html( '<a href="?c=savedlink&a=display&linkdate=' + 
-                         _res.link.linkdate + '"><span class="glyphicon glyphicon-new-window saved-link"></span></a>' +
-                         anteriorValue);
-                 $('#save-' + _res.link.linkdate).html(unsavedText);
+            if (!_res.error) {
+                if (_res.link.saved) {
+                    anteriorValue = $('#title-' + _res.link.linkdate).html();
+                    $('#title-' + _res.link.linkdate).html('<a href="?c=savedlink&a=display&linkdate=' +
+                            _res.link.linkdate + '"><span class="glyphicon glyphicon-new-window saved-link"></span></a>' +
+                            anteriorValue);
+                    $('#save-' + _res.link.linkdate).html(unsavedText);
+                    $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
+                } else {
+                    $('#title-' + _res.link.linkdate).html('<a href="' + _res.link.url + '">' + _res.link.title + '</a>');
+                    $('#save-' + _res.link.linkdate).html(saveText);
+                    $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
+                }
             }else{
-                $('#title-' + _res.link.linkdate).html('<a href="'+_res.link.url+'">'+_res.link.title+'</a>');
-                $('#save-' + _res.link.linkdate).html(saveText);
+                $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
             }
         },
         error: function() {

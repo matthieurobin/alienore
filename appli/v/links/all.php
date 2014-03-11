@@ -83,10 +83,10 @@
                     <span class="glyphicon glyphicon-arrow-right"></span>
                 <?php endif; ?>
             </div>
-            <ul>
+            <ul id="list">
                 <?php if (sizeof($this->pagination['links']) > 0): ?>
                     <?php foreach ($this->pagination['links'] as $link): ?>
-                        <li>
+                        <li id="link-<?php echo $link['linkdate'] ?>">
                             <div class="link">
                                 <h3 id="title-<?php echo $link['linkdate'] ?>">
                                     <?php if ($link['saved']): ?>
