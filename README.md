@@ -9,19 +9,26 @@ Tâches par versions :
 * gérer les dates par javascript : moment.js
 * gérer l'export et l'import
 * se détacher de bootstrap et/ou jquery ?
-* gérer la sauvegarde des pages html + images
 
 Tâches transverses :
 -------------------
 
-* créer le logo (css3 ?) + favicon
+* créer favicon
 
 Changelog :
 ==========
 
+Version 0.7:
+------------
+- ajout du logo de l'application dans les différents écrans
+- ajout de la sauvegarde des pages html et des images
+- correction d'un bug dans l'écran Tags lorsqu'il n'y avait qu'un seul tag
+- réorganisation des données envoyées à l'écran Tags
+- modification du design
+
 Version 0.6.1:
 --------------
-- amélioiration de l'écran nuage de tags : taille des tags en fonction de leur utilisation
+- amélioration de l'écran nuage de tags : taille des tags en fonction de leur utilisation
 - corrections mineures sur l'écran aide
 
 Version 0.6:

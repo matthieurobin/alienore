@@ -9,5 +9,5 @@ class App {
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr';
     CONST COPYRIGHT = 'Matthieu ROBIN';
-    CONST VERSION = '0.6.1'; 
+    CONST VERSION = '0.7.0'; 
 }
