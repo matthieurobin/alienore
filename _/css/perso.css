@@ -125,6 +125,16 @@ h3 > a{
     padding: 10px 15px;
 }
 
+.box-alert{
+    background-color: #f9edbe; 
+    font-weight: bold;
+    color: #8a6d3b; 
+    border: 1px #f0c36d solid;
+    box-shadow: 0pt 1px 3px rgba(0, 0, 0, 0.2);
+    padding:10px;
+    margin-bottom: 5px;
+}
+
 /* bootstrap modifications*/
 .navbar-inverse{
     background-color: #323132;

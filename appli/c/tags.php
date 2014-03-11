@@ -6,9 +6,19 @@ class Tags extends \MVC\Controleur {
 
     public static function all() {
         $tags = \Appli\M\Links::getInstance()->getAllTagsByUtilisation();
-        self::getVue()->tags = $tags;
+        $minSize = 14; 
+        $maxSize = 20;
+        $max = current($tags); 
+        $min = end($tags);
+        $difference = ($max === $min) ? 1: $max - $min;
+        $tagsByUse = [];
+        foreach ($tags as $key => $nbTag){
+            $fontSize = intval($minSize + (($nbTag - $min) * (($maxSize - $minSize) / ($difference))));
+            $tagsByUse[$key]['nbLinks'] = $nbTag;
+            $tagsByUse[$key]['fontSize'] = $fontSize;
+        }
+        self::getVue()->tags = $tagsByUse;
         self::getVue()->nbTags = sizeof($tags);
-        
     }
 
     public static function delete() {
