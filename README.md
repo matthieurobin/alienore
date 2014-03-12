@@ -7,7 +7,6 @@ Tâches par versions :
 * revoir les données envoyées aux vues , JSON ?
 * écran gestion du compte : (changement de mot de passe, ergonomie => nbliens par page; ouvrir dans un nouvel onglet, etc,...)
 * gérer les dates par javascript : moment.js
-* gérer l'export et l'import
 * se détacher de bootstrap et/ou jquery ?
 
 Tâches transverses :
@@ -17,6 +16,16 @@ Tâches transverses :
 
 Changelog :
 ==========
+
+Version 0.8.1:
+--------------
+- amélioration notable de la sécurité (mot de passe)
+
+Version 0.8:
+------------
+- ajout module import/export
+- amélioration des performances (jquery moins lourd)
+- mélange des tags dans l'écran Tags
 
 Version 0.7:
 ------------

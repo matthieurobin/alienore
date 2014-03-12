@@ -23,11 +23,10 @@ class Users extends \MVC\Controleur {
 
     public static function auth() {
         $username = htmlspecialchars(\MVC\A::get('username'));
-        $password = sha1(\MVC\A::get('password'));
-        if (\Appli\M\Users::getInstance()->auth($username, $password)) {
-            $users = \Appli\M\Users::getInstance()->getFileData();
+        $password = \MVC\A::get('password');
+        $users = \Appli\M\Users::getInstance()->getFileData();
+        if (\MVC\Password::validate_password($password, $users[$username]['hash'])) {
             $_SESSION['user'] = $users[$username];
-            //self::redirect('links', 'all');
         } else {
             $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
             self::redirect('users', 'login');
@@ -47,8 +46,8 @@ class Users extends \MVC\Controleur {
      */
     static function saved() {
         $username = htmlspecialchars(\MVC\A::get('username'));
-        $password = sha1(\MVC\A::get('password'));
-        $passwordRepeat = sha1(\MVC\A::get('passwordRepeat'));
+        $password = \MVC\A::get('password');
+        $passwordRepeat = \MVC\A::get('passwordRepeat');
         if ($password == $passwordRepeat) {
             if ($username != '') {
                 $users = \Appli\M\Users::getInstance();
@@ -56,7 +55,7 @@ class Users extends \MVC\Controleur {
                 if (!isset($data[$username])) {
                     $user = array(
                         'username' => $username,
-                        'password' => $password,
+                        'hash' => \MVC\Password::create_hash(\MVC\A::get('password')),
                         'userdate' => \MVC\Date::getDateNow()
                     );
 
