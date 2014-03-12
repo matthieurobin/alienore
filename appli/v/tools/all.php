@@ -61,7 +61,7 @@
                     <form id="form-import" action="?c=tools&a=import" method="post" enctype="multipart/form-data">
                         <input type="file" name="filePath">                        
                         <input type="hidden" name="MAX_FILE_SIZE" value="100000">
-                        <button onclick="importFile()" type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary">
                             <?php echo \MVC\Language::T('Submit'); ?>
                         </button>
                     </form>
