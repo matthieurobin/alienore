@@ -14,5 +14,5 @@ abstract class Tags extends \MVC\FileData{
         }
         return $tagStr;
     }
-
+    
 }

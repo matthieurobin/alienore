@@ -51,7 +51,7 @@
         <div id="footer">
             <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
-        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
         <script>
             $(document).ready(function() {
                 $('#inputUsername').focus();

@@ -1,4 +1,5 @@
 <?php
 
-header('Location:?c=tools&a=all');
+header('Location: ?c=tools&a=all');
 
+exit();

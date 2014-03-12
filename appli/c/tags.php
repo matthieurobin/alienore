@@ -7,7 +7,7 @@ class Tags extends \MVC\Controleur {
     public static function all() {
         $tags = \Appli\M\Links::getInstance()->getAllTagsByUtilisation();
         $minSize = 14; 
-        $maxSize = 20;
+        $maxSize = 28;
         $max = current($tags); 
         $min = end($tags);
         $difference = ($max === $min) ? 1: $max - $min;
@@ -17,7 +17,7 @@ class Tags extends \MVC\Controleur {
             $tagsByUse[$key]['nbLinks'] = $nbTag;
             $tagsByUse[$key]['fontSize'] = $fontSize;
         }
-        self::getVue()->tags = $tagsByUse;
+        self::getVue()->tags = self::shuffle_assoc($tagsByUse);
         self::getVue()->nbTags = sizeof($tags);
     }
 
