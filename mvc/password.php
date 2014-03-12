@@ -113,7 +113,7 @@ public static function pbkdf2($algorithm, $password, $salt, $count, $key_length,
         if (!$raw_output) {
             $key_length = $key_length * 2;
         }
-        return self::$hash_pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output);
+        return hash_pbkdf2($algorithm, $password, $salt, $count, $key_length, $raw_output);
     }
 
     $hash_length = strlen(hash($algorithm, "", true));
