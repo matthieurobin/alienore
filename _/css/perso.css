@@ -143,9 +143,6 @@ h3 > a{
 .tool-body{
     padding: 10px 0px;
 }
-.saved-link{
-    font-size: 18px;
-}
 /* bootstrap modifications*/
 .navbar-inverse{
     background-color: #323132;
@@ -174,4 +171,7 @@ h3 > a{
 }
 .navbar-inverse .navbar-nav > .active > a{
     background-color: #222;
+}
+.saved-link{
+    font-size: 18px;
 }

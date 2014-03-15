@@ -11,6 +11,7 @@
         <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
         <!-- Application CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="<?php echo \Install\Path::IMG; ?>favicon.png" />
     </head>
     <body>
        <div id="header">

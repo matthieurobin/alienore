@@ -12,10 +12,13 @@ Tâches par versions :
 Tâches transverses :
 -------------------
 
-* créer favicon
 
 Changelog :
 ==========
+
+Version 0.8.2:
+--------------
+- création de la favicon + ajout dans les écrans de l'appli
 
 Version 0.8.1:
 --------------
