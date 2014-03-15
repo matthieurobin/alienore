@@ -4,24 +4,24 @@ Data map
 LinkStore :
 -----------
 array (size=infinite)  
-&nbsp;    linkdate =>  
-&nbsp;&nbsp;&nbsp;        array (size=8)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          'linkdate' => int  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           'title' => string  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	      'url' => string  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	      'description' => string  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	      'tags' => string  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	      'saved' => int  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	      'datesaved' => null (int)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 	      'extensionfile' => null (string)  
-&nbsp;&nbsp;&nbsp; 	...  
+    linkdate =>  
+        array (size=8)  
+          'linkdate' => int  
+           'title' => string  
+ 	      'url' => string  
+ 	      'description' => string  
+ 	      'tags' => string  
+ 	      'saved' => int  
+ 	      'datesaved' => null (int)  
+ 	      'extensionfile' => null (string)  
+ 	...  
 
 UserStore :
 -----------
 array (size=infinite)  
-&nbsp;  	'username' =>   
-&nbsp;&nbsp;&nbsp;	    array (size=3)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	      'username' => string  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	      'hash' => string  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	      'userdate' => int  
-&nbsp;&nbsp;&nbsp;	...  
+  	'username' =>   
+	    array (size=3)  
+	      'username' => string  
+	      'hash' => string  
+	      'userdate' => int  
+	...  
