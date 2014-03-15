@@ -25,11 +25,13 @@ class Users extends \MVC\Controleur {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = \MVC\A::get('password');
         $users = \Appli\M\Users::getInstance()->getFileData();
-        if (\MVC\Password::validate_password($password, $users[$username]['hash'])) {
-            $_SESSION['user'] = $users[$username];
-        } else {
-            $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
-            self::redirect('users', 'login');
+        if ($username != '' && isset($users[$username])) {
+            if (\MVC\Password::validate_password($password, $users[$username]['hash'])) {
+                $_SESSION['user'] = $users[$username]['username'];
+            } else {
+                $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
+                self::redirect('users', 'login');
+            }
         }
     }
 
@@ -71,7 +73,7 @@ class Users extends \MVC\Controleur {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
                 self::redirect('users', 'create');
             }
-        }else{
+        } else {
             $_SESSION['errors']['danger'][] = \MVC\Language::T('The passwords are differents');
             self::redirect('users', 'create');
         }

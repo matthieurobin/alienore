@@ -8,8 +8,7 @@
         <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('SignIn'); ?></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.css" rel="stylesheet">
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap-responsive.css" rel="stylesheet">
+        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
         <!-- Application CSS -->
         <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
     </head>
@@ -24,7 +23,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="."><img src="<?php echo \Install\Path::IMG; ?>logo.png"></img></a>
+                        <a class="navbar-brand" href="."><img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img></a>
                     </div>
                 </div>
             </div>    
