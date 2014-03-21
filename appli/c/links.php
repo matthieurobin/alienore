@@ -52,15 +52,16 @@ class Links extends \MVC\Controleur {
                 $linkDate = \MVC\Date::getDateNow();
             }
             $saved = \MVC\A::get('saved') == '' ? 0 : \MVC\A::get('saved');
+            $url = htmlspecialchars(trim(\MVC\A::get('url')));
             $link = array(
                 'title' => htmlspecialchars(trim(\MVC\A::get('title'))),
-                'url' => htmlspecialchars(trim(\MVC\A::get('url'))),
+                'url' => $url,
                 'description' => htmlspecialchars(trim(\MVC\A::get('description'))),
                 'linkdate' => $linkDate,
                 'tags' => strtolower(trim(htmlspecialchars(\MVC\A::get('tags')))),
                 'saved' => $saved,
                 'datesaved' => \MVC\A::get('datesaved'),
-                'extensionfile' => null
+                'extensionfile' => \MVC\SavedLink::getInstance()->getExtension($url)
             );
             $linkObj = \Appli\M\Links::getInstance();
             $data = $linkObj->getFileData();
@@ -93,7 +94,7 @@ class Links extends \MVC\Controleur {
         } else {
             if(filter_var($url,FILTER_VALIDATE_URL)){
                 if(\Appli\M\Page::getInstance()->savedHtmlPage($url, $id)){
-                    $extensionFile = \Appli\M\Page::getInstance()->getExtension($url);
+                    $extensionFile = \MVC\SavedLink::getExtension($url);
                     $saved = 1;
                     $dateSaved = \MVC\Date::getDateNow();
                     $text = \MVC\Language::T('The content at: "%" was saved');

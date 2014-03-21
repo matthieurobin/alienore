@@ -4,7 +4,7 @@ namespace MVC;
 
 class SavedLink extends \MVC\File {
 
-    private function isImg($url) {
+    private static function isImg($url) {
         $isImg = false;
         if (getimagesize($url)) {
             $isImg = true;
@@ -12,8 +12,8 @@ class SavedLink extends \MVC\File {
         return $isImg;
     }
 
-    function getExtension($url){
-        if($this->isImg($url)){
+    public static function getExtension($url){
+        if(self::isImg($url)){
             $size = getimagesize($url);
             $extension = str_replace('image/', '.', $size['mime']);
         }else{
@@ -30,12 +30,14 @@ class SavedLink extends \MVC\File {
         if (!$this->isFileExists($this->directoryName)) {
             $this->create($this->directoryName);
         }
-        $extension = $this->getExtension($url);
-        $file = file_get_contents($url);
-        if ($file) {
-            return file_put_contents($this->path . $this->directoryName . $fileName . $extension, $file);
-        } else {
-            return false;
+        $extension = self::getExtension($url);
+        if($extension != '.html'){
+            $file = file_get_contents($url);
+            if ($file) {
+                return file_put_contents($this->path . $this->directoryName . $fileName . $extension, $file);
+            } else {
+                return false;
+            }
         }
     }
 

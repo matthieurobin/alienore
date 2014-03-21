@@ -16,6 +16,10 @@ Tâches transverses :
 Changelog :
 ==========
 
+Version 0.8.3:
+--------------
+- désormais, seule la sauvegarde d'image est possible
+
 Version 0.8.2:
 --------------
 - création de la favicon + ajout dans les écrans de l'appli
