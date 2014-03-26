@@ -70,54 +70,6 @@ class Links extends \MVC\Controleur {
             $linkObj->saveData(); //save modifications
         }
     }
-
-    public static function data_savedLink() {
-        $linkToSave = \Appli\M\Links::getInstance()->get(\MVC\A::get('id'));
-        $text = '';
-        $id = $linkToSave['linkdate'];
-        $saved = $linkToSave['saved'];
-        $dateSaved = $linkToSave['datesaved'];
-        $extensionFile = (isset($linkToSave['extensionfile'])) ? $linkToSave['extensionfile'] : null;
-        $url = $linkToSave['url'];
-        $error = false;
-        //case : saved
-        if ($linkToSave['saved'] === 1) {
-            if(\Appli\M\Page::getInstance()->deleteHtmlFile($id,$extensionFile)){
-                $saved = 0;
-                $dateSaved = null;
-                $text = \MVC\Language::T('The file was remove from the disk');
-            }else{
-                $text = \MVC\Language::T('An error occured');
-                $error = true;
-            }
-            //case : not saved
-        } else {
-            if(filter_var($url,FILTER_VALIDATE_URL)){
-                if(\Appli\M\Page::getInstance()->savedHtmlPage($url, $id)){
-                    $extensionFile = \MVC\SavedLink::getExtension($url);
-                    $saved = 1;
-                    $dateSaved = \MVC\Date::getDateNow();
-                    $text = \MVC\Language::T('The content at: "%" was saved');
-                    $text = str_replace('%', $url, $text);
-                }else{
-                    $text = \MVC\Language::T('An error occured');
-                    $error = true;
-                }
-            }else{
-                $text = \MVC\Language::T('The url is not valid');
-                $error = true;
-            }
-            
-        }
-        $link = \Appli\M\Links::getInstance();
-        $data = $link->getFileData();
-        $data[$id]['saved'] = $saved;
-        $data[$id]['datesaved'] = $dateSaved;
-        $data[$id]['extensionfile'] = $extensionFile;
-        $link->setFileData($data);
-        $link->saveData(); //save modifications
-        self::getVue()->data = json_encode(array('helper' => $text, 'error' => $error, 'link' => $data[$id]));
-    }
     
     public static function research(){
         

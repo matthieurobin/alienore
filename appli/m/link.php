@@ -2,10 +2,9 @@
 
 namespace Appli\M;
 
-class Links extends \MVC\FileData {
-
-    protected $directoryName = 'links/';
-    protected $fileName = 'LinksStore';
+class Link extends \MVC\Table {
+    protected $_table = 'link';
+    protected $_tableRow = 'LinkRow';
 
     /**
      * delete a specific element

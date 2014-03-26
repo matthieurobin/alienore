@@ -117,7 +117,7 @@
                                         <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&id=<?php echo $link['linkdate'] ?>&filename=<?php echo $link['title'] ?>'">
                                             <?php echo \MVC\Language::T('Delete') ?> <span class="glyphicon glyphicon-trash"></span>
                                         </button>
-                                        <?php if($link['extensionfile'] !== '.html'): ?>
+                                        <!--<?php if($link['extensionfile'] !== '.html'): ?>
                                             <button type="button" class="btn btn-success" onclick="
                                             savedLink(<?php echo $link['linkdate'] ?>,'<?php echo \MVC\Language::T('Unsaved') ?>','<?php echo \MVC\Language::T('Save')?>')">
                                                 <span id="save-<?php echo $link['linkdate'] ?>">
@@ -129,7 +129,7 @@
                                                 </span>
                                                 <span class="glyphicon glyphicon-download"></span>
                                             </button>
-                                        <?php endif; ?>
+                                        <?php endif; ?>-->
                                     </div>
                                 </div>
                             </div>

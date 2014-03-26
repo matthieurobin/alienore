@@ -10,4 +10,10 @@ class App {
     CONST LANGUAGE = 'fr';
     CONST COPYRIGHT = 'Matthieu ROBIN';
     CONST VERSION = '0.8.3'; 
+    
+    //MySQL connection
+    CONST BDD_USER = '';
+    CONST BDD_NAME = '';
+    CONST BDD_HOST = '';
+    CONST BDD_PASSWORD = '';
 }
