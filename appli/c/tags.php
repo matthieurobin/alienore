@@ -5,7 +5,7 @@ namespace Appli\C;
 class Tags extends \MVC\Controleur {
 
     public static function all() {
-        $tags = \Appli\M\Links::getInstance()->getAllTagsByUtilisation();
+        $tags = \Appli\M\Tags::getInstance()->getAllTagsByUtilisation();
         $minSize = 14; 
         $maxSize = 28;
         $max = current($tags); 

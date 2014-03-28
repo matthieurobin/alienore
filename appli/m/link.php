@@ -32,24 +32,7 @@ class Link extends \MVC\Table {
         }
     }
 
-    /*
-     * SebSauvage function
-     * return array()
-     */
-
-    public function getAllTagsByUtilisation() {
-        $tags = array();
-        foreach ($this->getFileData() as $link) {
-            foreach (explode(' ', $link['tags']) as $tag) {
-                if (!empty($tag)) {
-                    $tags[$tag] = (empty($tags[$tag]) ? 1 : $tags[$tag] + 1);
-                }
-            }
-        }
-        arsort($tags); // Sort tags by usage (most used tag first)
-        return $tags;
-    }
-
+    
     public function getLinksByTag($tagSearch) {
         $links = array();
         foreach ($this->getFileData() as $link) {
