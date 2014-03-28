@@ -6,16 +6,23 @@ class Tags extends \MVC\Controleur {
 
     public static function all() {
         $tags = \Appli\M\Tags::getInstance()->getAllTagsByUtilisation();
-        $minSize = 14; 
-        $maxSize = 28;
-        $max = current($tags); 
-        $min = end($tags);
-        $difference = ($max === $min) ? 1: $max - $min;
+        $nbTags = sizeof($tags);
         $tagsByUse = [];
-        foreach ($tags as $key => $nbTag){
-            $fontSize = intval($minSize + (($nbTag - $min) * (($maxSize - $minSize) / ($difference))));
-            $tagsByUse[$key]['nbLinks'] = $nbTag;
-            $tagsByUse[$key]['fontSize'] = $fontSize;
+        if ($nbTags > 0) {
+            $minSize = 14;
+            $maxSize = 28;
+            $max = $tags[0]->count;
+            $min = end($tags)->count;
+            $difference = ($max === $min) ? 1 : $max - $min;            
+            for ($i = 0; $i < $nbTags; ++$i) {
+                $nb = intval($tags[$i]->count);
+                $label = $tags[$i]->label;
+                $fontSize = intval($minSize + ($nb - $min) * (($maxSize - $minSize) / ($difference)));
+                $tagsByUse[$label]['nbLinks'] = $nb;
+                $tagsByUse[$label]['fontSize'] = $fontSize;
+            }
+        }else{
+            self::getVue()->helper = \MVC\Language::T('You do not have any tag');
         }
         self::getVue()->tags = self::shuffle_assoc($tagsByUse);
         self::getVue()->nbTags = sizeof($tags);
