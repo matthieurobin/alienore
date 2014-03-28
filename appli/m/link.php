@@ -4,7 +4,7 @@ namespace Appli\M;
 
 class Link extends \MVC\Table {
     protected $_table = 'link';
-    protected $_tableRow = 'LinkRow';
+    protected $_tableRow = '\\Appli\\M\\LinkRow';
 
     /**
      * delete a specific element
