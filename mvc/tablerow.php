@@ -47,7 +47,7 @@ class TableRow{
     }
     public function delete($table=null,$pdo=null){
         if (is_null($pdo)) {
-            $pdo = MVC_Connexion::get();
+            $pdo = \MVC\Connexion::get();
         }
         if (is_null($table)) {
             $table = $this->_table;

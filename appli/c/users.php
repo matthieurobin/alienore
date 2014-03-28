@@ -5,9 +5,8 @@ namespace Appli\C;
 class Users extends \MVC\Controleur {
 
     public static function login() {
-        $users = \Appli\M\Users::getInstance();
-        $data = $users->getFileData();
-        if (sizeof($data) === 0) {
+        $data = \Appli\M\User::getInstance()->countAll();
+        if ($data[0]->count == '0') {
             self::redirect('users', 'create');
         }
         if (isset($_SESSION['user'])) {
@@ -24,10 +23,11 @@ class Users extends \MVC\Controleur {
     public static function auth() {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = \MVC\A::get('password');
-        $users = \Appli\M\Users::getInstance()->getFileData();
-        if ($username != '' && isset($users[$username])) {
-            if (\MVC\Password::validate_password($password, $users[$username]['hash'])) {
-                $_SESSION['user'] = $users[$username]['username'];
+        $users = \Appli\M\User::getInstance()->getByUsername($username);
+        var_dump($users);
+        if (sizeof($users) > 0 ) {
+            if (\MVC\Password::validate_password($password, $users[0]->hash)) {
+                $_SESSION['user'] = $users[0]->username;
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
                 self::redirect('users', 'login');
@@ -36,9 +36,8 @@ class Users extends \MVC\Controleur {
     }
 
     static function create() {
-        $users = \Appli\M\Users::getInstance();
-        $data = $users->getFileData();
-        if (sizeof($data) > 0) {
+        $data = \Appli\M\User::getInstance()->countAll();
+        if (intval($data[0]->count) > 0) {
             self::redirect('users', 'login');
         }
     }
@@ -52,7 +51,7 @@ class Users extends \MVC\Controleur {
         $passwordRepeat = \MVC\A::get('passwordRepeat');
         if ($password == $passwordRepeat) {
             if ($username != '') {
-                $users = \Appli\M\Users::getInstance();
+                /*$users = \Appli\M\Users::getInstance();
                 $data = $users->getFileData();
                 if (!isset($data[$username])) {
                     $user = array(
@@ -68,7 +67,7 @@ class Users extends \MVC\Controleur {
                 } else {
                     $_SESSION['errors']['danger'][] = \MVC\Language::T('AccountAlreadyExists');
                     self::redirect('users', 'create');
-                }
+                }*/
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
                 self::redirect('users', 'create');

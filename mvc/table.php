@@ -4,12 +4,12 @@ namespace MVC;
 
 abstract class Table {
 
-    protected $_tableRow='MVC_TableRow';
+    protected $_tableRow = '\\MVC\\TableRow';
     private static $_pdo;
     private static $_data = array();
     private $_primaryKey = 'id';
 
-    private function __construct($modeleEnregistrement = 'MVC_TableRow') {
+    private function __construct($modeleEnregistrement = '\\MVC\\TableRow') {
         //$this->_tableName=$table;
        // $this->_tableRow = $modeleEnregistrement;
     }
@@ -42,7 +42,7 @@ abstract class Table {
             $queryPrepare = $this->pdo()->prepare($query);
             $queryPrepare->execute(array($id));
             $result = $queryPrepare->fetchAll(
-                    PDO::FETCH_CLASS, $this->_tableRow
+                    \PDO::FETCH_CLASS, $this->_tableRow
             );
             if (isset($result[0])) {
                 $result[0]->setTable($this->_table);
@@ -60,7 +60,7 @@ abstract class Table {
             $query.=' order by ' . $order;
         }
         return $this->pdo()->query($query)->fetchAll(
-                        PDO::FETCH_CLASS, $this->_tableRow
+                        \PDO::FETCH_CLASS, $this->_tableRow
         );
     }
 
@@ -82,7 +82,7 @@ abstract class Table {
         $queryPrepare = $this->pdo()->prepare($query);
         $queryPrepare->execute(array($id));
         $result = $queryPrepare->fetchAll(
-                PDO::FETCH_CLASS, $this->_tableRow
+                \PDO::FETCH_CLASS, $this->_tableRow
         );
         return sizeof($result) > 0;
     }
@@ -104,7 +104,7 @@ abstract class Table {
         $queryPrepare = $this->pdo()->prepare($query);
         $queryPrepare->execute($params);
         $result = $queryPrepare->fetchAll(
-                PDO::FETCH_CLASS, $this->_tableRow
+                \PDO::FETCH_CLASS, $this->_tableRow
         );
         foreach ($result as $o) {
             $o->setTable($this->_table);
@@ -125,7 +125,7 @@ abstract class Table {
         $query = $select;
         $queryPrepare = $this->pdo()->query($query);
         $result = $queryPrepare->fetchAll(
-                PDO::FETCH_CLASS, $this->_tableRow
+                \PDO::FETCH_CLASS, $this->_tableRow
         );
         foreach ($result as $o) {
             $o->setTable($this->_table);
