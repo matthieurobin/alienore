@@ -12,8 +12,8 @@ class App {
     CONST VERSION = '0.8.3'; 
     
     //MySQL connection
-    CONST BDD_USER = '';
-    CONST BDD_NAME = '';
-    CONST BDD_HOST = '';
+    CONST BDD_USER = 'root';
+    CONST BDD_NAME = 'alienore';
+    CONST BDD_HOST = 'localhost';
     CONST BDD_PASSWORD = '';
 }
