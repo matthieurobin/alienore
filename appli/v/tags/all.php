@@ -53,6 +53,7 @@
         <div class="paging"></div>
         <div id="tags"><div  class="container">
             <?php $tags = $this->tags; ?>
+            <?php if ($this->nbTags > 0): ?>    
             <?php foreach ($tags as $key => $opt): ?>
                 <span class="tags">
                     <a href="?c=links&a=all&tag=<?php echo $key; ?>">
@@ -60,6 +61,9 @@
                     </a>
                 </span>
             <?php endforeach; ?>
+            <?php else : ?>
+                <span class="tags"><?php echo $this->helper ; ?></span>
+            <?php endif ; ?>
         </div></div>
         <div class="paging"></div>
         <div id="footer">
