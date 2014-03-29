@@ -58,8 +58,7 @@
                 <span class="tags">
                     <a href="?c=links&a=all&tagId=<?php echo $tags[$i]['tag']->id; ?>">
                         <b style="font-size: <?php echo $tags[$i]['fontSize']; ?>px">
-                            <span class="nbLinksByTag"><?php echo $tags[$i]['nbLinks'] ?></span>
-                                <?php echo $tags[$i]['tag']->label; ?>
+                            <span class="nbLinksByTag"><?php echo $tags[$i]['nbLinks'] ?></span><?php echo $tags[$i]['tag']->label; ?>
                         </b>
                     </a>
                 </span>

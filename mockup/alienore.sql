@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 29 Mars 2014 à 12:27
+-- Généré le: Sam 29 Mars 2014 à 13:03
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `link` (
   `url` varchar(255) NOT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Contraintes pour la table `taglink`
 --
 ALTER TABLE `taglink`
-  ADD CONSTRAINT `FK_TAGLINK_id` FOREIGN KEY (`idLink`) REFERENCES `link` (`id`),
-  ADD CONSTRAINT `FK_TAGLINK_id_TAG` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`);
+  ADD CONSTRAINT `FK_TAGLINK_id_TAG` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_TAGLINK_id` FOREIGN KEY (`idLink`) REFERENCES `link` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

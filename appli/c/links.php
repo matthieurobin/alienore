@@ -39,10 +39,7 @@ class Links extends \MVC\Controleur {
     }
 
     public static function delete() {
-        $linkToDelete= \Appli\M\Link::getInstance()->get(\MVC\A::get('id'));
-        \Appli\M\Link::getInstance()->deleteLink($linkToDelete['linkdate']);
-        \Appli\M\Link::getInstance()->saveData();
-        \Appli\M\Page::getInstance()->deleteHtmlFile($linkToDelete['linkdate'],$linkToDelete['extensionfile']);
+        \Appli\M\Link::getInstance()->get(\MVC\A::get('id'))->delete();
     }
 
     /*public static function form() {
