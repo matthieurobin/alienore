@@ -2,7 +2,7 @@
 
 namespace Appli\M;
 
-class TagsRow extends \MVC\TableRow {
+class TagRow extends \MVC\TableRow {
     
     
 }

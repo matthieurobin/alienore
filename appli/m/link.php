@@ -6,102 +6,36 @@ class Link extends \MVC\Table {
     protected $_table = 'link';
     protected $_tableRow = '\\Appli\\M\\LinkRow';
 
-    /**
-     * delete a specific element
-     * @param string $id
+    /*
+     * count the number of links
      */
-    public function deleteLink($id) {
-        $data = $this->getFileData();
-        if (isset($data[$id])) {
-            unset($data[$id]);
-            $this->setFileData($data);
-        }
-    }
-
-    /**
-     * get a specific element
-     * @param string $id
-     * @return array()
-     */
-    public function get($id) {
-        if (!is_null($id)) {
-            $result = $this->getFileData();
-            if (isset($result[$id])) {
-                return $result[$id];
-            }
-        }
-    }
-
-    
-    public function getLinksByTag($tagSearch) {
-        $links = array();
-        foreach ($this->getFileData() as $link) {
-            foreach (explode(' ', $link['tags']) as $tag) {
-                if ($tag == $tagSearch) {
-                    $links[$link['linkdate']] = $link;
-                }
-            }
-        }
-        return $links;
-    }
-
-    public function editTagName($newTagName, $tagEdit) {
-        $links = $this->getFileData();
-        foreach ($links as $link) {
-            $tagString = '';
-            foreach (explode(' ', $link['tags']) as $tag) {
-                if ($tag == $tagEdit) {
-                    $tagString .= ' ' . $newTagName;
-                } else {
-                    $tagString .= ' ' . $tag;
-                }
-            }
-            $links[$link['linkdate']]['tags'] = trim($tagString);
-        }
-        return $links;
-    }
-
-    public function deleteTag($tagName) {
-        $links = $this->getFileData();
-        foreach ($links as $link) {
-            $tagString = '';
-            foreach (explode(' ', $link['tags']) as $tag) {
-                if ($tagName != $tag) {
-                    $tagString .= ' ' . $tag;
-                }
-            }
-            $links[$link['linkdate']]['tags'] = trim($tagString);
-        }
-        return $links;
+    public function countAll(){
+        return $this->getInstance()->select('select count(id) as count from link')[0];
     }
     
-
-    public function search($str) {
-        $links = $this->getFileData();
-        $res = [];
-        $str = explode(' ', $str);
-        for ($i = 0; $i < sizeof($str); ++$i) {
-            if (strlen($str[$i]) >= 4) {
-                foreach ($links as $link) {
-                    $strToSearch = $str[$i];
-                    //we search in title, in description and tag
-                    if(stripos($link['title'], $strToSearch) !== false) {
-                        $res[$link['linkdate']] = $link;
-                    } else if(stripos($link['description'],$strToSearch) !== false) {
-                        $res[$link['linkdate']] = $link;
-                    } else {
-                        $tags = explode(' ', $link['tags']);
-                        for($j = 0; $j < sizeof($tags); ++$j){
-                            if (!empty($tags[$j]) && (stripos($tags[$j],$strToSearch)!== false)) {
-                                $res[$link['linkdate']] = $link;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return $res;
+    public function getLinksForPage($limit){
+        $query = 'SELECT * FROM link LIMIT '.$limit;
+        return $this->getInstance()->select($query);
     }
-
+    
+    /**
+     * get the tags of a link
+     * @param int $linkId
+     * @return object
+     */
+    public function getLinkTags($linkId){
+        $query = 'SELECT DISTINCT id, label FROM tag INNER JOIN taglink t WHERE t.idLink = '.$linkId;
+        return $this->getInstance()->select($query);
+    }
+    
+    /**
+     * 
+     * @param int $tagId
+     * @return object
+     */
+    public function getLinksByTag($tagId) {
+        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = '. $tagId;
+        return $this->getInstance()->select($query);
+    }
+  
 }

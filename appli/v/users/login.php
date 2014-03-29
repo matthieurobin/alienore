@@ -14,7 +14,7 @@
         <link rel="icon" type="image/png" href="<?php echo \Install\Path::IMG; ?>favicon.png" />
     </head>
     <body>
-        <div id="header"><!--
+        <div id="header">
             <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -29,7 +29,7 @@
                 </div>
             </div>    
 
-        </div>-->
+        </div>
         <div class="container">
             <div class="helper">
                 <?php APPLI\V\Helper::display(); ?>

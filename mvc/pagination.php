@@ -10,34 +10,18 @@ class Pagination {
         return ceil($nbLinks / $linksPerPage);
     }
 
-    public static function buildPaging($links, $page = 1, $linksPerPage = 20) {
-        $keys = array();
-        foreach ($links as $key => $value) {
-            $keys[] = $key;
-        }
-
-        $pagination['page'] = $page;
-        $pagination['nbPages'] = $page;
-        if (sizeof($keys) > 0) {
-            $nbPages = self::getNumberOfPages(sizeof($keys), $linksPerPage);
-            $pagination['nbPages'] = $nbPages;
-            $linksToDisplay = array();
-
-            $i = ($page - 1 ) * $linksPerPage; // Start index.
-            $end = $i + $linksPerPage;
-
-            while ($i < $end && $i < count($keys)) {
-                $link = $links[$keys[$i]];
-                $linksToDisplay[$keys[$i]] = $link;
-                $i++;
+    public static function buildPaging($nbLinks, $page = 1, $linksPerPage = \Install\App::LINKS_PER_PAGE) {
+        $maxPage = self::getNumberOfPages($nbLinks, $linksPerPage);
+        if ($page > 1) {
+            if ($page > $maxPage) {
+                $page = $maxPage;
             }
-              $pagination['links'] = $linksToDisplay;
-              return $pagination;
-
+            $limit = ($page * $linksPerPage) - $linksPerPage;
         } else {
-            $pagination['links'] = array();
-            return $pagination;
+            $page = 1;
+            $limit = 0;
         }
+        return array('limit' => $limit.','.$linksPerPage, 'nbPages' => $maxPage);
     }
 
 }

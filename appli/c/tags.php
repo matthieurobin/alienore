@@ -5,7 +5,7 @@ namespace Appli\C;
 class Tags extends \MVC\Controleur {
 
     public static function all() {
-        $tags = \Appli\M\Tags::getInstance()->getAllTagsByUtilisation();
+        $tags = \Appli\M\Tag::getInstance()->getAllTagsByUtilisation();
         $nbTags = sizeof($tags);
         $tagsByUse = [];
         if ($nbTags > 0) {

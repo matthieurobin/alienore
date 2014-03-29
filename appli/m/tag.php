@@ -2,9 +2,9 @@
 
 namespace Appli\M;
 
-class Tags extends \MVC\Table {
-    protected $_table = 'tags';
-    protected $_tableRow = '\\Appli\\M\\TagsRow';
+class Tag extends \MVC\Table {
+    protected $_table = 'tag';
+    protected $_tableRow = '\\Appli\\M\\TagRow';
 
     
     /*
@@ -12,8 +12,8 @@ class Tags extends \MVC\Table {
      */
     
     public function getAllTagsByUtilisation() {
-        
-        return $this->getInstance()->select("SELECT label, COUNT(idTag)AS count FROM tag, taglink WHERE idTag = tag.id GROUP BY idTag") ;
+        $query = 'SELECT label, COUNT(idTag)AS count FROM tag, taglink WHERE idTag = tag.id GROUP BY idTag';
+        return $this->getInstance()->select($query) ;
        
     }
     

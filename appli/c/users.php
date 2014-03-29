@@ -6,7 +6,7 @@ class Users extends \MVC\Controleur {
 
     public static function login() {
         $data = \Appli\M\User::getInstance()->countAll();
-        if ($data[0]->count == '0') {
+        if ($data->count == '0') {
             self::redirect('users', 'create');
         }
         if (isset($_SESSION['user'])) {

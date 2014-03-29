@@ -11,6 +11,9 @@ class App {
     CONST COPYRIGHT = 'Matthieu ROBIN';
     CONST VERSION = '0.8.3'; 
     
+    //
+    CONST LINKS_PER_PAGE = 20;
+    
     //MySQL connection
     CONST BDD_USER = 'root';
     CONST BDD_NAME = 'alienore';
