@@ -54,13 +54,16 @@
         <div id="tags"><div  class="container">
             <?php $tags = $this->tags; ?>
             <?php if ($this->nbTags > 0): ?>    
-            <?php foreach ($tags as $key => $opt): ?>
+            <?php for($i = 0; $i < sizeof($tags); ++$i): ?>
                 <span class="tags">
-                    <a href="?c=links&a=all&tag=<?php echo $key; ?>">
-                        <b style="font-size: <?php echo $opt['fontSize']; ?>px"><span class="nbLinksByTag"><?php echo $opt['nbLinks'] ?></span><?php echo $key; ?></b>
+                    <a href="?c=links&a=all&tagId=<?php echo $tags[$i]['tag']->id; ?>">
+                        <b style="font-size: <?php echo $tags[$i]['fontSize']; ?>px">
+                            <span class="nbLinksByTag"><?php echo $tags[$i]['nbLinks'] ?></span>
+                                <?php echo $tags[$i]['tag']->label; ?>
+                        </b>
                     </a>
                 </span>
-            <?php endforeach; ?>
+            <?php endfor; ?>
             <?php else : ?>
                 <span class="tags"><?php echo $this->helper ; ?></span>
             <?php endif ; ?>

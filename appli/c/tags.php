@@ -18,8 +18,9 @@ class Tags extends \MVC\Controleur {
                 $nb = intval($tags[$i]->count);
                 $label = $tags[$i]->label;
                 $fontSize = intval($minSize + ($nb - $min) * (($maxSize - $minSize) / ($difference)));
-                $tagsByUse[$label]['nbLinks'] = $nb;
-                $tagsByUse[$label]['fontSize'] = $fontSize;
+                $tagsByUse[$i]['tag'] = $tags[$i];
+                $tagsByUse[$i]['nbLinks'] = $nb;
+                $tagsByUse[$i]['fontSize'] = $fontSize;
             }
         }else{
             self::getVue()->helper = \MVC\Language::T('You do not have any tag');
