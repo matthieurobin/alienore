@@ -12,10 +12,10 @@ class Date extends \DateTime {
         $dateConverted = $date;
         switch (\Install\App::LANGUAGE) {
             case 'fr':
-                $dateConverted = date("d/m/Y H:i:s", $date);
+                $dateConverted = date("d/m/Y H:i:s", strtotime($date));
                 break;
             default:
-                $dateConverted = date("Y-m-d H:i:s", $date);
+                $dateConverted = date("Y-m-d H:i:s", strtotime($date));
                 break;
         }
         return $dateConverted;
