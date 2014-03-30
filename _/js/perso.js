@@ -5,11 +5,11 @@
 //new link
 key('n', function() {
     $('#a-new-link').click();
-    return false
+    return false;
 });
 key('e', function() {
     $('#a-edit-tag').click();
-    return false
+    return false;
 });
 function duplicatePaging() {
     html = $('.paging:first').html();
@@ -84,7 +84,7 @@ function savedLink(id, unsavedText, saveText) {
                     $('#save-' + _res.link.linkdate).html(saveText);
                     $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
                 }
-            }else{
+            } else {
                 $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
             }
         },
@@ -94,3 +94,25 @@ function savedLink(id, unsavedText, saveText) {
     });
 }
 
+// displayTags
+/*
+$('#input-tags').bind('input', function() {
+    if ($('#input-tags').val().length >= 3) {
+        var _url = '?c=tags&a=data_searchTag&search=' + $('#input-tags').val();
+        $.ajax({
+            type: 'GET',
+            url: _url,
+            success: function(resp) {
+                var _res = JSON.parse(resp);
+                $('#datalist-tags').html("");
+                for (var _i = 0; _i < _res.length; ++_i) {
+                    $('#datalist-tags').append('<option id="' + _res[_i].id + '" value="' + _res[_i].label + '">');
+                }
+            },
+            error: function() {
+
+            }
+        });
+    }
+
+});*/

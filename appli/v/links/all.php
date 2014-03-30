@@ -143,7 +143,8 @@
                         <?php echo \MVC\Language::T('Description') ?>
                         <textarea id="input-description" type="text" name="description" class="form-control" rows="3"></textarea><br>
                         <?php echo \MVC\Language::T('Tags') ?>
-                        <input id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>
+                        <input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>
+                        <!--<datalist id="datalist-tags"></datalist>-->
                         <input id="input-linkdate" type="hidden" name="linkdate">
                         <input id="input-saved" type="hidden" name="saved">
                         <input id="input-datesaved" type="hidden" name="datesaved">

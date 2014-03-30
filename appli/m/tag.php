@@ -22,4 +22,9 @@ class Tag extends \MVC\Table {
         return $this->getInstance()->select($query) ;
     }
     
+    public function getSearchTag($search){
+        $query = 'SELECT * FROM tag WHERE label LIKE \'%'.$search.'%\'';
+        return $this->getInstance()->select($query) ;
+    }
+    
 }
