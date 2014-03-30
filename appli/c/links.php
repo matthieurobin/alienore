@@ -62,7 +62,7 @@ class Links extends \MVC\Controleur {
             $link->title = htmlspecialchars(trim(\MVC\A::get('title')));
             $link = $link->store(); //we catch the object for the id (insert case)
             //we look at the tags
-            /*$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
+            $tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
             for($i = 0; $i < sizeof($tags); ++$i){
                 $tag = \Appli\M\Tag::getInstance()->getTagByLabel($tags[$i])[0];
                 //if there is no result, we create the tag
@@ -71,7 +71,12 @@ class Links extends \MVC\Controleur {
                     $tag->label = $tags[$i];
                     $tag->store();               
                 } 
-            }*/       
+                $taglink =  \Appli\M\Taglink::getInstance()->newItem();
+                $taglink->idTag = $tag->id ;
+                $taglink->idLink = $link->id ;
+                $taglink->store() ;
+               // var_dump($taglink) ;
+            }
         }
     }
     
