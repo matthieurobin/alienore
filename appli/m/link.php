@@ -26,7 +26,7 @@ class Link extends \MVC\Table {
      * @return object
      */
     public function getLinkTags($linkId) {
-        $query = 'SELECT DISTINCT id, label FROM tag INNER JOIN taglink t WHERE t.idLink = ' . $linkId;
+        $query = 'SELECT DISTINCT id, label FROM tag, taglink t WHERE t.idTag = tag.id AND t.idLink = ' . $linkId;
         return $this->select($query);
     }
 
@@ -35,9 +35,24 @@ class Link extends \MVC\Table {
      * @param int $tagId
      * @return object
      */
-    public function getLinksByTag($tagId) {
-        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId;
+    public function getLinksByTag($tagId, $limit) {
+        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId .' LIMIT ' . $limit;
         return $this->getInstance()->select($query);
+    }
+    
+    public function countLinksByTag($tagId){
+       $query = 'SELECT COUNT(id) as count FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId;
+       return $this->getInstance()->select($query)[0]; 
+    }
+    
+    public function search($search, $limit){
+        $query = 'SELECT * FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\' LIMIT '. $limit;
+        return $this->getInstance()->select($query);
+    }
+    
+    public function countSearch($search){
+        $query = 'SELECT COUNT(id) as count FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\'';
+        return $this->getInstance()->select($query)[0];
     }
 
 }

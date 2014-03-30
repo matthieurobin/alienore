@@ -5,22 +5,24 @@ namespace Appli\C;
 class Links extends \MVC\Controleur {
     
     public static function all() {
-        $links = [];
         $tag = null;
         $search = null;
         $text = '';
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
-        $nbLinks = \Appli\M\Link::getInstance()->countAll()->count;
-        $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
         if(\MVC\A::get('tagId')){
             $tag = \Appli\M\Tag::getInstance()->get(\MVC\A::get('tagId'));
-            $links =  \Appli\M\Link::getInstance()->getLinksByTag($tag->id);
+            $nbLinks = \Appli\M\Link::getInstance()->countLinksByTag($tag->id)->count;
+            $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
+            $links =  \Appli\M\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit']);
         }else if(\MVC\A::get('search')){
-            //TODO à migrer vers SQL
-            $search = \MVC\A::get('search');
-            $links = \Appli\M\Link::getInstance()->search($search);
+            $search = htmlspecialchars(trim(\MVC\A::get('search')));
+            $nbLinks = \Appli\M\Link::getInstance()->countSearch($search)->count;
+            $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
+            $links = \Appli\M\Link::getInstance()->search($search, $pagination['limit']);
             $text = \MVC\Language::T('No results').' : "'.$search.'"';
         }else{
+            $nbLinks = \Appli\M\Link::getInstance()->countAll()->count;
+            $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
             $links = \Appli\M\Link::getInstance()->getLinksForPage($pagination['limit']);
             $text = \MVC\Language::T('You do not have links already');
         }
@@ -42,16 +44,13 @@ class Links extends \MVC\Controleur {
         \Appli\M\Link::getInstance()->get(\MVC\A::get('id'))->delete();
     }
 
-    /*public static function form() {
-        self::getVue()->link = \Appli\M\Links::getInstance()->get(\MVC\A::get('id'));
-    }*/
-    
    public static function data_form(){
         self::getVue()->link = json_encode(\Appli\M\Link::getInstance()->get(\MVC\A::get('id')));
     }
 
     public static function saved() {
-        if (\MVC\A::get('url') != '') {
+        //à migrer vers SQL
+        /*if (\MVC\A::get('url') != '') {
             if (\MVC\A::get('linkdate') != '') {
                 $linkDate = \MVC\A::get('linkdate');
             } else {
@@ -74,7 +73,7 @@ class Links extends \MVC\Controleur {
             $data[$linkDate] = $link;
             $linkObj->setFileData($data);
             $linkObj->saveData(); //save modifications
-        }
+        }*/
     }
     
     public static function research(){
