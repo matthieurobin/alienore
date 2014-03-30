@@ -37,7 +37,7 @@ class Users extends \MVC\Controleur {
 
     static function create() {
         $data = \Appli\M\User::getInstance()->countAll();
-        if (intval($data[0]->count) > 0) {
+        if (intval($data->count) > 0) {
             self::redirect('users', 'login');
         }
     }
