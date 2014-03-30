@@ -17,4 +17,9 @@ class Tag extends \MVC\Table {
        
     }
     
+    public function getTagByLabel($label){
+        $query = 'SELECT * FROM tag WHERE label = \''.$label.'\'';
+        return $this->getInstance()->select($query) ;
+    }
+    
 }

@@ -170,7 +170,7 @@
                         <div class="modal-body">
                             <?php echo \MVC\Language::T('Title') ?>
                             <input id="input-tag-title" class="form-control" type="text" name="tagName" value="<?php echo $this->tag->label ?>" required><br>
-                            <input id="input-tag-id" type="hidden" name="tag" value="<?php echo $this->tag->id ?>">
+                            <input id="input-tag-id" type="hidden" name="tagId" value="<?php echo $this->tag->id ?>">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T('Cancel') ?></button>

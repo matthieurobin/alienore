@@ -29,26 +29,21 @@ class Tags extends \MVC\Controleur {
         self::getVue()->nbTags = $nbTags;
     }
 
-    public static function delete() {
-        if (\MVC\A::get('tag') != '') {
-            $objLink = \Appli\M\Links::getInstance();
-            $data = $objLink->deleteTag(\MVC\A::get('tag'));
-            $objLink->setFileData($data);
-            $objLink->saveData($data);
-        }
-    }
-
-    public static function form() {
-        self::getVue()->tag = \MVC\A::get('tag');
-    }
-
     public static function saved() {
-        if (\MVC\A::get('tagName') != '' and \MVC\A::get('tag') != '') {
-            $newTagName = strtolower(trim(htmlspecialchars(\MVC\A::get('tagName'))));
-            $objLink = \Appli\M\Links::getInstance();
-            $data = $objLink->editTagName($newTagName, \MVC\A::get('tag'));
-            $objLink->setFileData($data);
-            $objLink->saveData($data);
+        if (\MVC\A::get('tagName') != '') {
+            if(\MVC\A::get('tagId') != ''){
+                $tag = \Appli\M\Tag::getInstance()->get(\MVC\A::get('tagId'));
+            }else{
+                $tag = \Appli\M\Tag::getInstance()->newItem();
+            }
+            $tag->label = strtolower(htmlspecialchars(trim(\MVC\A::get('tagName'))));
+            //if the tag doesn't exist
+            if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label)){
+                $tag->store();
+            }else{
+                $_SESSION['errors']['danger'][] = \MVC\Language::T('The tag always exsits');
+            }
+            
         }
     }
 
