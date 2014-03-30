@@ -50,30 +50,29 @@ class Links extends \MVC\Controleur {
 
     public static function saved() {
         //à migrer vers SQL
-        /*if (\MVC\A::get('url') != '') {
-            if (\MVC\A::get('linkdate') != '') {
-                $linkDate = \MVC\A::get('linkdate');
-            } else {
-                $linkDate = \MVC\Date::getDateNow();
+        if (\MVC\A::get('url') != '') {
+            if(\MVC\A::get('linkId')){
+                $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('linkId'));
+            }else{
+                $link = \Appli\M\Link::getInstance()->newItem();
+                $link->linkdate = \MVC\Date::getDateNow();
             }
-            $saved = \MVC\A::get('saved') == '' ? 0 : \MVC\A::get('saved');
-            $url = htmlspecialchars(trim(\MVC\A::get('url')));
-            $link = array(
-                'title' => htmlspecialchars(trim(\MVC\A::get('title'))),
-                'url' => $url,
-                'description' => htmlspecialchars(trim(\MVC\A::get('description'))),
-                'linkdate' => $linkDate,
-                'tags' => strtolower(trim(htmlspecialchars(\MVC\A::get('tags')))),
-                'saved' => $saved,
-                'datesaved' => \MVC\A::get('datesaved'),
-                'extensionfile' => \MVC\SavedLink::getInstance()->getExtension($url)
-            );
-            $linkObj = \Appli\M\Link::getInstance();
-            $data = $linkObj->getFileData();
-            $data[$linkDate] = $link;
-            $linkObj->setFileData($data);
-            $linkObj->saveData(); //save modifications
-        }*/
+            $link->url = htmlspecialchars(trim(\MVC\A::get('url')));
+            $link->description = htmlspecialchars(trim(\MVC\A::get('description')));
+            $link->title = htmlspecialchars(trim(\MVC\A::get('title')));
+            $link = $link->store(); //we catch the object for the id (insert case)
+            //we look at the tags
+            /*$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
+            for($i = 0; $i < sizeof($tags); ++$i){
+                $tag = \Appli\M\Tag::getInstance()->getTagByLabel($tags[$i])[0];
+                //if there is no result, we create the tag
+                if(!$tag){
+                    $tag = \Appli\M\Tag::getInstance()->newItem();
+                    $tag->label = $tags[$i];
+                    $tag->store();               
+                } 
+            }*/       
+        }
     }
     
     public static function research(){

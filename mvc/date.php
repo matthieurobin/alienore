@@ -5,7 +5,7 @@ namespace MVC;
 class Date extends \DateTime {
 
     public static function getDateNow() {
-        return time();
+        return date("Y-m-d H:i:s");
     }
     
     public static function displayDate($date){

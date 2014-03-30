@@ -145,7 +145,7 @@
                         <?php echo \MVC\Language::T('Tags') ?>
                         <input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>
                         <!--<datalist id="datalist-tags"></datalist>-->
-                        <input id="input-linkdate" type="hidden" name="linkdate">
+                        <input id="input-linkid" type="hidden" name="linkId">
                         <input id="input-saved" type="hidden" name="saved">
                         <input id="input-datesaved" type="hidden" name="datesaved">
                     </div>

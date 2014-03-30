@@ -53,7 +53,7 @@ function editLink(id, languageEdit) {
             $('#input-url').val(_res.url);
             $('#input-description').val(_res.description);
             $('#input-tags').val(_res.tags);
-            $('#input-linkdate').val(_res.linkdate);
+            $('#input-linkid').val(_res.id);
             $('#input-saved').val(_res.saved);
             $('#input-datesaved').val(_res.datesaved);
             $('#modal-new-link').modal('show');
