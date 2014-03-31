@@ -49,13 +49,15 @@ function editLink(id, languageEdit) {
         success: function(resp) {
             $('#modal-new-link-title').text(languageEdit);
             var _res = JSON.parse(resp);
-            $('#input-title').val(_res.title);
-            $('#input-url').val(_res.url);
-            $('#input-description').val(_res.description);
-            $('#input-tags').val(_res.tags);
-            $('#input-linkid').val(_res.id);
-            $('#input-saved').val(_res.saved);
-            $('#input-datesaved').val(_res.datesaved);
+            $('#input-title').val(_res.link.title);
+            $('#input-url').val(_res.link.url);
+            $('#input-description').val(_res.link.description);
+            $('#input-linkid').val(_res.link.id);
+            var _tags = [];
+            for(_i = 0; _i < _res.tags.length; ++_i){
+                _tags.push( _res.tags[_i].label);
+            }
+            $('#input-tags').val(_tags.join(' '));
             $('#modal-new-link').modal('show');
         },
         error: function() {

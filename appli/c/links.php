@@ -45,7 +45,10 @@ class Links extends \MVC\Controleur {
     }
 
     public static function data_form() {
-        self::getVue()->link = json_encode(\Appli\M\Link::getInstance()->get(\MVC\A::get('id')));
+        $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('id'));
+        self::getVue()->link = json_encode(
+                array('link' => $link,
+                    'tags' => \Appli\M\Link::getInstance()->getLinkTags($link->id)));
     }
 
     public static function saved() {
@@ -73,11 +76,13 @@ class Links extends \MVC\Controleur {
                         $tag->label = $tags[$i];
                         $tag->store();
                     }
-                    $taglink = \Appli\M\Taglink::getInstance()->newItem();
-                    $taglink->idTag = $tag->id;
-                    $taglink->idLink = $link->id;
-                    $taglink->store();
-                    // var_dump($taglink) ;
+                    //if taglist doesn't exist anymore
+                    if (!\Appli\M\Taglink::getInstance()->exists($link->id, $tag->id)) {
+                        $taglink = \Appli\M\Taglink::getInstance()->newItem();
+                        $taglink->idTag = $tag->id;
+                        $taglink->idLink = $link->id;
+                        $taglink->store();
+                    }
                 }
             }
         }
