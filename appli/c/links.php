@@ -63,7 +63,7 @@ class Links extends \MVC\Controleur {
             $link->idUser = \Appli\M\user::getInstance()->getByUsername($_SESSION['user'])[0]->id;
             $link = $link->store(); //we catch the object for the id (insert case)
             //we look at the tags
-            /*$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
+            $tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
             for($i = 0; $i < sizeof($tags); ++$i){
                 $tag = \Appli\M\Tag::getInstance()->getTagByLabel($tags[$i])[0];
                 //if there is no result, we create the tag
@@ -72,7 +72,14 @@ class Links extends \MVC\Controleur {
                     $tag->label = $tags[$i];
                     $tag->store();               
                 } 
-            }*/       
+                $user = \Appli\M\User::getInstance()->getByUserName($_SESSION["user"])[0];
+                $taglink =  \Appli\M\Taglink::getInstance()->newItem();
+                $taglink->idTag = $tag->id ;
+                $taglink->idLink = $link->id ;
+                $taglink->idUser = $user->id ;
+                $taglink->store() ;
+               // var_dump($taglink) ;
+            }
         }
     }
     
