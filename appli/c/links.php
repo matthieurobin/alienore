@@ -49,7 +49,7 @@ class Links extends \MVC\Controleur {
     }
 
     public static function saved() {
-        //à migrer vers SQL
+        //TODO migration des tags
         if (\MVC\A::get('url') != '') {
             if(\MVC\A::get('linkId')){
                 $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('linkId'));
@@ -60,6 +60,7 @@ class Links extends \MVC\Controleur {
             $link->url = htmlspecialchars(trim(\MVC\A::get('url')));
             $link->description = htmlspecialchars(trim(\MVC\A::get('description')));
             $link->title = htmlspecialchars(trim(\MVC\A::get('title')));
+            $link->idUser = \Appli\M\user::getInstance()->getByUsername($_SESSION['user'])[0]->id;
             $link = $link->store(); //we catch the object for the id (insert case)
             //we look at the tags
             /*$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
@@ -75,8 +76,4 @@ class Links extends \MVC\Controleur {
         }
     }
     
-    public static function research(){
-        
-    }
-
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 29 Mars 2014 à 13:03
+-- Généré le: Dim 30 Mars 2014 à 14:52
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -34,8 +34,10 @@ CREATE TABLE IF NOT EXISTS `link` (
   `title` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `idUser` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idUser` (`idUser`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -46,7 +48,8 @@ CREATE TABLE IF NOT EXISTS `link` (
 CREATE TABLE IF NOT EXISTS `tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tag_label` (`label`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
@@ -73,7 +76,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userdate` datetime NOT NULL,
   `username` varchar(20) NOT NULL,
   `hash` text NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username_unique` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
@@ -81,11 +85,17 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 --
+-- Contraintes pour la table `link`
+--
+ALTER TABLE `link`
+  ADD CONSTRAINT `link_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`);
+
+--
 -- Contraintes pour la table `taglink`
 --
 ALTER TABLE `taglink`
-  ADD CONSTRAINT `FK_TAGLINK_id_TAG` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_TAGLINK_id` FOREIGN KEY (`idLink`) REFERENCES `link` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `FK_TAGLINK_id` FOREIGN KEY (`idLink`) REFERENCES `link` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_TAGLINK_id_TAG` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

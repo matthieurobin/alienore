@@ -14,7 +14,7 @@ class Connexion {
 
     static public function get() {
         if (!isset(self::$_pdo)) {
-            new \MVC\Connexion();
+           new \MVC\Connexion();
         }
         return self::$_pdo;
     }

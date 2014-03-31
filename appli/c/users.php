@@ -24,7 +24,6 @@ class Users extends \MVC\Controleur {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = \MVC\A::get('password');
         $users = \Appli\M\User::getInstance()->getByUsername($username);
-        var_dump($users);
         if (sizeof($users) > 0 ) {
             if (\MVC\Password::validate_password($password, $users[0]->hash)) {
                 $_SESSION['user'] = $users[0]->username;

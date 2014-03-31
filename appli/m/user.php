@@ -9,10 +9,10 @@ class User extends \MVC\Table {
 
     
     public function countAll(){
-        return $this->getInstance()->select('select count(id) as count from user')[0];
+        return $this->getInstance()->select('SELECT COUNT(id) AS count FROM user')[0];
     }
     
     public function getByUsername($username){
-        return $this->getInstance()->select('select * from user where username = "'.$username.'"');
+        return $this->getInstance()->select('SELECT * FROM user WHERE username = "'.$username.'"');
     }
 }
