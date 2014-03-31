@@ -61,7 +61,7 @@ class Links extends \MVC\Controleur {
             $link->description = htmlspecialchars(trim(\MVC\A::get('description')));
             $link->title = htmlspecialchars(trim(\MVC\A::get('title')));
             $link->idUser = \Appli\M\user::getInstance()->getByUsername($_SESSION['user'])[0]->id;
-            $link = $link->store(); //we catch the object for the id (insert case)
+            $link->store();
             //we look at the tags
             $tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
