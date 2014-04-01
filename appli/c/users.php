@@ -45,28 +45,23 @@ class Users extends \MVC\Controleur {
      * permit to save an account
      */
     static function saved() {
-        $username = htmlspecialchars(\MVC\A::get('username'));
-        $password = \MVC\A::get('password');
-        $passwordRepeat = \MVC\A::get('passwordRepeat');
+        $username = htmlspecialchars(trim(\MVC\A::get('username')));
+        $password = htmlspecialchars(trim(\MVC\A::get('password')));
+        $passwordRepeat = htmlspecialchars(trim(\MVC\A::get('passwordRepeat')));
         if ($password == $passwordRepeat) {
             if ($username != '') {
-                /*$users = \Appli\M\Users::getInstance();
-                $data = $users->getFileData();
-                if (!isset($data[$username])) {
-                    $user = array(
-                        'username' => $username,
-                        'hash' => \MVC\Password::create_hash(\MVC\A::get('password')),
-                        'userdate' => \MVC\Date::getDateNow()
-                    );
-
-                    $data[$username] = $user;
-                    $users->setFileData($data);
-                    $users->saveData();
+                $user = \Appli\M\User::getInstance()->getByUsername($username);
+                if (!$user) {
+                    $user = \Appli\M\User::getInstance()->newItem();
+                    $user->username = $username;
+                    $user->hash = \MVC\Password::create_hash($password);
+                    $user->userdate = \MVC\Date::getDateNow();
+                    $user->store();
                     self::redirect('users', 'login');
                 } else {
                     $_SESSION['errors']['danger'][] = \MVC\Language::T('AccountAlreadyExists');
                     self::redirect('users', 'create');
-                }*/
+                }
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
                 self::redirect('users', 'create');
