@@ -11,15 +11,46 @@ class Tools extends \MVC\Controleur {
     public static function import() {
         if (isset($_FILES['filePath']['tmp_name'])) {
             $fileData = file_get_contents($_FILES['filePath']['tmp_name']);
-            //unset($_FILES['filePath']);
             if (\MVC\ImportExport::startsWith($fileData, '<!DOCTYPE NETSCAPE-Bookmark-file-1>')) {
-                $data = \Appli\M\Links::getInstance()->getFileData();
-                $res = \MVC\ImportExport::import($fileData, $data);
-                foreach ($res['links'] as $key => $link) {
-                    $data[$key] = $link;
+                $res = \MVC\ImportExport::import($fileData);
+                $links = $res['links'];
+                $nbLinks = sizeof($links);
+                $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+                for ($i = 0; $i < $nbLinks; ++$i) {
+                    $link = $links[$i];
+                    $url = $link['url'];
+                    if (!\Appli\M\Link::getInstance()->getLinkByUrl($url, $userId)) {
+                        //first we process the link
+                        $linkBdd = \Appli\M\Link::getInstance()->newItem();
+                        $linkBdd->linkdate = $link['linkdate'];
+                        $linkBdd->title = $link['title'];
+                        $linkBdd->url = $url;
+                        $linkBdd->description = $link['description'];
+                        $linkBdd->idUser = $userId;
+                        $linkBdd->store();
+                        //then we look at the tags
+                        $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
+                        if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
+                            for ($i = 0; $i < sizeof($tags); ++$i) {
+                                $tag = strtolower($tags[$i]);
+                                $tagBdd = \Appli\M\Tag::getInstance()->getTagByLabel($tag)[0];
+                                //if there is no result, we create the tag
+                                if (!$tagBdd) {
+                                    $tagBdd = \Appli\M\Tag::getInstance()->newItem();
+                                    $tagBdd->label = $tag;
+                                    $tagBdd->store();
+                                }
+                                //if taglist doesn't exist anymore
+                                if (!\Appli\M\Taglink::getInstance()->exists($linkBdd->id, $tagBdd->id)) {
+                                    $taglink = \Appli\M\Taglink::getInstance()->newItem();
+                                    $taglink->idTag = $tagBdd->id;
+                                    $taglink->idLink = $linkBdd->id;
+                                    $taglink->store();
+                                }
+                            }
+                        }
+                    }
                 }
-                \Appli\M\Links::getInstance()->setFileData($data);
-                \Appli\M\Links::getInstance()->saveData();
                 $_SESSION['errors']['info'][] = $res['nbLinks'] . ' ' . \MVC\Language::T('links imported');
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('The file has an unknown file format. Nothing was imported.');
@@ -28,7 +59,7 @@ class Tools extends \MVC\Controleur {
     }
 
     public static function exportHtml() {
-        $userId =\Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+        $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
         $links = \Appli\M\Link::getInstance()->getUserLinks($userId);
         $links = array_reverse($links);
         $linksToExport = [];

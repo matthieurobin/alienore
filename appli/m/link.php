@@ -55,8 +55,24 @@ class Link extends \MVC\Table {
         return $this->getInstance()->select($query)[0];
     }
     
+    /**
+     * get the links for an user
+     * @param int $userId
+     * @return type
+     */
     public function getUserLinks($userId){
         $query = 'SELECT * FROM link WHERE idUser = '. $userId;
+        return $this->getInstance()->select($query);
+    }
+    
+    /**
+     * get the link if the url exists
+     * @param string $url
+     * @param id $userId
+     * @return type
+     */
+    public function getLinkByUrl($url, $userId){
+        $query = 'SELECT * FROM link WHERE idUser = '. $userId .' AND url = \''. $url .'\''; 
         return $this->getInstance()->select($query);
     }
 

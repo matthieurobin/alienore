@@ -11,7 +11,7 @@ Abstract class ImportExport {
         $nbLinks = sizeof($links);
         for($i = 0; $i < $nbLinks; ++$i) {
             $link = $links[$i];
-            $str .= '<DT><A HREF="' . htmlspecialchars($link['link']->url) . '" ADD_DATE="' . $link['link']->linkdate . '"';
+            $str .= '<DT><A HREF="' . htmlspecialchars($link['link']->url) . '" ADD_DATE="' . strtotime($link['link']->linkdate) . '"';
             if (sizeof($link['tags'])){
                 $nbTags = sizeof($link['tags']);
                 $str .= ' TAGS="';
@@ -31,7 +31,7 @@ Abstract class ImportExport {
     }
 
     //sebsauvage funtion (base)
-    public static function import($fileData, $dbdata) {
+    public static function import($fileData) {
         $links = [];
         $importCount = 0;
         foreach (explode('<DT>', $fileData) as $html) { // explode is very fast
@@ -43,43 +43,21 @@ Abstract class ImportExport {
                 $link['title'] = (isset($matches[1]) ? trim($matches[1]) : '');  // Get title
                 $link['title'] = html_entity_decode($link['title'], ENT_QUOTES, 'UTF-8');
                 preg_match_all('! ([A-Z_]+)=\"(.*?)"!i', $html, $matches, PREG_SET_ORDER);  // Get all other attributes
-                $raw_add_date = 0;
                 foreach ($matches as $m) {
                     $attr = $m[1];
                     $value = $m[2];
                     if ($attr == 'HREF') {
                         $link['url'] = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-                        $link['extensionfile'] = \MVC\SavedLink::getExtension($link['url']);
                     } else if ($attr == 'ADD_DATE') {
-                        $link['linkdate'] = intval($value);
+                        $link['linkdate'] = date("Y-m-d H:i:s", intVal($value));
                     } else if ($attr == 'TAGS') {
                         $link['tags'] = html_entity_decode(str_replace(',', ' ', $value), ENT_QUOTES, 'UTF-8');
                     }
                 }
-                if ($link['url'] != '') {
-                    if (!self::isUrlIsInDb($dbdata, $link['url'])) {
-                        while (!empty($links[$link['linkdate']])) {
-                            $raw_add_date++;
-                        }
-                        $link['linkdate'] = $link['linkdate'] + $raw_add_date;
-                        $links[$link['linkdate']] = $link;
-                        $importCount++;
-                    }
-                }
             }
+            $links[] = $link;
         }
         return array('links' => $links, 'nbLinks' => $importCount);
-    }
-
-    public static function isUrlIsInDb($data, $url) {
-        $isInDb = false;
-        foreach ($data as $link) {
-            if ($link['url'] == $url) {
-                $isInDb = true;
-                break;
-            }
-        }
-        return $isInDb;
     }
 
     public static function startsWith($haystack, $needle, $case = true) {
