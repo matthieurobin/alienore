@@ -16,7 +16,7 @@ class Link extends \MVC\Table {
     }
 
     public function getLinksForPage($limit) {
-        $query = 'SELECT * FROM link LIMIT ' . $limit;
+        $query = 'SELECT * FROM link ORDER BY linkdate DESC LIMIT ' . $limit;
         return $this->getInstance()->select($query);
     }
 
@@ -36,7 +36,7 @@ class Link extends \MVC\Table {
      * @return object
      */
     public function getLinksByTag($tagId, $limit) {
-        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId .' LIMIT ' . $limit;
+        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId .' ORDER BY linkdate DESC LIMIT ' . $limit;
         return $this->getInstance()->select($query);
     }
     
@@ -46,7 +46,7 @@ class Link extends \MVC\Table {
     }
     
     public function search($search, $limit){
-        $query = 'SELECT * FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\' LIMIT '. $limit;
+        $query = 'SELECT * FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\' ORDER BY linkdate DESC LIMIT '. $limit;
         return $this->getInstance()->select($query);
     }
     
@@ -61,7 +61,7 @@ class Link extends \MVC\Table {
      * @return type
      */
     public function getUserLinks($userId){
-        $query = 'SELECT * FROM link WHERE idUser = '. $userId;
+        $query = 'SELECT * FROM link WHERE idUser = '. $userId .' ORDER BY linkdate DESC ';
         return $this->getInstance()->select($query);
     }
     

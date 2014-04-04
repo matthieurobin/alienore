@@ -26,7 +26,6 @@ class Links extends \MVC\Controleur {
             $links = \Appli\M\Link::getInstance()->getLinksForPage($pagination['limit']);
             $text = \MVC\Language::T('You do not have links already');
         }
-        $links = array_reverse($links);
         $linksToDisplay = [];
         //search tags of links
         for ($i = 0; $i < sizeof($links); ++$i) {

@@ -61,7 +61,6 @@ class Tools extends \MVC\Controleur {
     public static function exportHtml() {
         $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
         $links = \Appli\M\Link::getInstance()->getUserLinks($userId);
-        $links = array_reverse($links);
         $linksToExport = [];
         //search tags of links
         for ($i = 0; $i < sizeof($links); ++$i) {
