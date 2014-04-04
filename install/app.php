@@ -8,7 +8,7 @@ class App {
     CONST A = "login"; //default action
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr';
-    CONST COPYRIGHT = 'Matthieu ROBIN';
+    CONST COPYRIGHT = 'Matthieu ROBIN & Florian BERTHET';
     CONST VERSION = '0.9.0'; 
     
     //
