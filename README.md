@@ -4,10 +4,8 @@ TODOS
 Tâches par versions :
 -------------------
 
-* revoir les données envoyées aux vues , JSON ?
 * écran gestion du compte : (changement de mot de passe, ergonomie => nbliens par page; ouvrir dans un nouvel onglet, etc,...)
-* gérer les dates par javascript : moment.js
-* se détacher de bootstrap et/ou jquery ?
+* sécurisé les actions de l'utilisateur avec un token
 
 Tâches transverses :
 -------------------

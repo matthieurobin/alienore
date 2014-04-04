@@ -54,5 +54,10 @@ class Link extends \MVC\Table {
         $query = 'SELECT COUNT(id) as count FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\'';
         return $this->getInstance()->select($query)[0];
     }
+    
+    public function getUserLinks($userId){
+        $query = 'SELECT * FROM link WHERE idUser = '. $userId;
+        return $this->getInstance()->select($query);
+    }
 
 }

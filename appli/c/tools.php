@@ -28,7 +28,16 @@ class Tools extends \MVC\Controleur {
     }
 
     public static function exportHtml() {
-        self::getVue()->html = \MVC\ImportExport::exportHtml(\Appli\M\Links::getInstance()->getFileData());
+        $userId =\Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+        $links = \Appli\M\Link::getInstance()->getUserLinks($userId);
+        $links = array_reverse($links);
+        $linksToExport = [];
+        //search tags of links
+        for ($i = 0; $i < sizeof($links); ++$i) {
+            $linksToExport[$i]['link'] = $links[$i];
+            $linksToExport[$i]['tags'] = \Appli\M\Link::getInstance()->getLinkTags($links[$i]->id);
+        }
+        self::getVue()->html = \MVC\ImportExport::exportHtml($linksToExport);
     }
 
 }

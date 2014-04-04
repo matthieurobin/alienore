@@ -4,18 +4,27 @@ namespace MVC;
 
 Abstract class ImportExport {
 
-    public static function exportHtml($data) {
+    public static function exportHtml($links) {
         $str = '<!DOCTYPE NETSCAPE-Bookmark-file-1>'
                 . '<Title>Bookmarks</Title>'
                 . '<H1>Bookmarks</H1>';
-        foreach ($data as $link) {
-            $str .= '<DT><A HREF="' . htmlspecialchars($link['url']) . '" ADD_DATE="' . $link['linkdate'] . '"';
-            if ($link['tags'] != '') {
-                $str .= ' TAGS="' . htmlspecialchars(str_replace(' ', ',', $link['tags'])) . '"';
+        $nbLinks = sizeof($links);
+        for($i = 0; $i < $nbLinks; ++$i) {
+            $link = $links[$i];
+            $str .= '<DT><A HREF="' . htmlspecialchars($link['link']->url) . '" ADD_DATE="' . $link['link']->linkdate . '"';
+            if (sizeof($link['tags'])){
+                $nbTags = sizeof($link['tags']);
+                $str .= ' TAGS="';
+                for($j = 0; $j < $nbTags; ++$j){
+                    $str .= $link['tags'][$j]->label .',';
+                }
+                $str = substr($str,0,-1);
+                $str .= '"';
             }
-            $str .= '>' . htmlspecialchars($link['title']) . "</A>\n";
-            if ($link['description'] != '') {
-                $str .= '<DD>' . htmlspecialchars($link['description']) . "\n";
+            
+            $str .= '>' . htmlspecialchars($link['link']->title) . "</A>\n";
+            if ($link['link']->description != '') {
+                $str .= '<DD>' . htmlspecialchars($link['link']->description) . "\n";
             }
         }
         return $str;
