@@ -6,6 +6,7 @@ Abstract class ImportExport {
 
     public static function exportHtml($links) {
         $str = '<!DOCTYPE NETSCAPE-Bookmark-file-1>'
+                . '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">'
                 . '<Title>Bookmarks</Title>'
                 . '<H1>Bookmarks</H1>';
         $nbLinks = sizeof($links);
@@ -55,6 +56,7 @@ Abstract class ImportExport {
                     }
                 }
                 $links[] = $link;
+                ++$importCount;
             }
         }
         return array('links' => $links, 'nbLinks' => $importCount);

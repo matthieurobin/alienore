@@ -32,8 +32,8 @@ class Tools extends \MVC\Controleur {
                             //then we look at the tags
                             $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
                             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
-                                for ($i = 0; $i < sizeof($tags); ++$i) {
-                                    $tag = strtolower($tags[$i]);
+                                for ($j = 0; $j < sizeof($tags); ++$j) {
+                                    $tag = strtolower($tags[$j]);
                                     $tagBdd = \Appli\M\Tag::getInstance()->getTagByLabel($tag)[0];
                                     //if there is no result, we create the tag
                                     if (!$tagBdd) {
