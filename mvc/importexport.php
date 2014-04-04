@@ -54,8 +54,8 @@ Abstract class ImportExport {
                         $link['tags'] = html_entity_decode(str_replace(',', ' ', $value), ENT_QUOTES, 'UTF-8');
                     }
                 }
+                $links[] = $link;
             }
-            $links[] = $link;
         }
         return array('links' => $links, 'nbLinks' => $importCount);
     }
