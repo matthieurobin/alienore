@@ -36,6 +36,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo \MVC\Language::T('Account'); ?><b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="?c=account&a=help"><?php echo \MVC\Language::T('Help'); ?></a></li>
+                                <li><a href="?c=account&a=preferences"><?php echo \MVC\Language::T('Preferences'); ?></a></li>
                                 <li role="presentation" class="divider"></li>
                                 <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li> 
                             </ul>
@@ -72,13 +73,6 @@
         <script>
                                             $(document).ready(function() {
                                                 duplicatePaging();
-                                                $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                                                    $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-                                                    reset($('#form-new-link'));
-                                                });
-                                                $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
-                                                    reset($('#form-edit-tag'));
-                                                });
                                             });
         </script>
     </body>

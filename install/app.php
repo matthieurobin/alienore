@@ -9,7 +9,7 @@ class App {
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr';
     CONST COPYRIGHT = 'Matthieu ROBIN & Florian BERTHET';
-    CONST VERSION = '0.9.1'; 
+    CONST VERSION = '0.10.0'; 
     
     //
     CONST LINKS_PER_PAGE = 20;
