@@ -3,7 +3,7 @@
 namespace MVC;
 
 abstract class Language {
-    public static $lang = array(); 
+    public static $lang = array();
 
     public static function loadLanguage($language = null){
         if($language){
