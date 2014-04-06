@@ -3,13 +3,23 @@
 namespace MVC;
 
 abstract class Language {
-    private static $lang; 
+    public static $lang = array(); 
 
-    public static function loadLanguage(){
-        self::$lang = include \Install\Path::LANGUAGE . \Install\App::LANGUAGE.'.php';
+    public static function loadLanguage($language = null){
+        if($language){
+            self::$lang[(string) $language] = include \Install\Path::LANGUAGE . $language.'.php';
+        }else{
+            self::$lang[(string) \Install\App::LANGUAGE] = include \Install\Path::LANGUAGE . \Install\App::LANGUAGE.'.php';
+        }
     }
     
     public static function T($expression){
-        return self::$lang[$expression];
-    } 
+        if(isset($_SESSION['language'])){
+            if (!isset(self::$lang[$_SESSION['language']])) self::loadLanguage($_SESSION['language']);
+            return self::$lang[$_SESSION['language']][$expression];
+        }else{
+            return self::$lang[\Install\App::LANGUAGE][$expression];
+        }
+        
+    }
 }

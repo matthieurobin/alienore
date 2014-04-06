@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 30 Mars 2014 à 14:52
+-- Généré le: Dim 06 Avril 2014 à 10:06
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.16
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `link` (
   `idUser` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idUser` (`idUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=448 ;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `label` varchar(40) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tag_label` (`label`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 -- --------------------------------------------------------
 
@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `userdate` datetime NOT NULL,
   `username` varchar(20) NOT NULL,
   `hash` text NOT NULL,
+  `language` varchar(10) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_unique` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;

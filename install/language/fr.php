@@ -57,7 +57,6 @@ $language = array (
     'Username' => 'Nom d\'utilisateur',
     'You do not have any tag' => 'Vous n\'avez aucun tag',
     'You do not have links already' => 'Vous n\'avez pas encore de liens'
-    
 );
 
 return $language;

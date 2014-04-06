@@ -27,6 +27,7 @@ class Users extends \MVC\Controleur {
         if (sizeof($users) > 0 ) {
             if (\MVC\Password::validate_password($password, $users[0]->hash)) {
                 $_SESSION['user'] = $users[0]->username;
+                $_SESSION['language'] = $users[0]->language;
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
                 self::redirect('users', 'login');
