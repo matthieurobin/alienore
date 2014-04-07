@@ -59,7 +59,6 @@
                                 <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
                             </select>
                         </p><br>
-                        <button type="button" class="btn btn-default"><?php echo \MVC\Language::T('Cancel') ?></button>
                         <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
                     </form>
 
