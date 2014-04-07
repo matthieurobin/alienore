@@ -1,18 +1,13 @@
-TODOS
-=====
-
-Tâches par versions :
--------------------
-
-* écran gestion du compte : (changement de mot de passe, ergonomie => nbliens par page; ouvrir dans un nouvel onglet, etc,...)
-* sécurisé les actions de l'utilisateur avec un token
-
-Tâches transverses :
--------------------
-
-
 Changelog :
 ==========
+
+Version 0.9.1:
+-------------
+- utilisateur peut choisir sa langue (base de données)
+
+Version 0.9.0:
+-------------
+- Migration des données fichiers vers MySQL
 
 Version 0.8.3:
 --------------
