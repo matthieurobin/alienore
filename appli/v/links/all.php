@@ -92,11 +92,11 @@
                         <li id="link-<?php echo $link['link']->id ?>">
                             <div class="link">
                                 <h3 id="title-<?php echo $link['link']->id ?>">
-                                    <a href="<?php echo $link['link']->url ?>"><?php echo $link['link']->title ?></a>
+                                    <a href="<?php echo $link['link']->url ?>" target="_blank"><?php echo $link['link']->title ?></a>
                                 </h3>
                                 <p class="link-description-second">
                                     <small><?php echo \MVC\Date::displayDate($link['link']->linkdate) ?></small> - 
-                                    <a href="<?php echo $link['link']->url ?>"><?php echo $link['link']->url ?></a>
+                                    <a href="<?php echo $link['link']->url ?>" target="_blank"><?php echo $link['link']->url ?></a>
                                 </p>
                                 <p class="link-description"><?php echo $link['link']->description ?></p>
                                 <div class="tags">
@@ -141,7 +141,7 @@
                             <?php echo \MVC\Language::T('Title') ?>
                             <input id="input-title" class="form-control" type="text" name="title"><br>
                             <?php echo \MVC\Language::T('Url') ?>
-                            <input id="input-url" class="form-control" type="text" name="url"><br>
+                            <input id="input-url" class="form-control" type="url" name="url"><br>
                             <?php echo \MVC\Language::T('Description') ?>
                             <textarea id="input-description" type="text" name="description" class="form-control" rows="3"></textarea><br>
                             <?php echo \MVC\Language::T('Tags') ?>
