@@ -52,16 +52,16 @@ $language = array (
     'Title' => 'Title',
     'Tools' => 'Tools',
     'The content at: "%" was saved' => 'The content at: "%" was saved',
-    'The file has an unknown file format. Nothing was imported.' => 'The file has an unknown file format. Nothing was imported.' ,
+    'The file has an unknown file format. Nothing was imported.' => 'Unknown file format. Nothing was imported.' ,
     'The file was remove from the disk' => 'The file was remove from the disk',
-    'The passwords are differents' => 'The passwords are differents.',
+    'The passwords are differents' => 'Password doesn\'t match the confirmation.',
     'The tag always exsits' => 'The tag always exsits',
     'The url is not valid' => 'The url is not valid',
     'Unsaved' => 'Unsaved',
     'Url' => 'Url',
     'Username' => 'Username',
-    'You do not have any tag' => 'You do not have any tag',
-    'You do not have links already' => 'You do not have links already'
+    'You do not have any tag' => 'You don\t have any tag',
+    'You do not have links already' => 'You don\'t have any links'
     
 );
 
