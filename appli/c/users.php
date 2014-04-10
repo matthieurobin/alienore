@@ -57,6 +57,7 @@ class Users extends \MVC\Controleur {
                     $user->username = $username;
                     $user->hash = \MVC\Password::create_hash($password);
                     $user->userdate = \MVC\Date::getDateNow();
+                    $user->language = \Install\App::LANGUAGE;
                     $user->store();
                     self::redirect('users', 'login');
                 } else {
