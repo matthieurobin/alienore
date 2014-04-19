@@ -145,9 +145,13 @@
                             <input id="input-url" class="form-control" type="text" name="url"><br>
                             <?php echo \MVC\Language::T('Description') ?>
                             <textarea id="input-description" type="text" name="description" class="form-control" rows="3"></textarea><br>
-                            <?php echo \MVC\Language::T('Tags') ?>
-                            <input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>
-                            <!--<datalist id="datalist-tags"></datalist>-->
+                            <div id="tagsBox">
+                                <?php echo \MVC\Language::T('Tags') ?> <br>
+                                <span class="legend"><?php echo \MVC\Language::T('Infotags') ?></span>
+                                <div data-tags-input-name="tag" id="tagBox"></div>
+                                <!--<input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>-->
+                                <!--<datalist id="datalist-tags"></datalist>-->
+                            </div>
                             <input id="input-linkid" type="hidden" name="linkId">
                             <input id="input-saved" type="hidden" name="saved">
                             <input id="input-datesaved" type="hidden" name="datesaved">
@@ -195,18 +199,23 @@
         <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>tagging.min.js"></script>
+        <script>
+                                            var tagOptions = {
+                                                "no-duplicate": false
+                                            };
+                                            $("#tagBox").tagging(tagOptions);
+        </script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
-                                    $(document).ready(function() {
-                                        duplicatePaging();
-                                        $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                                            $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-                                            reset($('#form-new-link'));
-                                        });
-                                        $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
-                                            reset($('#form-edit-tag'));
-                                        });
-                                    });
+                                            $(document).ready(function() {
+                                                duplicatePaging();
+                                                $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                                                    $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
+                                                    reset();
+                                                    resetTagBox();
+                                                });
+                                            });
         </script>
     </body>
 </html>
