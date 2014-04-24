@@ -39,6 +39,9 @@ function reset(form) {
             case 'checkbox':
             case 'radio':
                 this.checked = false;
+            case 'url' :
+                $(this).val('');
+                break;
         }
     });
 }
