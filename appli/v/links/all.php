@@ -77,13 +77,12 @@
             <div class="paging">
                 <?php if ($this->pagination['links']): ?>
                     <?php if ($this->pagination['page'] != 1): ?>
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] - 1 ?>"><?php echo \MVC\Language::T('PreviousPage') ?></a>
+                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] - 1 ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php echo \MVC\Language::T('PreviousPage') ?></a>
                     <?php endif; ?>
                     <span><?php echo $this->pagination['page'] ?>/<?php echo $this->pagination['nbPages'] ?></span>
                     <?php if ($this->pagination['page'] != $this->pagination['nbPages']): ?>
-                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] + 1 ?>"><?php echo \MVC\Language::T('NextPage') ?></a> 
-                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] + 1 ?>"><?php echo \MVC\Language::T('NextPage') ?> <span class="glyphicon glyphicon-arrow-right"></span>
+                        </a> 
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
