@@ -15,11 +15,13 @@ class Links extends \MVC\Controleur {
             $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
             $links = \Appli\M\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit']);
         } else if (\MVC\A::get('search')) {
-            $search = htmlspecialchars(trim(\MVC\A::get('search')));
-            $nbLinks = \Appli\M\Link::getInstance()->countSearch($search)->count;
-            $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
-            $links = \Appli\M\Link::getInstance()->search($search, $pagination['limit']);
-            $text = \MVC\Language::T('No results') . ' : "' . $search . '"';
+            $search = htmlentities(trim(\MVC\A::get('search')));
+            if(strlen($search) > 2){
+                $nbLinks = \Appli\M\Link::getInstance()->countSearch($search)->count;
+                $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
+                $links = \Appli\M\Link::getInstance()->search($search, $pagination['limit']);
+                $text = \MVC\Language::T('No results') . ' : "' . $search . '"';
+            }
         } else {
             $nbLinks = \Appli\M\Link::getInstance()->countAll()->count;
             $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
@@ -59,13 +61,13 @@ class Links extends \MVC\Controleur {
                 $link = \Appli\M\Link::getInstance()->newItem();
                 $link->linkdate = \MVC\Date::getDateNow();
             }
-            $link->url = htmlspecialchars(trim(\MVC\A::get('url')));
-            $link->description = htmlspecialchars(trim(\MVC\A::get('description')));
-            $link->title = htmlspecialchars(trim(\MVC\A::get('title')));
+            $link->url = htmlentities(trim(\MVC\A::get('url')));
+            $link->description = htmlentities(trim(\MVC\A::get('description')));
+            $link->title = htmlentities(trim(\MVC\A::get('title')));
             $link->idUser = \Appli\M\user::getInstance()->getByUsername($_SESSION['user'])[0]->id;
             $link->store();
             //we look at the tags
-            //$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
+            //$tags = explode(' ', htmlentities(trim(\MVC\A::get('tags'))));
             $tags = \MVC\A::get('tag');
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {

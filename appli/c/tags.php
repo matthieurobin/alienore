@@ -37,7 +37,7 @@ class Tags extends \MVC\Controleur {
             }else{
                 $tag = \Appli\M\Tag::getInstance()->newItem();
             }
-            $tag->label = strtolower(htmlspecialchars(trim(\MVC\A::get('tagName'))));
+            $tag->label = strtolower(htmlentities(trim(\MVC\A::get('tagName'))));
             //if the tag doesn't exist
             if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label)){
                 $tag->store();

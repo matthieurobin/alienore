@@ -30,7 +30,7 @@ class Tools extends \MVC\Controleur {
                             $linkBdd->idUser = $userId;
                             $linkBdd->store();
                             //then we look at the tags
-                            $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
+                            $tags = explode(' ', htmlentities(trim($link['tags'])));
                             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                                 for ($j = 0; $j < sizeof($tags); ++$j) {
                                     $tag = strtolower($tags[$j]);

@@ -46,9 +46,9 @@ class Users extends \MVC\Controleur {
      * permit to save an account
      */
     static function saved() {
-        $username = htmlspecialchars(trim(\MVC\A::get('username')));
-        $password = htmlspecialchars(trim(\MVC\A::get('password')));
-        $passwordRepeat = htmlspecialchars(trim(\MVC\A::get('passwordRepeat')));
+        $username = htmlentities(trim(\MVC\A::get('username')));
+        $password = htmlentities(trim(\MVC\A::get('password')));
+        $passwordRepeat = htmlentities(trim(\MVC\A::get('passwordRepeat')));
         if ($password == $passwordRepeat) {
             if ($username != '') {
                 $user = \Appli\M\User::getInstance()->getByUsername($username);
