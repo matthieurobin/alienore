@@ -26,7 +26,7 @@ class Tags extends \MVC\Controleur {
             self::getVue()->helper = \MVC\Language::T('You do not have any tag');
         }
         shuffle($tagsByUse);
-        self::getVue()->tags = self::shuffle_assoc($tagsByUse);
+        self::getVue()->tags = $tagsByUse;
         self::getVue()->nbTags = $nbTags;
     }
 

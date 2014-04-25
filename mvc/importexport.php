@@ -39,20 +39,20 @@ Abstract class ImportExport {
             $link = array('linkdate' => '', 'title' => '', 'url' => '', 'description' => '', 'tags' => '', 'saved' => 0, 'datesaved' => null, 'extensionfile' => '');
             $d = explode('<DD>', $html);
             if (self::startsWith($d[0], '<A ')) {
-                $link['description'] = (isset($d[1]) ? htmlentities(html_entity_decode(trim($d[1]), ENT_QUOTES, 'UTF-8')) : '');  // Get description (optional)
+                $link['description'] = (isset($d[1]) ? htmlspecialchars(html_entity_decode(trim($d[1]), ENT_QUOTES, 'UTF-8')) : '');  // Get description (optional)
                 preg_match('!<A .*?>(.*?)</A>!i', $d[0], $matches);
-                $link['title'] = (isset($matches[1]) ? htmlentities(trim($matches[1])) : '');  // Get title
-                $link['title'] = htmlentities(html_entity_decode($link['title'], ENT_QUOTES, 'UTF-8'));
+                $link['title'] = (isset($matches[1]) ? htmlspecialchars(trim($matches[1])) : '');  // Get title
+                $link['title'] = htmlspecialchars(html_entity_decode($link['title'], ENT_QUOTES, 'UTF-8'));
                 preg_match_all('! ([A-Z_]+)=\"(.*?)"!i', $html, $matches, PREG_SET_ORDER);  // Get all other attributes
                 foreach ($matches as $m) {
                     $attr = $m[1];
                     $value = $m[2];
                     if ($attr == 'HREF') {
-                        $link['url'] = htmlentities(html_entity_decode($value, ENT_QUOTES, 'UTF-8'));
+                        $link['url'] = htmlspecialchars(html_entity_decode($value, ENT_QUOTES, 'UTF-8'));
                     } else if ($attr == 'ADD_DATE') {
-                        $link['linkdate'] = htmlentities(date("Y-m-d H:i:s", intVal($value)));
+                        $link['linkdate'] = htmlspecialchars(date("Y-m-d H:i:s", intVal($value)));
                     } else if ($attr == 'TAGS') {
-                        $link['tags'] = htmlentities(html_entity_decode(str_replace(',', ' ', $value), ENT_QUOTES, 'UTF-8'));
+                        $link['tags'] = html_entity_decode(str_replace(',', ' ', htmlspecialchars($value)), ENT_QUOTES, 'UTF-8');
                     }
                 }
                 $links[] = $link;
