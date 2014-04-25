@@ -12,7 +12,7 @@ Abstract class ImportExport {
         $nbLinks = sizeof($links);
         for($i = 0; $i < $nbLinks; ++$i) {
             $link = $links[$i];
-            $str .= '<DT><A HREF="' . htmlspecialchars($link['link']->url) . '" ADD_DATE="' . strtotime($link['link']->linkdate) . '"';
+            $str .= '<DT><A HREF="' . html_entity_decode($link['link']->url) . '" ADD_DATE="' . strtotime($link['link']->linkdate) . '"';
             if (sizeof($link['tags'])){
                 $nbTags = sizeof($link['tags']);
                 $str .= ' TAGS="';
@@ -23,9 +23,9 @@ Abstract class ImportExport {
                 $str .= '"';
             }
             
-            $str .= '>' . htmlspecialchars($link['link']->title) . "</A>\n";
+            $str .= '>' . html_entity_decode($link['link']->title) . "</A>\n";
             if ($link['link']->description != '') {
-                $str .= '<DD>' . htmlspecialchars($link['link']->description) . "\n";
+                $str .= '<DD>' . html_entity_decode($link['link']->description) . "\n";
             }
         }
         return $str;
