@@ -16,7 +16,7 @@ class Tools extends \MVC\Controleur {
                 $links = $res['links'];
                 $nbLinks = sizeof($links);
                 if ($nbLinks > 0) {
-                    $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+                    $userId = $_SESSION['idUser'];
                     for ($i = 0; $i < $nbLinks; ++$i) {
                         $link = $links[$i];
                         $url = $link['url'];
@@ -62,7 +62,7 @@ class Tools extends \MVC\Controleur {
     }
 
     public static function exportHtml() {
-        $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+        $userId = $_SESSION['idUser'];
         $links = \Appli\M\Link::getInstance()->getUserLinks($userId);
         $linksToExport = [];
         //search tags of links

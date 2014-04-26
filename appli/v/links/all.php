@@ -149,7 +149,7 @@
                                 <span class="legend"><?php echo \MVC\Language::T('Infotags') ?></span>
                                 <div data-tags-input-name="tag" id="tagBox"></div>
                                 <!--<input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>-->
-                                <!--<datalist id="datalist-tags"></datalist>-->
+                                <datalist id="datalist-tags"></datalist>
                             </div>
                             <input id="input-linkid" type="hidden" name="linkId">
                             <input id="input-saved" type="hidden" name="saved">

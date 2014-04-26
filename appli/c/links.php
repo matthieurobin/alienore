@@ -61,13 +61,13 @@ class Links extends \MVC\Controleur {
                 $link = \Appli\M\Link::getInstance()->newItem();
                 $link->linkdate = \MVC\Date::getDateNow();
             }
-            $link->url = htmlentities(trim(\MVC\A::get('url')));
-            $link->description = htmlentities(trim(\MVC\A::get('description')));
-            $link->title = htmlentities(trim(\MVC\A::get('title')));
-            $link->idUser = \Appli\M\user::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+            $link->url = htmlspecialchars(trim(\MVC\A::get('url')));
+            $link->description = htmlspecialchars(trim(\MVC\A::get('description')));
+            $link->title = htmlspecialchars(trim(\MVC\A::get('title')));
+            $link->idUser = $_SESSION['idUser'];
             $link->store();
             //we look at the tags
-            //$tags = explode(' ', htmlentities(trim(\MVC\A::get('tags'))));
+            //$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
             $tags = \MVC\A::get('tag');
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {

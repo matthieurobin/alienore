@@ -113,15 +113,16 @@ function savedLink(id, unsavedText, saveText) {
 
 // displayTags
 /*$(':input[class=type-zone]').eq(0).bind('input', function() {
-    console.log(1);
+    //console.log(1);  
     $(':input[class=type-zone]').eq(0).attr('list','datalist-tags');
-    if ($(':input[class=type-zone]').eq(0).val().length >= 3) {
+    if ($(':input[class=type-zone]').eq(0).val().length >= 3) { 
         var _url = '?c=tags&a=data_searchTag&search=' + $('#tagBox .type-zone').val();
         $.ajax({
             type: 'GET',
             url: _url,
             success: function(resp) {
                 var _res = JSON.parse(resp);
+                console.log(_res);
                 $('#datalist-tags').html("");
                 for (var _i = 0; _i < _res.length; ++_i) {
                     $('#datalist-tags').append('<option id="' + _res[_i].id + '" value="' + _res[_i].label + '">');
