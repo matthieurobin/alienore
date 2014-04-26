@@ -5,7 +5,7 @@ namespace Appli\C;
 class Tags extends \MVC\Controleur {
 
     public static function all() {
-        $tags = \Appli\M\Tag::getInstance()->getAllTagsByUtilisation();
+        $tags = \Appli\M\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser']);
         $nbTags = sizeof($tags);
         $tagsByUse = [];
         if ($nbTags > 0) {
@@ -39,7 +39,7 @@ class Tags extends \MVC\Controleur {
             }
             $tag->label = strtolower(htmlentities(trim(\MVC\A::get('tagName'))));
             //if the tag doesn't exist
-            if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label)){
+            if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label, $_SESSION['idUser'])){
                 $tag->store();
             }else{
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('The tag always exsits');

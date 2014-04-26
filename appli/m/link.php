@@ -11,12 +11,13 @@ class Link extends \MVC\Table {
      * count the number of links
      */
 
-    public function countAll() {
-        return $this->getInstance()->select('select count(id) as count from link')[0];
+    public function countAll($idUser) {
+        $query = 'SELECT COUNT(id) AS count FROM link WHERE idUser= ' . $idUser;
+        return $this->getInstance()->select($query)[0];
     }
 
-    public function getLinksForPage($limit) {
-        $query = 'SELECT * FROM link ORDER BY linkdate DESC LIMIT ' . $limit;
+    public function getLinksForPage($limit, $idUser) {
+        $query = 'SELECT * FROM link WHERE idUser=' . $idUser . ' ORDER BY linkdate DESC LIMIT ' . $limit;
         return $this->getInstance()->select($query);
     }
 
@@ -25,8 +26,8 @@ class Link extends \MVC\Table {
      * @param int $linkId
      * @return object
      */
-    public function getLinkTags($linkId) {
-        $query = 'SELECT DISTINCT id, label FROM tag, taglink t WHERE t.idTag = tag.id AND t.idLink = ' . $linkId;
+    public function getLinkTags($linkId,$idUser) {
+        $query = 'SELECT DISTINCT tag.id, label FROM tag, taglink t,link WHERE t.idTag = tag.id AND link.id=t.idLink AND t.idLink = ' . $linkId . ' AND idUser= ' . $idUser;
         return $this->select($query);
     }
 
@@ -35,23 +36,23 @@ class Link extends \MVC\Table {
      * @param int $tagId
      * @return object
      */
-    public function getLinksByTag($tagId, $limit) {
-        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId .' ORDER BY linkdate DESC LIMIT ' . $limit;
+    public function getLinksByTag($tagId, $limit, $idUser) {
+        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId . ' AND link.idUser = ' . $idUser . ' ORDER BY linkdate DESC LIMIT ' . $limit;
         return $this->getInstance()->select($query);
     }
     
-    public function countLinksByTag($tagId){
-       $query = 'SELECT COUNT(id) as count FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId;
-       return $this->getInstance()->select($query)[0]; 
+    public function countLinksByTag($tagId, $idUser){
+       $query = 'SELECT COUNT(id) as count FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId . ' AND link.idUser =' . $idUser;
+        return $this->getInstance()->select($query)[0];
     }
     
-    public function search($search, $limit){
-        $query = 'SELECT * FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\' ORDER BY linkdate DESC LIMIT '. $limit;
+    public function search($search, $limit, $idUser){
+        $query = 'SELECT * FROM link WHERE idUser = ' . $idUser . ' AND title like \'%' . $search . '%\' OR description like \'%' . $search . '%\' AND idUser =' . $idUser . ' ORDER BY linkdate DESC LIMIT ' . $limit;
         return $this->getInstance()->select($query);
     }
     
-    public function countSearch($search){
-        $query = 'SELECT COUNT(id) as count FROM link WHERE title like \'%'.$search.'%\' OR description like \'%'.$search.'%\'';
+    public function countSearch($search, $idUser){
+        $query = 'SELECT COUNT(id) as count FROM link WHERE idUser = ' . $idUser . ' AND title like \'%' . $search . '%\' OR description like \'%' . $search . '%\'AND idUser =' . $idUser . '  ';
         return $this->getInstance()->select($query)[0];
     }
     
