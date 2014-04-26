@@ -1,8 +1,16 @@
 Changelog :
 ==========
 
+Version 0.10.0:
+--------------
+- Mise en place token utilisateur (suppression de liens) 
+- L'utilisateur ne voit plus que ce qui lui appartient 
+- Pouvoir cliquer sur la flèche (icône) page précédente/page suivante 
+- Amélioration de la sécurité pour l'import
+- Mise en place de l'utilitaire dbv : https://github.com/victorstanciu/dbv pour le contrôle de versions de la base de données
+
 Version 0.9.1:
--------------
+--------------
 - utilisateur peut choisir sa langue (base de données)
 
 Version 0.9.0:
