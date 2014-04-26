@@ -8,6 +8,7 @@ Version 0.10.0:
 - Pouvoir cliquer sur la flèche (icône) page précédente/page suivante 
 - Amélioration de la sécurité pour l'import
 - Mise en place de l'utilitaire dbv : https://github.com/victorstanciu/dbv pour le contrôle de versions de la base de données
+- Mise en place du plugin tagging : https://github.com/sniperwolf/taggingJS
 
 Version 0.9.1:
 --------------
