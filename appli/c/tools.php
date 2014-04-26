@@ -68,7 +68,7 @@ class Tools extends \MVC\Controleur {
         //search tags of links
         for ($i = 0; $i < sizeof($links); ++$i) {
             $linksToExport[$i]['link'] = $links[$i];
-            $linksToExport[$i]['tags'] = \Appli\M\Link::getInstance()->getLinkTags($links[$i]->id);
+            $linksToExport[$i]['tags'] = \Appli\M\Link::getInstance()->getLinkTags($links[$i]->id,$userId);
         }
         self::getVue()->html = \MVC\ImportExport::exportHtml($linksToExport);
     }
