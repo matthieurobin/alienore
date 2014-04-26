@@ -77,13 +77,12 @@
             <div class="paging">
                 <?php if ($this->pagination['links']): ?>
                     <?php if ($this->pagination['page'] != 1): ?>
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] - 1 ?>"><?php echo \MVC\Language::T('PreviousPage') ?></a>
+                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] - 1 ?>"><span class="glyphicon glyphicon-arrow-left"></span> <?php echo \MVC\Language::T('PreviousPage') ?></a>
                     <?php endif; ?>
                     <span><?php echo $this->pagination['page'] ?>/<?php echo $this->pagination['nbPages'] ?></span>
                     <?php if ($this->pagination['page'] != $this->pagination['nbPages']): ?>
-                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] + 1 ?>"><?php echo \MVC\Language::T('NextPage') ?></a> 
-                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        <a href="?c=links&a=all&page=<?php echo $this->pagination['page'] + 1 ?>"><?php echo \MVC\Language::T('NextPage') ?> <span class="glyphicon glyphicon-arrow-right"></span>
+                        </a> 
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
@@ -114,7 +113,7 @@
                                         <button type="button" class="btn btn-warning" onclick="editLink(<?php echo strval($link['link']->id) ?>, '<?php echo \MVC\Language::T('EditLink') ?>')">
                                             <?php echo \MVC\Language::T('Edit') ?> <span class="glyphicon glyphicon-pencil"></span>
                                         </button>
-                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&id=<?php echo $link['link']->id ?>&filename=<?php echo $link['link']->title ?>'">
+                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&t=<?php echo $_SESSION['token'] ?>&id=<?php echo $link['link']->id ?>&filename=<?php echo $link['link']->title ?>'">
                                             <?php echo \MVC\Language::T('Delete') ?> <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </div>
@@ -145,9 +144,13 @@
                             <input id="input-url" class="form-control" type="url" name="url"><br>
                             <?php echo \MVC\Language::T('Description') ?>
                             <textarea id="input-description" type="text" name="description" class="form-control" rows="3"></textarea><br>
-                            <?php echo \MVC\Language::T('Tags') ?>
-                            <input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>
-                            <!--<datalist id="datalist-tags"></datalist>-->
+                            <div id="tagsBox">
+                                <?php echo \MVC\Language::T('Tags') ?> <br>
+                                <span class="legend"><?php echo \MVC\Language::T('Infotags') ?></span>
+                                <div data-tags-input-name="tag" id="tagBox"></div>
+                                <!--<input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>-->
+                                <datalist id="datalist-tags"></datalist>
+                            </div>
                             <input id="input-linkid" type="hidden" name="linkId">
                             <input id="input-saved" type="hidden" name="saved">
                             <input id="input-datesaved" type="hidden" name="datesaved">
@@ -195,18 +198,23 @@
         <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
+        <script src="<?php echo \Install\Path::JS; ?>tagging.min.js"></script>
+        <script>
+                                            var tagOptions = {
+                                                "no-duplicate": false
+                                            };
+                                            $("#tagBox").tagging(tagOptions);
+        </script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
-                                    $(document).ready(function() {
-                                        duplicatePaging();
-                                        $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                                            $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-                                            reset($('#form-new-link'));
-                                        });
-                                        $('#modal-edit-tag').on('hidden.bs.modal', function(e) {
-                                            reset($('#form-edit-tag'));
-                                        });
-                                    });
+                                            $(document).ready(function() {
+                                                duplicatePaging();
+                                                $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                                                    $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
+                                                    reset();
+                                                    resetTagBox();
+                                                });
+                                            });
         </script>
     </body>
 </html>

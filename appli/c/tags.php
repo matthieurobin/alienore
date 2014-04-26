@@ -5,7 +5,7 @@ namespace Appli\C;
 class Tags extends \MVC\Controleur {
 
     public static function all() {
-        $tags = \Appli\M\Tag::getInstance()->getAllTagsByUtilisation();
+        $tags = \Appli\M\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser']);
         $nbTags = sizeof($tags);
         $tagsByUse = [];
         if ($nbTags > 0) {
@@ -25,7 +25,8 @@ class Tags extends \MVC\Controleur {
         }else{
             self::getVue()->helper = \MVC\Language::T('You do not have any tag');
         }
-        self::getVue()->tags = self::shuffle_assoc($tagsByUse);
+        shuffle($tagsByUse);
+        self::getVue()->tags = $tagsByUse;
         self::getVue()->nbTags = $nbTags;
     }
 
@@ -36,9 +37,9 @@ class Tags extends \MVC\Controleur {
             }else{
                 $tag = \Appli\M\Tag::getInstance()->newItem();
             }
-            $tag->label = strtolower(htmlspecialchars(trim(\MVC\A::get('tagName'))));
+            $tag->label = strtolower(htmlentities(trim(\MVC\A::get('tagName'))));
             //if the tag doesn't exist
-            if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label)){
+            if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label, $_SESSION['idUser'])){
                 $tag->store();
             }else{
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('The tag always exsits');

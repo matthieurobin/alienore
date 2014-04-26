@@ -50,18 +50,8 @@
         <div class="paging"></div>
         <div id="account">
             <div class="container">
-                <div>
-                    <h2 class="page-header"><?php echo \MVC\Language::T('Preferences') ?></h2>
-                    <form action="?c=account&a=savedPreferences" method="post">
-                        <p><?php echo \MVC\Language::T('Change the language'); ?> :
-                            <select name="language">
-                                <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
-                                <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
-                            </select>
-                        </p><br>
-                        <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
-                    </form>
-
+                <div style="text-align:center">
+                    <h4><?php echo $this->info ?></h4>
                 </div>
             </div>
         </div>
@@ -75,9 +65,9 @@
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
-            $(document).ready(function() {
-                duplicatePaging();
-            });
+                                            $(document).ready(function() {
+                                                duplicatePaging();
+                                            });
         </script>
     </body>
 </html>

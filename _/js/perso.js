@@ -1,3 +1,8 @@
+var tagOptions = {
+    "no-duplicate": false
+};
+
+
 /**
  * 
  * Shortcuts
@@ -34,6 +39,9 @@ function reset(form) {
             case 'checkbox':
             case 'radio':
                 this.checked = false;
+            case 'url' :
+                $(this).val('');
+                break;
         }
     });
 }
@@ -54,16 +62,23 @@ function editLink(id, languageEdit) {
             $('#input-description').val(_res.link.description);
             $('#input-linkid').val(_res.link.id);
             var _tags = [];
-            for(_i = 0; _i < _res.tags.length; ++_i){
-                _tags.push( _res.tags[_i].label);
+            for (_i = 0; _i < _res.tags.length; ++_i) {
+                _tags.push(_res.tags[_i].label);
+                //$('#tagBox').append('<div class="tag">' + _res.tags[_i].label + '</div>');
             }
-            $('#input-tags').val(_tags.join(' '));
+            $('#tagBox').html(_tags.join(', '));
+            $('#tagBox').tagging(tagOptions);
             $('#modal-new-link').modal('show');
         },
         error: function() {
 
         }
     });
+}
+
+function resetTagBox() {
+    $('#tagBox').html('');
+    $('#tagBox').tagging(tagOptions);
 }
 
 function savedLink(id, unsavedText, saveText) {
@@ -97,15 +112,17 @@ function savedLink(id, unsavedText, saveText) {
 }
 
 // displayTags
-/*
-$('#input-tags').bind('input', function() {
-    if ($('#input-tags').val().length >= 3) {
-        var _url = '?c=tags&a=data_searchTag&search=' + $('#input-tags').val();
+/*$(':input[class=type-zone]').eq(0).bind('input', function() {
+    //console.log(1);  
+    $(':input[class=type-zone]').eq(0).attr('list','datalist-tags');
+    if ($(':input[class=type-zone]').eq(0).val().length >= 3) { 
+        var _url = '?c=tags&a=data_searchTag&search=' + $('#tagBox .type-zone').val();
         $.ajax({
             type: 'GET',
             url: _url,
             success: function(resp) {
                 var _res = JSON.parse(resp);
+                console.log(_res);
                 $('#datalist-tags').html("");
                 for (var _i = 0; _i < _res.length; ++_i) {
                     $('#datalist-tags').append('<option id="' + _res[_i].id + '" value="' + _res[_i].label + '">');

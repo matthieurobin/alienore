@@ -16,7 +16,7 @@ class Tools extends \MVC\Controleur {
                 $links = $res['links'];
                 $nbLinks = sizeof($links);
                 if ($nbLinks > 0) {
-                    $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+                    $userId = $_SESSION['idUser'];
                     for ($i = 0; $i < $nbLinks; ++$i) {
                         $link = $links[$i];
                         $url = $link['url'];
@@ -30,7 +30,7 @@ class Tools extends \MVC\Controleur {
                             $linkBdd->idUser = $userId;
                             $linkBdd->store();
                             //then we look at the tags
-                            $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
+                            $tags = explode(' ', htmlentities(trim($link['tags'])));
                             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                                 for ($j = 0; $j < sizeof($tags); ++$j) {
                                     $tag = strtolower($tags[$j]);
@@ -62,7 +62,7 @@ class Tools extends \MVC\Controleur {
     }
 
     public static function exportHtml() {
-        $userId = \Appli\M\User::getInstance()->getByUsername($_SESSION['user'])[0]->id;
+        $userId = $_SESSION['idUser'];
         $links = \Appli\M\Link::getInstance()->getUserLinks($userId);
         $linksToExport = [];
         //search tags of links

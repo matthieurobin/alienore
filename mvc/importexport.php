@@ -12,7 +12,7 @@ Abstract class ImportExport {
         $nbLinks = sizeof($links);
         for($i = 0; $i < $nbLinks; ++$i) {
             $link = $links[$i];
-            $str .= '<DT><A HREF="' . htmlspecialchars($link['link']->url) . '" ADD_DATE="' . strtotime($link['link']->linkdate) . '"';
+            $str .= '<DT><A HREF="' . html_entity_decode($link['link']->url) . '" ADD_DATE="' . strtotime($link['link']->linkdate) . '"';
             if (sizeof($link['tags'])){
                 $nbTags = sizeof($link['tags']);
                 $str .= ' TAGS="';
@@ -23,9 +23,9 @@ Abstract class ImportExport {
                 $str .= '"';
             }
             
-            $str .= '>' . htmlspecialchars($link['link']->title) . "</A>\n";
+            $str .= '>' . html_entity_decode($link['link']->title) . "</A>\n";
             if ($link['link']->description != '') {
-                $str .= '<DD>' . htmlspecialchars($link['link']->description) . "\n";
+                $str .= '<DD>' . html_entity_decode($link['link']->description) . "\n";
             }
         }
         return $str;
@@ -39,20 +39,20 @@ Abstract class ImportExport {
             $link = array('linkdate' => '', 'title' => '', 'url' => '', 'description' => '', 'tags' => '', 'saved' => 0, 'datesaved' => null, 'extensionfile' => '');
             $d = explode('<DD>', $html);
             if (self::startsWith($d[0], '<A ')) {
-                $link['description'] = (isset($d[1]) ? html_entity_decode(trim($d[1]), ENT_QUOTES, 'UTF-8') : '');  // Get description (optional)
+                $link['description'] = (isset($d[1]) ? htmlspecialchars(html_entity_decode(trim($d[1]), ENT_QUOTES, 'UTF-8')) : '');  // Get description (optional)
                 preg_match('!<A .*?>(.*?)</A>!i', $d[0], $matches);
-                $link['title'] = (isset($matches[1]) ? trim($matches[1]) : '');  // Get title
-                $link['title'] = html_entity_decode($link['title'], ENT_QUOTES, 'UTF-8');
+                $link['title'] = (isset($matches[1]) ? htmlspecialchars(trim($matches[1])) : '');  // Get title
+                $link['title'] = htmlspecialchars(html_entity_decode($link['title'], ENT_QUOTES, 'UTF-8'));
                 preg_match_all('! ([A-Z_]+)=\"(.*?)"!i', $html, $matches, PREG_SET_ORDER);  // Get all other attributes
                 foreach ($matches as $m) {
                     $attr = $m[1];
                     $value = $m[2];
                     if ($attr == 'HREF') {
-                        $link['url'] = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+                        $link['url'] = htmlspecialchars(html_entity_decode($value, ENT_QUOTES, 'UTF-8'));
                     } else if ($attr == 'ADD_DATE') {
-                        $link['linkdate'] = date("Y-m-d H:i:s", intVal($value));
+                        $link['linkdate'] = htmlspecialchars(date("Y-m-d H:i:s", intVal($value)));
                     } else if ($attr == 'TAGS') {
-                        $link['tags'] = html_entity_decode(str_replace(',', ' ', $value), ENT_QUOTES, 'UTF-8');
+                        $link['tags'] = html_entity_decode(str_replace(',', ' ', htmlspecialchars($value)), ENT_QUOTES, 'UTF-8');
                     }
                 }
                 $links[] = $link;
