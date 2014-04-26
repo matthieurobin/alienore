@@ -15,7 +15,7 @@ class Links extends \MVC\Controleur {
             $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
             $links = \Appli\M\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit'], $_SESSION['idUser']);
         } else if (\MVC\A::get('search')) {
-            $search = htmlentities(trim(\MVC\A::get('search')));
+            $search = htmlspecialchars(trim(\MVC\A::get('search')));
             if(strlen($search) > 2){
                 $nbLinks = \Appli\M\Link::getInstance()->countSearch($search, $_SESSION['idUser'])->count;
                 $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
@@ -39,10 +39,16 @@ class Links extends \MVC\Controleur {
         self::getVue()->helper = $text;
         self::getVue()->tag = $tag;
         self::getVue()->search = $search;
+        self::getVue()->token = $_SESSION['token'];
     }
 
     public static function delete() {
-        \Appli\M\Link::getInstance()->get(\MVC\A::get('id'))->delete();
+        //si le token passé dans l'url est le même que celui de l'utilisateur
+        if(\MVC\A::get('t') == $_SESSION['token']){
+            \Appli\M\Link::getInstance()->get(\MVC\A::get('id'))->delete();
+        }else{
+            self::redirect('account','error');
+        }
     }
 
     public static function data_form() {
@@ -53,7 +59,6 @@ class Links extends \MVC\Controleur {
     }
 
     public static function saved() {
-        //TODO migration des tags
         if (\MVC\A::get('url') != '') {
             if (\MVC\A::get('linkId')) {
                 $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('linkId'));

@@ -50,6 +50,7 @@ $language = array (
     'Tagname' => 'Tagname',
     'Tags' => 'Tags',
     'Title' => 'Title',
+    'Token error' => 'Oops, it seems you follow a link which not belongs to you.',
     'Tools' => 'Tools',
     'The content at: "%" was saved' => 'The content at: "%" was saved',
     'The file has an unknown file format. Nothing was imported.' => 'The file has an unknown file format. Nothing was imported.' ,

@@ -29,6 +29,7 @@ class Users extends \MVC\Controleur {
                 $_SESSION['user'] = $users[0]->username;
                 $_SESSION['idUser'] = $users[0]->id;
                 $_SESSION['language'] = $users[0]->language;
+                $_SESSION['token'] = $users[0]->token;
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
                 self::redirect('users', 'login');
@@ -47,9 +48,9 @@ class Users extends \MVC\Controleur {
      * permit to save an account
      */
     static function saved() {
-        $username = htmlentities(trim(\MVC\A::get('username')));
-        $password = htmlentities(trim(\MVC\A::get('password')));
-        $passwordRepeat = htmlentities(trim(\MVC\A::get('passwordRepeat')));
+        $username = htmlspecialchars(trim(\MVC\A::get('username')));
+        $password = htmlspecialchars(trim(\MVC\A::get('password')));
+        $passwordRepeat = htmlspecialchars(trim(\MVC\A::get('passwordRepeat')));
         if ($password == $passwordRepeat) {
             if ($username != '') {
                 $user = \Appli\M\User::getInstance()->getByUsername($username);
@@ -59,6 +60,7 @@ class Users extends \MVC\Controleur {
                     $user->hash = \MVC\Password::create_hash($password);
                     $user->userdate = \MVC\Date::getDateNow();
                     $user->language = \Install\App::LANGUAGE;
+                    $user->token = md5(uniqid(mt_rand(), true));
                     $user->store();
                     self::redirect('users', 'login');
                 } else {

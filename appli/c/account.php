@@ -20,5 +20,9 @@ class Account extends \MVC\Controleur {
         $_SESSION['errors']['success'] = \MVC\Language::T('Preferences was successful applied');
     }
     
+    public static function error(){
+        self::getVue()->info = \MVC\Language::T('Token error');
+    }
+    
 }
 

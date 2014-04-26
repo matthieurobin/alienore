@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(20) NOT NULL,
   `hash` text NOT NULL,
   `language` varchar(10) NOT NULL,
+  `token` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_unique` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;

@@ -50,6 +50,7 @@ $language = array (
     'Tagname' => 'Nom du tag',
     'Tags' => 'Tags',
     'Title' => 'Titre',
+    'Token error' => 'Oops, il semblerait que vous ayez suivi un lien qui ne vous appartient pas.',
     'Tools' => 'Outils',
     'The content at: "%" was saved' => 'Le contenu à l\'url: "%" a été sauvé',
     'The file has an unknown file format. Nothing was imported.' => 'Le fichier a un format inconnu. Aucun élément n\'a pu être importé.' ,
