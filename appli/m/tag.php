@@ -22,7 +22,7 @@ class Tag extends \MVC\Table {
     }
     
     public function getSearchTag($search, $idUser){
-        $query = 'SELECT tag.id, tag.label FROM tag,taglink t,link WHERE t.idTag = tag.id AND link.id = t.idLink AND link.idUser = ' . $idUser . ' AND label LIKE \'%' . $search . '%\'';
+        $query = 'SELECT distinct tag.id, tag.label FROM tag,taglink t,link WHERE t.idTag = tag.id AND link.id = t.idLink AND link.idUser = ' . $idUser . ' AND label LIKE \'%' . $search . '%\'';
         return $this->getInstance()->select($query);
     }
     

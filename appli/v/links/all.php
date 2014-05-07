@@ -147,7 +147,7 @@
                             <div id="tagsBox">
                                 <?php echo \MVC\Language::T('Tags') ?> <br>
                                 <span class="legend"><?php echo \MVC\Language::T('Infotags') ?></span>
-                                <div data-tags-input-name="tag" id="tagBox"></div>
+                                <div data-no-duplicate="true" data-tags-input-name="tag" id="tagBox"></div>
                                 <!--<input list="datalist-tags" id="input-tags" class="form-control" type="text" name="tags" placeholder="<?php echo \MVC\Language::T('Infotags') ?>"><br>-->
                                 <datalist id="datalist-tags"></datalist>
                             </div>
@@ -201,7 +201,8 @@
         <script src="<?php echo \Install\Path::JS; ?>tagging.min.js"></script>
         <script>
                                             var tagOptions = {
-                                                "no-duplicate": false
+                                                "no-duplicate": true,
+                                                "no-enter" : true,
                                             };
                                             $("#tagBox").tagging(tagOptions);
         </script>

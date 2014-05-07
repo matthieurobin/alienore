@@ -1,8 +1,3 @@
-var tagOptions = {
-    "no-duplicate": false
-};
-
-
 /**
  * 
  * Shortcuts
@@ -33,6 +28,8 @@ function reset(form) {
             case 'select-multiple':
             case 'select-one':
             case 'text':
+                //$(this).val('');
+                break;
             case 'textarea':
                 $(this).val('');
                 break;
@@ -63,11 +60,8 @@ function editLink(id, languageEdit) {
             $('#input-linkid').val(_res.link.id);
             var _tags = [];
             for (_i = 0; _i < _res.tags.length; ++_i) {
-                _tags.push(_res.tags[_i].label);
-                //$('#tagBox').append('<div class="tag">' + _res.tags[_i].label + '</div>');
+                $('#tagBox').tagging( "add", _res.tags[_i].label);
             }
-            $('#tagBox').html(_tags.join(', '));
-            $('#tagBox').tagging(tagOptions);
             $('#modal-new-link').modal('show');
         },
         error: function() {
@@ -77,8 +71,8 @@ function editLink(id, languageEdit) {
 }
 
 function resetTagBox() {
-    $('#tagBox').html('');
-    $('#tagBox').tagging(tagOptions);
+    $('#tagBox').tagging('reset');
+    $('#datalist-tags').html('');
 }
 
 function savedLink(id, unsavedText, saveText) {
@@ -112,8 +106,7 @@ function savedLink(id, unsavedText, saveText) {
 }
 
 // displayTags
-/*$(':input[class=type-zone]').eq(0).bind('input', function() {
-    //console.log(1);  
+$(':input[class=type-zone]').eq(0).keyup('input', function() {
     $(':input[class=type-zone]').eq(0).attr('list','datalist-tags');
     if ($(':input[class=type-zone]').eq(0).val().length >= 3) { 
         var _url = '?c=tags&a=data_searchTag&search=' + $('#tagBox .type-zone').val();
@@ -134,4 +127,4 @@ function savedLink(id, unsavedText, saveText) {
         });
     }
 
-});*/
+});

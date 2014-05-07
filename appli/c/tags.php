@@ -49,7 +49,7 @@ class Tags extends \MVC\Controleur {
     }
     
     public static function data_searchTag(){
-        self::getVue()->data = json_encode(\Appli\M\Tag::getInstance()->getSearchTag(\MVC\A::get('search')));
+        self::getVue()->data = json_encode(\Appli\M\Tag::getInstance()->getSearchTag(\MVC\A::get('search'),$_SESSION['idUser']));
     }
 
 }
