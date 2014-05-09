@@ -52,4 +52,12 @@ class Tags extends \MVC\Controleur {
         self::getVue()->data = json_encode(\Appli\M\Tag::getInstance()->getSearchTag(\MVC\A::get('search'),$_SESSION['idUser']));
     }
 
+    public static function data_linksByTag(){
+        $tag = \Appli\M\Tag::getInstance()->get(\MVC\A::get('tagId'));
+        $nbLinks = \Appli\M\Link::getInstance()->countLinksByTag($tag->id, $_SESSION['idUser'])->count;
+        $pagination = \MVC\Pagination::buildPaging($nbLinks, 1);
+        $links = \Appli\M\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit'], $_SESSION['idUser']);
+        self::getVue()->data = json_encode($links);
+    }
+
 }

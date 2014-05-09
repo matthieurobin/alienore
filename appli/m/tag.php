@@ -12,7 +12,7 @@ class Tag extends \MVC\Table {
      */
     
     public function getAllTagsByUtilisation($idUser) {
-        $query = 'SELECT label,tag.id, COUNT(idTag) AS count FROM tag, taglink, link WHERE idTag = tag.id AND link.id = taglink.idLink AND link.idUser = ' . $idUser . ' GROUP BY idTag';
+        $query = 'SELECT label,tag.id, COUNT(idTag) AS count FROM tag, taglink, link WHERE idTag = tag.id AND link.id = taglink.idLink AND link.idUser = ' . $idUser . ' GROUP BY idTag ORDER BY count DESC';
         return $this->getInstance()->select($query);
     }
     

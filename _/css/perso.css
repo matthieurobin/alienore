@@ -6,12 +6,76 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 body{
     background-color: #f2f2f2;
 }
+
+.pointer{
+    cursor: pointer;
+}
 .logo{
     width: 97px;
     height: 30px;
 }
 li{
     list-style: none;
+}
+
+#wrap{
+    position: relative;
+    padding: 0px auto;
+    height: 100%;
+}
+
+#menu{
+    max-width: 22%;
+    min-width: 22%;
+    height: 100%;
+    position: fixed;
+    float: left;
+    left: 0px;
+    padding: 5px 0px 5px 25px;
+    background: #333;
+    color: #ededed;
+}
+
+.tags-active{
+    color: #fff;
+}
+
+.tags-title{
+    padding: 5px 0px;
+}
+
+.tags-list{
+    position: relative;
+    margin-top: 50px;
+    color: #A0A5AE;
+    height: 90%;
+}
+
+.tags-list-ul{
+    padding: 5px 10px 5px 5px;
+    overflow: auto;
+    height: 90%;
+}
+
+.tags-list li{
+    margin-bottom: 5px;
+}
+.tags-list li:hover{
+    cursor: pointer;
+}
+
+.tags-list-ul a{
+     color: #A0A5AE;
+}
+
+.tag-label{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 20px;
+}
+
+.tag-nb-links{
+    float: right;
 }
 
 #header{
@@ -27,11 +91,10 @@ li{
 }
 
 #addlink{
-    background-color: #3d3d3d;
     padding: 0.5em;
 }
 #addlink a{
-    color: #fff;
+    color: #333;
     padding-right: 10px;
 }
 #nbLinks{
@@ -61,6 +124,10 @@ li{
     background-color: #fff;
 }
 #links{
+    width: 78%;
+    position: absolute;
+    height: 100%;
+    right: 0px;
     background-color: #e5e5e5;
 }
 
@@ -100,9 +167,26 @@ h3 > a{
 .tags{
     padding: 2px 0px;
 }
+.a-tag{
+    color: #fff;
+}
+
 .nbLinksByTag{
     color: #FF8C00;
 }
+
+.link-tools{
+    position: absolute;
+    right: 26px;
+    opacity: 0;
+}
+
+.link:hover > .link-tools{
+    opacity: 1;
+    right: 18px;
+    transition: opacity 0.1s linear 0s, right 0.1s linear 0s;
+}
+
 .link-tools a{
     color: #fff;
 }
@@ -112,8 +196,6 @@ h3 > a{
 }
 
 #footer {
-    /* border-top: 1px solid #999;*/
-    padding: 0.5em;
     text-align: center;
     color: #999;
 }
@@ -182,6 +264,20 @@ h3 > a{
     font-size: 18px;
 }
 
+/* loading */
+
+.loading{
+    text-align: center;
+}
+
+.no-display{
+    display: none;
+}
+
+.display{
+    display: block;
+}
+
 /* tagging plugin */
 
 /* Tagging Basic Style */
@@ -193,10 +289,15 @@ h3 > a{
     padding: 10px 10px 15px;
 }
 
+.tag a {
+    color: #e67e22;
+    font-weight: bold;
+}
+
 .tag {
-    background: none repeat scroll 0 0 #EE7407;
-    border-radius: 2px;
-    color: white;
+    border : 1px solid #d35400;
+    border-radius: 5px;
+    color: #e67e22;
     cursor: default;
     display: inline-block;
     position: relative;
@@ -205,15 +306,16 @@ h3 > a{
     margin: 5px 10px 0 0;
 }
 
+.tag-list {
+    padding: 4px 10px 4px 0;
+}
+
 .tag span {
-    background: none repeat scroll 0 0 #D66806;
-    border-radius: 2px 0 0 2px;
-    margin-right: 5px;
-    padding: 5px 10px 5px;
+    padding: 5px 5px 5px;
 }
 
 .tag .tag-i {
-    color: white;
+    color: #e67e22;
     cursor: pointer;
     font-size: 1.3em;
     height: 0;
@@ -226,7 +328,7 @@ h3 > a{
 }
 
 .tag .tag-i:hover {
-    color: black;
+    color: #d35400;
     text-decoration: underline;
 }
 

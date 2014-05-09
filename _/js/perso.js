@@ -11,10 +11,6 @@ key('e', function() {
     $('#a-edit-tag').click();
     return false;
 });
-function duplicatePaging() {
-    html = $('.paging:first').html();
-    $('.paging').eq(1).html(html);
-}
 
 /**
  * reset a form
@@ -28,7 +24,7 @@ function reset(form) {
             case 'select-multiple':
             case 'select-one':
             case 'text':
-                //$(this).val('');
+                $(this).val('');
                 break;
             case 'textarea':
                 $(this).val('');
@@ -105,7 +101,7 @@ function savedLink(id, unsavedText, saveText) {
     });
 }
 
-// displayTags
+// displayTags in the input
 $(':input[class=type-zone]').eq(0).keyup('input', function() {
     $(':input[class=type-zone]').eq(0).attr('list','datalist-tags');
     if ($(':input[class=type-zone]').eq(0).val().length >= 3) { 
@@ -128,3 +124,99 @@ $(':input[class=type-zone]').eq(0).keyup('input', function() {
     }
 
 });
+
+var _lastTag = undefined;
+var _currentPage = 1;
+var _lastLimit = 1;
+
+function nextPage(){
+    _currentPage += 1;
+    if(_currentPage > _lastLimit){
+        $('.paging').addClass('no-display');
+    }else{
+        switch($('.paging a').data('pagination')){
+            case 'default':
+                getLinks();
+                break;
+            case 'tag':
+                getLinksByTag(_lastTag);
+                break;
+            case 'search':
+                break;
+        }
+    }
+}
+
+function getLinks(){
+    $.ajax({
+            type: 'GET',
+            url: '?c=links&a=data_all&page=' + _currentPage,
+            success: function(resp) {
+                var _res = JSON.parse(resp);
+                _lastLimit = _res.nbPages;
+                displayLinks(_res.links);
+            },
+            error: function() {
+
+            }
+        });
+}
+
+function getLinksByTag(id){
+    if (_lastTag !== id || _lastLimit == _currentPage) $('#list').html('');
+    _lastTag = id;
+    $('.tags-list-ul li').removeClass('tags-active');
+    $('.paging').removeClass('no-display');
+    $('#tag-' + id).addClass('tags-active');
+    $.ajax({
+            type: 'GET',
+            url: '?c=links&a=data_getLinksByTag&tagId=' + id,
+            success: function(resp) {
+                var _res = JSON.parse(resp);
+                _lastLimit = _res.nbPages;
+                displayLinks(_res.links);
+            },
+            error: function() {
+
+            }
+        });
+}
+
+function displayLinks(links){
+    var _nbLinks = links.length;
+    $('.loading').removeClass('no-display');
+    for(var _i = 0; _i < _nbLinks; ++_i){
+        var _link = links[_i].link;
+        var _tags = links[_i].tags;
+        var _res = '<div class="link">' +
+        '<div class="link-tools">'+
+        '<button type="button" class="btn btn-warning" onclick="editLink(' + _link.id + ', \'EditLink\' )">' +
+        '<span class="glyphicon glyphicon-pencil"></span>' +
+        '</button> ' + 
+        '<button type="button" class="btn btn-danger" onclick="location.href = \'?c=links&a=delete&t={$_SESSION[\'token\']} ?>&id=' +_link.id + ' ?>">' + 
+        '<span class="glyphicon glyphicon-trash"></span>' + 
+        '</button>' + 
+        '</div>' +
+        '<h3 id="title-' + _link.id + '">' + 
+        '<a href="' + _link.url + '" target="_blank"> ' + _link.title + ' </a>' +
+        '</h3>' +
+        '<p class="link-description-second">' +
+        '<small>' + _link.linkdate + '</small> - ' +
+        '<a href=' + _link.url + '" target="_blank">' + _link.title + '</a>' +
+        '</p>' +
+        '<p class="link-description">' + _link.description + '</p>' +
+        '<div class="tags">';
+        if(_tags.length > 0){
+            for( var _j = 0; _j < _tags.length; ++_j){
+                var _tag = _tags[_j];
+                _res += '<div class="tag tag-list">' +
+                '<a class="a-tag pointer" onclick="getLinksByTag(' + _tag.id + ')"><span>#</span>' + _tag.label + '</a></span>' +
+                '</div>';
+            }
+        }
+        _res += '</div>' +
+        '</div>';
+        $('#list').append($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
+    }
+    $('.loading').addClass('no-display');
+}
