@@ -12,13 +12,13 @@ class Link extends \MVC\Table {
      */
 
     public function countAll($idUser) {
-        $query = 'SELECT COUNT(id) AS count FROM link WHERE idUser= ' . $idUser;
-        return $this->getInstance()->select($query)[0];
+        $query = 'SELECT COUNT(id) AS count FROM link WHERE idUser= ?';
+        return $this->getInstance()->select($query,array($idUser))[0];
     }
 
     public function getLinksForPage($limit, $idUser) {
-        $query = 'SELECT * FROM link WHERE idUser=' . $idUser . ' ORDER BY linkdate DESC LIMIT ' . $limit;
-        return $this->getInstance()->select($query);
+        $query = 'SELECT * FROM link WHERE idUser= ? ORDER BY linkdate DESC LIMIT '.$limit;
+        return $this->getInstance()->select($query,array($idUser));
     }
 
     /**
@@ -27,8 +27,8 @@ class Link extends \MVC\Table {
      * @return object
      */
     public function getLinkTags($linkId,$idUser) {
-        $query = 'SELECT DISTINCT tag.id, label FROM tag, taglink t,link WHERE t.idTag = tag.id AND link.id=t.idLink AND t.idLink = ' . $linkId . ' AND idUser= ' . $idUser;
-        return $this->select($query);
+        $query = 'SELECT DISTINCT tag.id, label FROM tag, taglink t,link WHERE t.idTag = tag.id AND link.id=t.idLink AND t.idLink = ? AND idUser= ?';
+        return $this->select($query,array($linkId, $idUser));
     }
 
     /**
@@ -37,23 +37,23 @@ class Link extends \MVC\Table {
      * @return object
      */
     public function getLinksByTag($tagId, $limit, $idUser) {
-        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId . ' AND link.idUser = ' . $idUser . ' ORDER BY linkdate DESC LIMIT ' . $limit;
-        return $this->getInstance()->select($query);
+        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ? AND link.idUser = ? ORDER BY linkdate DESC LIMIT ' . $limit;
+        return $this->getInstance()->select($query,array($tagId,$idUser));
     }
     
     public function countLinksByTag($tagId, $idUser){
-       $query = 'SELECT COUNT(id) as count FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ' . $tagId . ' AND link.idUser =' . $idUser;
-        return $this->getInstance()->select($query)[0];
+       $query = 'SELECT COUNT(id) as count FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ? AND link.idUser = ?';
+        return $this->getInstance()->select($query, array($tagId, $idUser))[0];
     }
     
     public function search($search, $limit, $idUser){
-        $query = 'SELECT * FROM link WHERE idUser = ' . $idUser . ' AND title like \'%' . $search . '%\' OR description like \'%' . $search . '%\' AND idUser =' . $idUser . ' ORDER BY linkdate DESC LIMIT ' . $limit;
-        return $this->getInstance()->select($query);
+        $query = 'SELECT * FROM link WHERE idUser = ? AND title like ? OR description like ? ORDER BY linkdate DESC LIMIT ' . $limit;
+        return $this->getInstance()->select($query, array($idUser, '%'.$search.'%', '%'.$search.'%'));
     }
     
     public function countSearch($search, $idUser){
-        $query = 'SELECT COUNT(id) as count FROM link WHERE idUser = ' . $idUser . ' AND title like \'%' . $search . '%\' OR description like \'%' . $search . '%\'AND idUser =' . $idUser . '  ';
-        return $this->getInstance()->select($query)[0];
+        $query = 'SELECT COUNT(id) as count FROM link WHERE idUser = ? AND title like ? OR description like ?';
+        return $this->getInstance()->select($query, array($idUser, '%'.$search.'%', '%'.$search.'%'))[0];
     }
     
     /**
@@ -62,8 +62,8 @@ class Link extends \MVC\Table {
      * @return type
      */
     public function getUserLinks($userId){
-        $query = 'SELECT * FROM link WHERE idUser = '. $userId .' ORDER BY linkdate DESC ';
-        return $this->getInstance()->select($query);
+        $query = 'SELECT * FROM link WHERE idUser = ? ORDER BY linkdate DESC ';
+        return $this->getInstance()->select($query, array($userId));
     }
     
     /**
@@ -73,8 +73,8 @@ class Link extends \MVC\Table {
      * @return type
      */
     public function getLinkByUrl($url, $userId){
-        $query = 'SELECT * FROM link WHERE idUser = '. $userId .' AND url = \''. $url .'\''; 
-        return $this->getInstance()->select($query);
+        $query = 'SELECT * FROM link WHERE idUser = ? AND url = ?'; 
+        return $this->getInstance()->select($query, array($userId, $url));
     }
 
 }

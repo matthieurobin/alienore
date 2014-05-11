@@ -13,6 +13,6 @@ class User extends \MVC\Table {
     }
     
     public function getByUsername($username){
-        return $this->getInstance()->select('SELECT * FROM user WHERE username = "'.$username.'"');
+        return $this->getInstance()->select('SELECT * FROM user WHERE username = ?', array($username));
     }
 }

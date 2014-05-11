@@ -121,9 +121,10 @@ abstract class Table {
         }
     }
     
-    function select($select) {
+    function select($select, $params = array()) {
         $query = $select;
-        $queryPrepare = $this->pdo()->query($query);
+        $queryPrepare = $this->pdo()->prepare($query);
+        $queryPrepare->execute($params);
         $result = $queryPrepare->fetchAll(
                 \PDO::FETCH_CLASS, $this->_tableRow
         );
