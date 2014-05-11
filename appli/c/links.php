@@ -94,7 +94,6 @@ class Links extends \MVC\Controleur {
             $link->idUser = $_SESSION['idUser'];
             $link->store();
             //we look at the tags
-            //$tags = explode(' ', htmlspecialchars(trim(\MVC\A::get('tags'))));
             $tags = \MVC\A::get('tag');
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {

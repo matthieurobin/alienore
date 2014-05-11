@@ -12,6 +12,11 @@ class Taglink extends \MVC\Table {
         $query  = 'SELECT * FROM taglink WHERE idLInk ='.$idLink.' AND idTag = '.$idTag;
         return $this->getInstance()->select($query);
     }
+
+    public function getTags($idLink){
+    	$query  = 'SELECT * FROM taglink WHERE idLInk ='.$idLink;
+        return $this->getInstance()->select($query);
+    }
     
     
 }

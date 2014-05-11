@@ -31,6 +31,7 @@ $language = array (
     'Import' => 'Importer',
     'links imported' => 'liens importés',
     'Logout' => 'Se déconnecter',
+    'More' => 'Afficher plus',
     'NbLinks' => 'Nombre de liens',
     'No results' => 'Pas de résultats pour',
     'NbTags' => 'Nombre de tags',

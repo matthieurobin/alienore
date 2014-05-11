@@ -115,9 +115,9 @@
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </div>
-                                    <h3 id="title-<?php echo $link['link']->id ?>">
+                                    <h4 id="title-<?php echo $link['link']->id ?>">
                                         <a href="<?php echo $link['link']->url ?>" target="_blank"><?php echo $link['link']->title ?></a>
-                                    </h3>
+                                    </h4>
                                     <p class="link-description-second">
                                         <small><?php echo \MVC\Date::displayDate($link['link']->linkdate) ?></small> - 
                                         <a href="<?php echo $link['link']->url ?>" target="_blank"><?php echo $link['link']->url ?></a>
@@ -140,7 +140,7 @@
                         <div class="nolinks"><?php echo $this->helper ?></div>
                     <?php endif; ?>
                 </ul>
-                <div class="paging pointer" onclick="nextPage()"><a data-pagination="default">{More}</a></div>
+                <div class="paging pointer" onclick="nextPage()"><a data-pagination="default"><?php echo \MVC\Language::T('More') ?></a></div>
                 <div class="loading no-display">
                     <img width="64" height="64" src="<?php echo \Install\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
                 </div>

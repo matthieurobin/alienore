@@ -71,7 +71,7 @@ function resetTagBox() {
     $('#datalist-tags').html('');
 }
 
-function savedLink(id, unsavedText, saveText) {
+/*function savedLink(id, unsavedText, saveText) {
     var _url = '?c=links&a=data_savedLink&id=' + id;
     $.ajax({
         type: 'GET',
@@ -99,7 +99,7 @@ function savedLink(id, unsavedText, saveText) {
 
         }
     });
-}
+}*/
 
 // displayTags in the input
 $(':input[class=type-zone]').eq(0).keyup('input', function() {
@@ -125,10 +125,15 @@ $(':input[class=type-zone]').eq(0).keyup('input', function() {
 
 });
 
+
+
 var _lastTag = undefined;
 var _currentPage = 1;
 var _lastLimit = 1;
 
+/*
+    get the next links from all, tag, search
+*/
 function nextPage(){
     _currentPage += 1;
     if(_currentPage > _lastLimit){
@@ -147,6 +152,9 @@ function nextPage(){
     }
 }
 
+/*
+    Get all the links for the next page
+*/
 function getLinks(){
     $.ajax({
             type: 'GET',
@@ -162,8 +170,13 @@ function getLinks(){
         });
 }
 
+/*
+    get the links identified by the tag
+*/
 function getLinksByTag(id){
-    if (_lastTag !== id || _lastLimit == _currentPage) $('#list').html('');
+    if (_lastTag !== id || _lastLimit == _currentPage){
+        $('#list').html(''); 
+    } 
     _lastTag = id;
     $('.tags-list-ul li').removeClass('tags-active');
     $('.paging').removeClass('no-display');
@@ -182,9 +195,13 @@ function getLinksByTag(id){
         });
 }
 
+/*
+    add the links to DOM
+*/
 function displayLinks(links){
     var _nbLinks = links.length;
     $('.loading').removeClass('no-display');
+    if(_currentPage == 1) $('#list').hide();
     for(var _i = 0; _i < _nbLinks; ++_i){
         var _link = links[_i].link;
         var _tags = links[_i].tags;
@@ -197,9 +214,9 @@ function displayLinks(links){
         '<span class="glyphicon glyphicon-trash"></span>' + 
         '</button>' + 
         '</div>' +
-        '<h3 id="title-' + _link.id + '">' + 
+        '<h4 id="title-' + _link.id + '">' + 
         '<a href="' + _link.url + '" target="_blank"> ' + _link.title + ' </a>' +
-        '</h3>' +
+        '</h4>' +
         '<p class="link-description-second">' +
         '<small>' + _link.linkdate + '</small> - ' +
         '<a href=' + _link.url + '" target="_blank">' + _link.title + '</a>' +
@@ -219,4 +236,5 @@ function displayLinks(links){
         $('#list').append($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
     }
     $('.loading').addClass('no-display');
+    if(_currentPage == 1) $('#list').slideDown(525);
 }
