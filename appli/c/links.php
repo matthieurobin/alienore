@@ -84,6 +84,8 @@ class Links extends \MVC\Controleur {
         if (\MVC\A::get('url') != '') {
             if (\MVC\A::get('linkId')) {
                 $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('linkId'));
+                //on cherche les tags liés au lien
+                $tagsLinkBefore = \Appli\M\TagLink::getInstance()->getTags($link->id);
             } else {
                 $link = \Appli\M\Link::getInstance()->newItem();
                 $link->linkdate = \MVC\Date::getDateNow();
@@ -95,6 +97,7 @@ class Links extends \MVC\Controleur {
             $link->store();
             //we look at the tags
             $tags = \MVC\A::get('tag');
+            $tagsLinkAfter = array();
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {
                     $tag = \Appli\M\Tag::getInstance()->getTagByLabel($tags[$i], $_SESSION['idUser'])[0];
@@ -105,13 +108,31 @@ class Links extends \MVC\Controleur {
                         $tag->store();
                     }
                     //if taglist doesn't exist anymore
-                    if (!\Appli\M\Taglink::getInstance()->exists($link->id, $tag->id)) {
+                    if (!\Appli\M\Taglink::getInstance()->rowExists($link->id, $tag->id)) {
                         $taglink = \Appli\M\Taglink::getInstance()->newItem();
                         $taglink->idTag = $tag->id;
                         $taglink->idLink = $link->id;
                         $taglink->store();
+                        $tagsLinkAfter[] = $taglink;
+                    }else{
+                        $tagsLinkAfter[] = \Appli\M\Taglink::getInstance()->rowExists($link->id, $tag->id)[0];
                     }
-                }
+                } 
+            }
+            //on cherche les tags qui ont été supprimés
+            $tagsLinkBeforeId = [];
+            for($i = 0 ; $i < sizeof($tagsLinkBefore); ++$i){
+                $tagsLinkBeforeId[] = $tagsLinkBefore[$i]->idTag; 
+            }
+            $tagsLinkAfterId = [];
+            for($i = 0 ; $i < sizeof($tagsLinkAfter); ++$i){
+                $tagsLinkAfterId[] = $tagsLinkAfter[$i]->idTag; 
+            }
+            $tagsLinkDeleted = array_diff($tagsLinkBeforeId,$tagsLinkAfterId);
+            sort($tagsLinkDeleted);
+            for($i = 0 ; $i < sizeof($tagsLinkDeleted); ++$i){
+                $taglink = \Appli\M\Taglink::getInstance()->rowExists($link->id, $tagsLinkDeleted[$i])[0];
+                $taglink->deleteTagLink();
             }
         }
     }
