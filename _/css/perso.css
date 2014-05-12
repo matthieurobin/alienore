@@ -24,6 +24,8 @@ li{
     height: 100%;
 }
 
+/* MENU */
+
 #menu{
     max-width: 22%;
     min-width: 22%;
@@ -78,6 +80,18 @@ li{
     float: right;
 }
 
+/* TOOLBAR */
+
+.tool-bar{
+    width: 100%;
+    padding: 12px 10px 5px;
+}
+
+#edit-tag{
+    opacity: 0;
+    display: inline-block;
+}
+
 #header{
     margin-top: 50px;
 }
@@ -90,9 +104,6 @@ li{
     display: inline-block
 }
 
-#addlink{
-    padding: 0.5em;
-}
 #addlink a{
     color: #333;
     padding-right: 10px;

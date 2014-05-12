@@ -81,7 +81,6 @@
                     </div>
                     <ul class="tags-list-ul">
                         <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
-                                    <!--<a href="?c=links&a=all&tagId=<?php echo $this->tags[$i]->id ?>">-->
                             <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
                                 <li id="tag-<?php echo $this->tags[$i]->id ?>">
                                     <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
@@ -94,14 +93,19 @@
             </div>
             <div id="links">
                 <div class="tool-bar">
-                    
-                </div>
-                <div id="addlink">
-                    <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
+                    <div id="addlink">
+                        <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
                             <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
                         </a></span>
+                    <div id="edit-tag">
+                        <span><a href="" data-toggle="modal" data-target="#modal-edit-tag">
+                            <?php echo \MVC\Language::T('EditTag') ?> <span class="glyphicon glyphicon-plus"></span>
+                        </a></span>
+                    </div>
                     <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
                 </div>
+                </div>
+                
                 <div class="loading no-display">
                     <img width="64" height="64" src="<?php echo \Install\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
                 </div>
@@ -193,8 +197,8 @@
                         <form action="?c=tags&a=saved" method="post" id="form-edit-tag">
                             <div class="modal-body">
                                 <?php echo \MVC\Language::T('Title') ?>
-                                <input id="input-tag-title" class="form-control" type="text" name="tagName" value="<?php echo $this->tag->label ?>" required><br>
-                                <input id="input-tag-id" type="hidden" name="tagId" value="<?php echo $this->tag->id ?>">
+                                <input id="input-tag-title" class="form-control" type="text" name="tagName" value="" required><br>
+                                <input id="input-tag-id" type="hidden" name="tagId" value="">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T('Cancel') ?></button>

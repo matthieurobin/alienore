@@ -61,4 +61,9 @@ class Tags extends \MVC\Controleur {
         self::getVue()->data = json_encode($links);
     }
 
+    public static function data_form(){
+        $tag = \MVC\Display::displayTag(\Appli\M\Tag::getInstance()->get(\MVC\A::get('tagId')));
+        self::getVue()->data = json_encode($tag);
+    }
+
 }

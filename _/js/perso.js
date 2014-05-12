@@ -193,7 +193,6 @@ function getLinksByTag(id) {
         url: '?c=links&a=data_getLinksByTag&tagId=' + id,
         success: function(resp) {
             var _res = JSON.parse(resp);
-            console.table(_res[0]);
             _lastLimit = _res.nbPages;
             displayLinks(_res.links);
         },
@@ -201,6 +200,25 @@ function getLinksByTag(id) {
 
         }
     });
+    //we load the edit form
+    $.ajax({
+        type: 'GET',
+        url: '?c=tags&a=data_form&tagId=' + id,
+        success: function(resp) {
+            var _res = JSON.parse(resp);
+            console.log(_res);
+            editTag(_res);
+            $('#edit-tag').css('opacity','1');
+        },
+        error: function() {
+
+        }
+    });
+}
+
+function editTag(tag){
+    $("#input-tag-title").val(tag.label);
+    $("#input-tag-id").val(tag.id);
 }
 
 /*
