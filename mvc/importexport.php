@@ -23,9 +23,9 @@ Abstract class ImportExport {
                 $str .= '"';
             }
             
-            $str .= '>' . html_entity_decode($link['link']->title) . "</A>\n";
+            $str .= '>' . htmlspecialchars_decode($link['link']->title) . "</A>\n";
             if ($link['link']->description != '') {
-                $str .= '<DD>' . html_entity_decode($link['link']->description) . "\n";
+                $str .= '<DD>' . htmlspecialchars_decode($link['link']->description) . "\n";
             }
         }
         return $str;

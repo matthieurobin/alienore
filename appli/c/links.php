@@ -9,7 +9,8 @@ class Links extends \MVC\Controleur {
         //search tags of links
         for ($i = 0; $i < sizeof($links); ++$i) {
             $linksToDisplay[$i]['link'] = $links[$i];
-            $linksToDisplay[$i]['tags'] = \Appli\M\Link::getInstance()->getLinkTags($links[$i]->id, $_SESSION['idUser']);
+            $tags = \Appli\M\Link::getInstance()->getLinkTags($links[$i]->id, $_SESSION['idUser']);
+            $linksToDisplay[$i]['tags'] = $tags;
         }
         return $linksToDisplay;
     }
@@ -48,9 +49,6 @@ class Links extends \MVC\Controleur {
     }
 
     public static function all() {
-        $tag = null;
-        $search = null;
-        $text = '';
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $nbLinks = \Appli\M\Link::getInstance()->countAll($_SESSION['idUser'])->count;
         $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
@@ -74,10 +72,11 @@ class Links extends \MVC\Controleur {
     }
 
     public static function data_form() {
-        $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('id'));
+        $link = \MVC\Display::displayLink(\Appli\M\Link::getInstance()->get(\MVC\A::get('id')));
+        $tags = \Appli\M\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser']);
         self::getVue()->link = json_encode(
                 array('link' => $link,
-                    'tags' => \Appli\M\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser'])));
+                    'tags' => $tags));
     }
 
     public static function saved() {
@@ -100,7 +99,7 @@ class Links extends \MVC\Controleur {
             $tagsLinkAfter = array();
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {
-                    $tag = \Appli\M\Tag::getInstance()->getTagByLabel($tags[$i], $_SESSION['idUser'])[0];
+                    $tag = \Appli\M\Tag::getInstance()->getTagByLabel(htmlspecialchars_decode($tags[$i]), $_SESSION['idUser'])[0];
                     //if there is no result, we create the tag
                     if (!$tag) {
                         $tag = \Appli\M\Tag::getInstance()->newItem();
@@ -108,14 +107,14 @@ class Links extends \MVC\Controleur {
                         $tag->store();
                     }
                     //if taglist doesn't exist anymore
-                    if (!\Appli\M\Taglink::getInstance()->rowExists($link->id, $tag->id)) {
+                    if (!\Appli\M\Taglink::getInstance()->getTagLink($link->id, $tag->id)) {
                         $taglink = \Appli\M\Taglink::getInstance()->newItem();
                         $taglink->idTag = $tag->id;
                         $taglink->idLink = $link->id;
                         $taglink->store();
                         $tagsLinkAfter[] = $taglink;
                     }else{
-                        $tagsLinkAfter[] = \Appli\M\Taglink::getInstance()->rowExists($link->id, $tag->id)[0];
+                        $tagsLinkAfter[] = \Appli\M\Taglink::getInstance()->getTagLink($link->id, $tag->id)[0];
                     }
                 } 
             }
@@ -131,7 +130,7 @@ class Links extends \MVC\Controleur {
             $tagsLinkDeleted = array_diff($tagsLinkBeforeId,$tagsLinkAfterId);
             sort($tagsLinkDeleted);
             for($i = 0 ; $i < sizeof($tagsLinkDeleted); ++$i){
-                $taglink = \Appli\M\Taglink::getInstance()->rowExists($link->id, $tagsLinkDeleted[$i])[0];
+                $taglink = \Appli\M\Taglink::getInstance()->getTagLink($link->id, $tagsLinkDeleted[$i])[0];
                 $taglink->deleteTagLink();
             }
         }

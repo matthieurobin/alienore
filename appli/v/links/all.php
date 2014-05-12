@@ -93,6 +93,9 @@
                 </div>
             </div>
             <div id="links">
+                <div class="tool-bar">
+                    
+                </div>
                 <div id="addlink">
                     <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
                             <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
@@ -141,9 +144,6 @@
                     <?php endif; ?>
                 </ul>
                 <div class="paging pointer" onclick="nextPage()"><a data-pagination="default"><?php echo \MVC\Language::T('More') ?></a></div>
-                <div class="loading no-display">
-                    <img width="64" height="64" src="<?php echo \Install\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
-                </div>
             </div>
 
 
@@ -210,13 +210,6 @@
         <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>tagging.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>jquery.mCustomScrollbar.min.js"></script>
-        <script>
-                                    var tagOptions = {
-                                        "no-duplicate": true,
-                                        "no-enter": true,
-                                    };
-                                    $("#tagBox").tagging(tagOptions);
-        </script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
                                     $(document).ready(function() {
