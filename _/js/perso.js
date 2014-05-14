@@ -31,7 +31,7 @@ key('e', function() {
  * @returns {undefined}
  */
 function reset(form) {
-    $('#form-new-link').find(':input').each(function() {
+    $('#form-link').find(':input').each(function() {
         switch (this.type) {
             case 'password':
             case 'select-multiple':
@@ -46,6 +46,9 @@ function reset(form) {
             case 'radio':
                 this.checked = false;
             case 'url' :
+                $(this).val('');
+                break;
+            case 'hidden':
                 $(this).val('');
                 break;
         }
@@ -124,7 +127,6 @@ $(':input[class=type-zone]').eq(0).keyup('input', function() {
             url: _url,
             success: function(resp) {
                 var _res = JSON.parse(resp);
-                console.log(_res);
                 $('#datalist-tags').html("");
                 for (var _i = 0; _i < _res.length; ++_i) {
                     $('#datalist-tags').append('<option id="' + _res[_i].id + '" value="' + _res[_i].label + '">');
@@ -175,7 +177,7 @@ function getLinks() {
         success: function(resp) {
             var _res = JSON.parse(resp);
             _lastLimit = _res.nbPages;
-            displayLinks(_res.links);
+            displayLinks(_res.links, _res.token);
             //on change le nb de liens
             $('#nbLinks-count').text(_res.nbLinks);
         },
@@ -217,7 +219,7 @@ function getLinksByTag(id) {
         success: function(resp) {
             var _res = JSON.parse(resp);
             _lastLimit = _res.nbPages;
-            displayLinks(_res.links);
+            displayLinks(_res.links, _res.token);
             //on change le nb de liens
             $('#nbLinks-count').text(_res.nbLinks);
         },
@@ -235,7 +237,8 @@ function editTag(tag){
 /*
  add the links to DOM
  */
-function displayLinks(links) {
+function displayLinks(links, tokenUser, isAppend) {
+    if(isAppend === undefined) isAppend = true;
     var _nbLinks = links.length;
     $('.loading').removeClass('no-display');
     if (_currentPage == 1){
@@ -249,7 +252,7 @@ function displayLinks(links) {
                 '<button type="button" class="btn btn-warning" onclick="editLink(' + _link.id + ', \'EditLink\' )">' +
                 '<span class="glyphicon glyphicon-pencil"></span>' +
                 '</button> ' +
-                '<button type="button" class="btn btn-danger" onclick="location.href = \'?c=links&a=delete&t={$_SESSION[\'token\']} ?>&id=' + _link.id + ' ?>">' +
+                '<button type="button" class="btn btn-danger" onclick="location.href = \'?c=links&a=delete&t=' + tokenUser + '&id=' + _link.id + '\'">' +
                 '<span class="glyphicon glyphicon-trash"></span>' +
                 '</button>' +
                 '</div>' +
@@ -272,10 +275,45 @@ function displayLinks(links) {
         }
         _res += '</div>' +
                 '</div>';
-        $('#list').append($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
+        if(isAppend){
+            $('#list').append($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
+        }else{
+            $('#list').prepend($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
+        }  
     }
     $('.loading').addClass('no-display');
     if (_currentPage == 1){
         $('#list').slideDown(525);
     }
 }
+
+//lorsque on soumet le formulaire pour new/edit lien
+$('#form-link').on('submit', function(){
+    var $this = $(this);
+    $.ajax({
+        url: $this.attr('action'), 
+        type: $this.attr('method'), 
+        data: $this.serialize(), 
+        success: function(resp) { 
+            $('#modal-new-link').modal('hide');
+            var _res = JSON.parse(resp);
+            var _link = _res.link.link;
+            if(_res.isEdit){
+                var _idLink = _link.id;
+                var $link = $('#link-' + _idLink);
+                $('#title-' + _idLink + ' > a').html(_link.title);
+                //todo gérer l'actualisation du reste du bouzin
+            }else{
+                //ajout du lien dans le dom
+                displayLinks([_res.link], _res.token, false);
+                reset();
+                resetTagBox();
+                //actualisation du nombre de liens
+                var _nbLinks = parseInt($('#nbLinks-count').text()) + 1;
+                $('#nbLinks-count').text(_nbLinks);
+                //todo gérer l'actualisation des tags
+            }
+        }
+    });
+    return false;
+});

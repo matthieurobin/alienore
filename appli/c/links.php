@@ -26,7 +26,8 @@ class Links extends \MVC\Controleur {
             array('links' => $linksToDisplay, 
                 'page' => $page, 
                 'nbPages' => $pagination['nbPages'],
-                'nbLinks' => $nbLinks
+                'nbLinks' => $nbLinks,
+                'token' => $_SESSION['token']
             ));
     }
 
@@ -44,7 +45,8 @@ class Links extends \MVC\Controleur {
             array('links' => $linksToDisplay, 
                 'page' => $page, 
                 'nbPages' => $pagination['nbPages'],
-                'nbLinks' => $nbLinks
+                'nbLinks' => $nbLinks,
+                'token' => $_SESSION['token']
             ));
     }
 
@@ -59,7 +61,8 @@ class Links extends \MVC\Controleur {
             array('links' => $linksToDisplay, 
                 'page' => $page, 
                 'nbPages' => $pagination['nbPages'],
-                'nbLinks' => $nbLinks
+                'nbLinks' => $nbLinks,
+                'token' => $_SESSION['token']
             ));
     }
 
@@ -94,12 +97,14 @@ class Links extends \MVC\Controleur {
                     'tags' => $tags));
     }
 
-    public static function saved() {
+    public static function data_saved() {
         if (\MVC\A::get('url') != '') {
+            $isEdit = 0;
             if (\MVC\A::get('linkId')) {
                 $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('linkId'));
                 //on cherche les tags liés au lien
                 $tagsLinkBefore = \Appli\M\TagLink::getInstance()->getTags($link->id);
+                $isEdit = 1;
             } else {
                 $link = \Appli\M\Link::getInstance()->newItem();
                 $link->linkdate = \MVC\Date::getDateNow();
@@ -133,21 +138,31 @@ class Links extends \MVC\Controleur {
                     }
                 } 
             }
-            //on cherche les tags qui ont été supprimés
-            $tagsLinkBeforeId = [];
-            for($i = 0 ; $i < sizeof($tagsLinkBefore); ++$i){
-                $tagsLinkBeforeId[] = $tagsLinkBefore[$i]->idTag; 
+
+            if($isEdit){
+                //on cherche les tags qui ont été supprimés
+                $tagsLinkBeforeId = [];
+                for($i = 0 ; $i < sizeof($tagsLinkBefore); ++$i){
+                    $tagsLinkBeforeId[] = $tagsLinkBefore[$i]->idTag; 
+                }
+                $tagsLinkAfterId = [];
+                for($i = 0 ; $i < sizeof($tagsLinkAfter); ++$i){
+                    $tagsLinkAfterId[] = $tagsLinkAfter[$i]->idTag; 
+                }
+                $tagsLinkDeleted = array_diff($tagsLinkBeforeId,$tagsLinkAfterId);
+                sort($tagsLinkDeleted);
+                for($i = 0 ; $i < sizeof($tagsLinkDeleted); ++$i){
+                    $taglink = \Appli\M\Taglink::getInstance()->getTagLink($link->id, $tagsLinkDeleted[$i])[0];
+                    $taglink->deleteTagLink();
+                }
             }
-            $tagsLinkAfterId = [];
-            for($i = 0 ; $i < sizeof($tagsLinkAfter); ++$i){
-                $tagsLinkAfterId[] = $tagsLinkAfter[$i]->idTag; 
-            }
-            $tagsLinkDeleted = array_diff($tagsLinkBeforeId,$tagsLinkAfterId);
-            sort($tagsLinkDeleted);
-            for($i = 0 ; $i < sizeof($tagsLinkDeleted); ++$i){
-                $taglink = \Appli\M\Taglink::getInstance()->getTagLink($link->id, $tagsLinkDeleted[$i])[0];
-                $taglink->deleteTagLink();
-            }
+            
+            //on retourne le lien pour le js
+            self::getVue()->data = json_encode(
+                array('link' => self::prepareLinksTodisplay(array($link))[0],
+                    'isEdit' => $isEdit,
+                    'token' => $_SESSION['token']
+                ));
         }
     }
 

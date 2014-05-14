@@ -118,7 +118,7 @@
                                         <button type="button" class="btn btn-warning" onclick="editLink(<?php echo strval($link['link']->id) ?>, '<?php echo \MVC\Language::T('EditLink') ?>')">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </button>
-                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&t=<?php echo $_SESSION['token'] ?>&id=<?php echo $link['link']->id ?>&filename=<?php echo $link['link']->title ?>'">
+                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&t=<?php echo $_SESSION['token'] ?>&id=<?php echo $link['link']->id ?>'">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </div>
@@ -151,7 +151,7 @@
             </div>
 
 
-            <!-- Modal -->
+            <!-- Modal link -->
             <div class="modal fade" id="modal-new-link" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -159,7 +159,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="modal-new-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
                         </div>
-                        <form action="?c=links&a=saved" method="post" id="form-new-link">
+                        <form action="?c=links&a=data_saved" method="post" id="form-link">
                             <div class="modal-body">
                                 <?php echo \MVC\Language::T('Title') ?>
                                 <input id="input-title" class="form-control" type="text" name="title"><br>
@@ -194,7 +194,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel"><?php echo \MVC\Language::T('EditTag') ?></h4>
                         </div>
-                        <form action="?c=tags&a=saved" method="post" id="form-edit-tag">
+                        <form action="?c=tags&a=saved" method="post" id="form-tag">
                             <div class="modal-body">
                                 <?php echo \MVC\Language::T('Title') ?>
                                 <input id="input-tag-title" class="form-control" type="text" name="tagName" value="" required><br>
