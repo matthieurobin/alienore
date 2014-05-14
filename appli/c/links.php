@@ -22,7 +22,12 @@ class Links extends \MVC\Controleur {
         $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
         $links = \Appli\M\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit'], $_SESSION['idUser']);
         $linksToDisplay = self::prepareLinksTodisplay($links);
-        self::getVue()->data = json_encode(array('links' => $linksToDisplay, 'page' => $page, 'nbPages' => $pagination['nbPages']));
+        self::getVue()->data = json_encode(
+            array('links' => $linksToDisplay, 
+                'page' => $page, 
+                'nbPages' => $pagination['nbPages'],
+                'nbLinks' => $nbLinks
+            ));
     }
 
     public static function data_search(){
@@ -35,7 +40,12 @@ class Links extends \MVC\Controleur {
             $text = \MVC\Language::T('No results') . ' : "' . $search . '"';
         }
         $linksToDisplay = self::prepareLinksTodisplay($links);
-        self::getVue()->data = json_encode(array('links' => $linksToDisplay, 'page' => $page, 'nbPages' => $pagination['nbPages']));
+        self::getVue()->data = json_encode(
+            array('links' => $linksToDisplay, 
+                'page' => $page, 
+                'nbPages' => $pagination['nbPages'],
+                'nbLinks' => $nbLinks
+            ));
     }
 
     public static function data_all(){
@@ -45,7 +55,12 @@ class Links extends \MVC\Controleur {
         $links = \Appli\M\Link::getInstance()->getLinksForPage($pagination['limit'], $_SESSION['idUser']);
         $text = \MVC\Language::T('You do not have links already');
         $linksToDisplay = self::prepareLinksTodisplay($links);
-        self::getVue()->data = json_encode(array('links' => $linksToDisplay, 'page' => $page, 'nbPages' => $pagination['nbPages']));
+        self::getVue()->data = json_encode(
+            array('links' => $linksToDisplay, 
+                'page' => $page, 
+                'nbPages' => $pagination['nbPages'],
+                'nbLinks' => $nbLinks
+            ));
     }
 
     public static function all() {

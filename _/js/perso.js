@@ -5,6 +5,12 @@ var tagOptions = {
 };
 $("#tagBox").tagging(tagOptions);
 
+function showAlert(message, classCss){
+    $('#modal-helper').removeClass().addClass(classCss);
+    $('#modal-helper').text(message);
+    $('#modal-helper').show().delay(2500).fadeOut();
+}
+
 /**
  * 
  * Shortcuts
@@ -170,6 +176,8 @@ function getLinks() {
             var _res = JSON.parse(resp);
             _lastLimit = _res.nbPages;
             displayLinks(_res.links);
+            //on change le nb de liens
+            $('#nbLinks-count').text(_res.nbLinks);
         },
         error: function() {
 
@@ -182,7 +190,22 @@ function getLinks() {
  */
 function getLinksByTag(id) {
     if (_lastTag !== id || _lastLimit == _currentPage) {
+        _currentPage = 1;
+        //on rénitialise le container
         $('#list').html('');
+        //we load the edit form
+        $.ajax({
+            type: 'GET',
+            url: '?c=tags&a=data_form&tagId=' + id,
+            success: function(resp) {
+                var _res = JSON.parse(resp);
+                editTag(_res);
+                $('#edit-tag').css('opacity','1');
+            },
+            error: function() {
+                
+            }
+        });
     }
     _lastTag = id;
     $('.tags-list-ul li').removeClass('tags-active');
@@ -195,23 +218,11 @@ function getLinksByTag(id) {
             var _res = JSON.parse(resp);
             _lastLimit = _res.nbPages;
             displayLinks(_res.links);
+            //on change le nb de liens
+            $('#nbLinks-count').text(_res.nbLinks);
         },
         error: function() {
-
-        }
-    });
-    //we load the edit form
-    $.ajax({
-        type: 'GET',
-        url: '?c=tags&a=data_form&tagId=' + id,
-        success: function(resp) {
-            var _res = JSON.parse(resp);
-            console.log(_res);
-            editTag(_res);
-            $('#edit-tag').css('opacity','1');
-        },
-        error: function() {
-
+            
         }
     });
 }
@@ -227,8 +238,9 @@ function editTag(tag){
 function displayLinks(links) {
     var _nbLinks = links.length;
     $('.loading').removeClass('no-display');
-    if (_currentPage == 1)
+    if (_currentPage == 1){
         $('#list').hide();
+    }
     for (var _i = 0; _i < _nbLinks; ++_i) {
         var _link = links[_i].link;
         var _tags = links[_i].tags;
@@ -263,6 +275,7 @@ function displayLinks(links) {
         $('#list').append($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
     }
     $('.loading').addClass('no-display');
-    if (_currentPage == 1)
+    if (_currentPage == 1){
         $('#list').slideDown(525);
+    }
 }

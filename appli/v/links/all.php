@@ -92,6 +92,7 @@
                 </div>
             </div>
             <div id="links">
+                <div id="modal-helper"></div>
                 <div class="tool-bar">
                     <div id="addlink">
                         <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
@@ -102,10 +103,9 @@
                             <?php echo \MVC\Language::T('EditTag') ?> <span class="glyphicon glyphicon-plus"></span>
                         </a></span>
                     </div>
-                    <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') . ' ' . $this->nbLinks ?></span>
+                    <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') ?> <span id="nbLinks-count"><?php echo $this->nbLinks ?></span></span>
                 </div>
                 </div>
-                
                 <div class="loading no-display">
                     <img width="64" height="64" src="<?php echo \Install\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
                 </div>
