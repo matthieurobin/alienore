@@ -89,7 +89,7 @@ class Links extends \MVC\Controleur {
             $link->delete();
             //on retourne les tags pour le js
             self::getVue()->data = json_encode(
-                array('tags' => array('deleted' => $tags, 'new' => array(), 'default' => array())));
+                array('tags' => array('deleted' => $tags)));
         }else{
             self::redirect('account','error');
         }
@@ -124,7 +124,7 @@ class Links extends \MVC\Controleur {
             //we look at the tags
             $tags = \MVC\A::get('tag');
             $tagsLinkAfterId = array();
-            $tagsAdded = array();
+            $tagsNew = array();
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {
                     $tag = \Appli\M\Tag::getInstance()->getTagByLabel(htmlspecialchars_decode($tags[$i]));
@@ -133,6 +133,7 @@ class Links extends \MVC\Controleur {
                         $tag = \Appli\M\Tag::getInstance()->newItem();
                         $tag->label = htmlspecialchars((trim($tags[$i])));
                         $tag->store();
+                        $tagsNew[] = $tag;
                     }else{
                         $tag = $tag[0];
                     }
@@ -185,8 +186,9 @@ class Links extends \MVC\Controleur {
             self::getVue()->data = json_encode(
                 array('link' => $link,
                     'tags' => array('deleted' => $tagsDeleted,
-                                    'new' => $tagsAdded,
-                                    'default' => $tagsNoChange),
+                                    'added' => $tagsAdded,
+                                    'default' => $tagsNoChange,
+                                    'new' => $tagsNew),
                     'isEdit' => $isEdit,
                     'token' => $_SESSION['token']
                 ));

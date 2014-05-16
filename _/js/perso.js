@@ -1,7 +1,7 @@
 var tagOptions = {
     "no-duplicate": true,
     "no-enter": true,
-    "forbidden-chars": [",", ".", "_", "?", "<", ">", "/"]
+    "forbidden-chars": [",", ".", "_", "?", "<", ">", "/", "\"","'"]
 };
 $("#tagBox").tagging(tagOptions);
 
@@ -226,7 +226,7 @@ function getLinksByTag(id) {
             $('#nbLinks-count').text(_res.nbLinks);
         },
         error: function() {
-            
+
         }
     });
 }
@@ -320,15 +320,15 @@ function deleteLink(id,tokenUser){
     update the nb of links for a tag in the tags list 
 */
 function updateTag(tags){
-    if(tags.new.length > 0){
-        for(var _i = 0; _i < tags.new.length; ++_i){
-            var _tag = '#tag-' + tags.new[_i].id;
+    if(tags.added != undefined && tags.added.length > 0){
+        for(var _i = 0; _i < tags.added.length; ++_i){
+            var _tag = '#tag-' + tags.added[_i].id;
             var _nbTag = parseInt($(_tag + ' span.tag-nb-links').eq(0).data('nb-links'));
             $(_tag + ' span.tag-nb-links').eq(0).text(_nbTag + 1);
             $(_tag + ' span.tag-nb-links').eq(0).data('nb-links',_nbTag + 1);
         }
     }
-    if(tags.deleted.length > 0){
+    if(tags.deleted != undefined && tags.deleted.length > 0){
         for(var _i = 0; _i < tags.deleted.length; ++_i){
             var _tag = '#tag-' + tags.deleted[_i].id;
             var _nbTag = parseInt($(_tag + ' span.tag-nb-links').eq(0).data('nb-links'));
@@ -336,6 +336,19 @@ function updateTag(tags){
             $(_tag + ' span.tag-nb-links').eq(0).data('nb-links',_nbTag - 1);
         }
     } 
+    if(tags.new != undefined && tags.new.length > 0){
+        for(var _i = 0; _i < tags.new.length ; ++_i){
+            var _res = '<li id="tag-' + tags.new[_i].id + '">' +
+                '<a onclick="getLinksByTag(' + tags.new[_i].id + ')">' +
+                '<span class="tag-label">' +
+                '<span class="glyphicon glyphicon-tag"></span> ' + tags.new[_i].label + '</span>' +
+                '<span class="tag-nb-links" data-nb-links="' + 1 + '">' + 1 + '</span>'
+                '</a>' + 
+                '</li>';
+            $('#tags-list-ul .mCSB_container').prepend($(_res));
+        }
+        $('#tags-list-ul .mCSB_container').mCustomScrollbar('update');
+    }
 }
 
 //lorsque on soumet le formulaire pour new/edit lien
@@ -348,6 +361,7 @@ $('#form-link').on('submit', function(){
         success: function(resp) { 
             $('#modal-new-link').modal('hide');
             var _res = JSON.parse(resp);
+            console.log(_res);
             var _link = _res.link;
             var _tags = _res.tags;
             //si c'est une édition du lien
@@ -355,7 +369,7 @@ $('#form-link').on('submit', function(){
                 var _idLink = _link.id;
                 var _linkToDisplay = {
                     'link' : _link,
-                    'tags' : _res.tags.default.concat(_res.tags.new)
+                    'tags' : _res.tags.default.concat(_res.tags.added.concat(_res.tags.new))
                 };
                 displayLinks([_linkToDisplay], _res.token, false, true);
                 //actualisation du nombre de liens pour les tags ajoutés et/ou supprimés
@@ -380,10 +394,9 @@ $('#form-link').on('submit', function(){
                 updateTag(_tags);
                 showAlert('The link was successfully added', 'modal-helper-green');
             }
-
-            //todo gérer les cas :
-            // 1. on ajoute un nouveau tag
-            // 2. on supprime un tag
+        },
+        error: function() {
+            
         }
     });
     return false;

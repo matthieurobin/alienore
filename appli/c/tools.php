@@ -23,10 +23,10 @@ class Tools extends \MVC\Controleur {
                         if (!\Appli\M\Link::getInstance()->getLinkByUrl($url, $userId)) {
                             //first we process the link
                             $linkBdd = \Appli\M\Link::getInstance()->newItem();
-                            $linkBdd->linkdate = $link['linkdate'];
-                            $linkBdd->title = $link['title'];
-                            $linkBdd->url = $url;
-                            $linkBdd->description = $link['description'];
+                            $linkBdd->linkdate = htmlspecialchars(trim($link['linkdate']));
+                            $linkBdd->title = htmlspecialchars(trim($link['title']));
+                            $linkBdd->url = htmlspecialchars(trim($url));
+                            $linkBdd->description = htmlspecialchars(trim($link['description']));
                             $linkBdd->idUser = $userId;
                             $linkBdd->store();
                             //then we look at the tags

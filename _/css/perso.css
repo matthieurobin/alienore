@@ -46,27 +46,27 @@ li{
     padding: 5px 0px;
 }
 
-.tags-list{
+#tags-list{
     position: relative;
     margin-top: 50px;
     color: #A0A5AE;
     height: 90%;
 }
 
-.tags-list-ul{
+#tags-list-ul{
     padding: 5px 10px 5px 5px;
     overflow: auto;
     height: 90%;
 }
 
-.tags-list li{
+#tags-list li{
     margin-bottom: 5px;
 }
-.tags-list li:hover{
+#tags-list li:hover{
     cursor: pointer;
 }
 
-.tags-list-ul a{
+#tags-list-ul a{
      color: #A0A5AE;
 }
 

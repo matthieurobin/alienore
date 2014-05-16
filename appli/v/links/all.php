@@ -75,18 +75,18 @@
                         </li>
                     </ul>
                 </div>
-                <div class="tags-list">
+                <div id="tags-list">
                     <div class="tags-title">
                         <?php echo \MVC\Language::T('Tags') ?>
                     </div>
-                    <ul class="tags-list-ul">
+                    <ul id="tags-list-ul">
                         <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
-                            <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
-                                <li id="tag-<?php echo $this->tags[$i]->id ?>">
+                            <li id="tag-<?php echo $this->tags[$i]->id ?>">
+                                <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
                                     <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
                                     <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>"><?php echo $this->tags[$i]->count ?></span>
-                                </li>
-                            </a>
+                                </a>
+                            </li>
                         <?php endfor; ?>
                     </ul>
                 </div>
@@ -217,7 +217,7 @@
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
                                     $(document).ready(function() {
-                                        $(".tags-list-ul").mCustomScrollbar();
+                                        $("#tags-list-ul").mCustomScrollbar();
                                         $('#modal-new-link').on('hidden.bs.modal', function(e) {
                                             $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
                                             reset();
