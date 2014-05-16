@@ -35,7 +35,6 @@ class Tools extends \MVC\Controleur {
                                 for ($j = 0; $j < sizeof($tags); ++$j) {
                                     $tag = strtolower($tags[$j]);
                                     $tagBdd = \Appli\M\Tag::getInstance()->getTagByLabel($tag);
-                                    var_dump($tag, $tagBdd);
                                     //if there is no result, we create the tag
                                     if (!$tagBdd) {
                                         $tagBdd = \Appli\M\Tag::getInstance()->newItem();
