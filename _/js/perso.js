@@ -212,7 +212,7 @@ function getLinksByTag(id) {
         });
     }
     _lastTag = id;
-    $('.tags-list-ul li').removeClass('tags-active');
+    $('#tags-list-ul li').removeClass('tags-active');
     $('.paging').removeClass('no-display');
     $('#tag-' + id).addClass('tags-active');
     $.ajax({
@@ -338,13 +338,13 @@ function updateTag(tags){
     } 
     if(tags.new != undefined && tags.new.length > 0){
         for(var _i = 0; _i < tags.new.length ; ++_i){
-            var _res = '<li id="tag-' + tags.new[_i].id + '">' +
-                '<a onclick="getLinksByTag(' + tags.new[_i].id + ')">' +
+            var _res = '<a onclick="getLinksByTag(' + tags.new[_i].id + ')">' +
+                '<li id="tag-' + tags.new[_i].id + '">' +
                 '<span class="tag-label">' +
                 '<span class="glyphicon glyphicon-tag"></span> ' + tags.new[_i].label + '</span>' +
                 '<span class="tag-nb-links" data-nb-links="' + 1 + '">' + 1 + '</span>'
-                '</a>' + 
-                '</li>';
+                '</li>' + 
+                '</a>';
             $('#tags-list-ul .mCSB_container').prepend($(_res));
         }
         $('#tags-list-ul .mCSB_container').mCustomScrollbar('update');
