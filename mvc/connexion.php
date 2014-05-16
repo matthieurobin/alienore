@@ -8,7 +8,7 @@ class Connexion {
 
     private function __construct() {
         $dsn = 'mysql:dbname='. \Install\App::BDD_NAME. ';host='. \Install\App::BDD_HOST;     
-        self::$_pdo = new \PDO($dsn, \Install\App::BDD_USER, \Install\App::BDD_PASSWORD);
+        self::$_pdo = new \PDO($dsn, \Install\App::BDD_USER, \Install\App::BDD_PASSWORD, array(\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
         self::$_pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
