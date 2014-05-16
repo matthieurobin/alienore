@@ -8,7 +8,9 @@ $("#tagBox").tagging(tagOptions);
 function showAlert(message, classCss){
     $('#modal-helper').removeClass().addClass(classCss);
     $('#modal-helper').text(message);
-    $('#modal-helper').show().delay(2500).fadeOut();
+    $('#modal-helper').fadeIn(150, function(){
+        $(this).delay(2500).fadeOut();
+    });
 }
 
 /**
@@ -257,7 +259,7 @@ function displayLinks(links, tokenUser, isAppend, isReplace) {
                 '<button type="button" class="btn btn-warning" onclick="editLink(' + _link.id + ', \'EditLink\' )">' +
                 '<span class="glyphicon glyphicon-pencil"></span>' +
                 '</button> ' +
-                '<button type="button" class="btn btn-danger" onclick="location.href = \'?c=links&a=delete&t=' + tokenUser + '&id=' + _link.id + '\'">' +
+                '<button type="button" class="btn btn-danger" onclick="deleteLink(' + _link.id + ',\'' + tokenUser + '\')">' +
                 '<span class="glyphicon glyphicon-trash"></span>' +
                 '</button>' +
                 '</div>' +
@@ -296,6 +298,24 @@ function displayLinks(links, tokenUser, isAppend, isReplace) {
     }
 }
 
+function deleteLink(id,tokenUser){
+    $.ajax({
+        type: 'GET',
+        url: '?c=links&a=data_delete&t=' + tokenUser + '&id=' + id,
+        success: function(resp) {
+            var _res = JSON.parse(resp);
+            $('#link-' + id).fadeOut(400, function(){
+                $(this).remove();
+                showAlert('The link was successfully deleted', 'modal-helper-green');
+            });
+            updateTag(_res.tags);
+        },
+        error: function() {
+            
+        }
+    });
+}
+
 /*
     update the nb of links for a tag in the tags list 
 */
@@ -328,7 +348,6 @@ $('#form-link').on('submit', function(){
         success: function(resp) { 
             $('#modal-new-link').modal('hide');
             var _res = JSON.parse(resp);
-            console.log(_res);
             var _link = _res.link;
             var _tags = _res.tags;
             //si c'est une édition du lien
@@ -341,6 +360,8 @@ $('#form-link').on('submit', function(){
                 displayLinks([_linkToDisplay], _res.token, false, true);
                 //actualisation du nombre de liens pour les tags ajoutés et/ou supprimés
                 updateTag(_tags);
+
+                showAlert('The link was successfully updated', 'modal-helper-green');
             //sinon un nouveau lien
             }else{
                 //ajout du lien dans le dom
@@ -357,6 +378,7 @@ $('#form-link').on('submit', function(){
                 $('#nbLinks-count').text(_nbLinks); 
                 //actualisation du nombre de liens pour les tags ajoutés et/ou supprimés
                 updateTag(_tags);
+                showAlert('The link was successfully added', 'modal-helper-green');
             }
 
             //todo gérer les cas :

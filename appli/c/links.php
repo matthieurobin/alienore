@@ -80,13 +80,20 @@ class Links extends \MVC\Controleur {
         self::getVue()->token = $_SESSION['token'];
     }
 
-    public static function delete() {
+    public static function data_delete() {
         //si le token passé dans l'url est le même que celui de l'utilisateur
-        if(\MVC\A::get('t') == $_SESSION['token']){
-            \Appli\M\Link::getInstance()->get(\MVC\A::get('id'))->delete();
+        if(\MVC\A::get('t') == $_SESSION['token']){  
+            $tags = array();
+            $link = \Appli\M\Link::getInstance()->get(\MVC\A::get('id'));
+            $tags = \Appli\M\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser']);
+            $link->delete();
+            //on retourne les tags pour le js
+            self::getVue()->data = json_encode(
+                array('tags' => array('deleted' => $tags, 'new' => array(), 'default' => array())));
         }else{
             self::redirect('account','error');
         }
+        
     }
 
     public static function data_form() {
@@ -120,7 +127,7 @@ class Links extends \MVC\Controleur {
             $tagsAdded = array();
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                 for ($i = 0; $i < sizeof($tags); ++$i) {
-                    $tag = \Appli\M\Tag::getInstance()->getTagByLabel(htmlspecialchars_decode($tags[$i]), $_SESSION['idUser']);
+                    $tag = \Appli\M\Tag::getInstance()->getTagByLabel(htmlspecialchars_decode($tags[$i]));
                     //if there is no result, we create the tag
                     if (!$tag) {
                         $tag = \Appli\M\Tag::getInstance()->newItem();

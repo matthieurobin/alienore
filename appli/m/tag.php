@@ -15,9 +15,9 @@ class Tag extends \MVC\Table {
         return $this->getInstance()->select($query, array($idUser));
     }
     
-    public function getTagByLabel($label,$idUser){
-        $query = 'SELECT tag.id, tag.label FROM tag,taglink t,link WHERE t.idTag = tag.id AND t.idLink = link.id AND link.idUser = ?  AND label = ?';
-        return $this->getInstance()->select($query, array($idUser, $label));
+    public function getTagByLabel($label){
+        $query = 'SELECT tag.id, tag.label FROM tag  WHERE label = ?';
+        return $this->getInstance()->select($query, array($label));
     }
     
     public function getSearchTag($search, $idUser){

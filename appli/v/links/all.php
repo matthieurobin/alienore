@@ -118,7 +118,7 @@
                                         <button type="button" class="btn btn-warning" onclick="editLink(<?php echo strval($link['link']->id) ?>, '<?php echo \MVC\Language::T('EditLink') ?>')">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </button>
-                                        <button type="button" class="btn btn-danger" onclick="location.href = '?c=links&a=delete&t=<?php echo $_SESSION['token'] ?>&id=<?php echo $link['link']->id ?>'">
+                                        <button type="button" class="btn btn-danger" onclick="deleteLink(<?php echo $link['link']->id ?>,'<?php echo $_SESSION['token'] ?>')">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </button>
                                     </div>
