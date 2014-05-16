@@ -84,7 +84,7 @@
                             <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
                                 <li id="tag-<?php echo $this->tags[$i]->id ?>">
                                     <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
-                                    <span class="tag-nb-links"><?php echo $this->tags[$i]->count ?></span>
+                                    <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>"><?php echo $this->tags[$i]->count ?></span>
                                 </li>
                             </a>
                         <?php endfor; ?>

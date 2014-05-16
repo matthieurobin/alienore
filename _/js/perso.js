@@ -235,10 +235,15 @@ function editTag(tag){
 }
 
 /*
- add the links to DOM
+    add/replace the links to DOM
+    @param {array} links 
+    @param {string} tokenuser
+    @param {boolean} isAppend : switch between .append/.prepend
+    @param {boolean} isRepplace : switch between append/prepend or replace the html in the <li>
  */
-function displayLinks(links, tokenUser, isAppend) {
+function displayLinks(links, tokenUser, isAppend, isReplace) {
     if(isAppend === undefined) isAppend = true;
+    if(isReplace === undefined) isReplace = false;
     var _nbLinks = links.length;
     $('.loading').removeClass('no-display');
     if (_currentPage == 1){
@@ -275,16 +280,42 @@ function displayLinks(links, tokenUser, isAppend) {
         }
         _res += '</div>' +
                 '</div>';
-        if(isAppend){
-            $('#list').append($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
+        if(!isReplace){
+            if(isAppend){
+                $('#list').append($('<li id="link-' + _link.id + '">' + _res + '</li>'));
+            }else{
+                $('#list').prepend($('<li id="link-' + _link.id + '">' + _res + '</li>'));
+            }  
         }else{
-            $('#list').prepend($('<li id="link-"' + _link.id + '>' + _res + '</li>'));
-        }  
+            $('#link-' + _link.id).html(_res);
+        }
     }
     $('.loading').addClass('no-display');
     if (_currentPage == 1){
         $('#list').slideDown(525);
     }
+}
+
+/*
+    update the nb of links for a tag in the tags list 
+*/
+function updateTag(tags){
+    if(tags.new.length > 0){
+        for(var _i = 0; _i < tags.new.length; ++_i){
+            var _tag = '#tag-' + tags.new[_i].id;
+            var _nbTag = parseInt($(_tag + ' span.tag-nb-links').eq(0).data('nb-links'));
+            $(_tag + ' span.tag-nb-links').eq(0).text(_nbTag + 1);
+            $(_tag + ' span.tag-nb-links').eq(0).data('nb-links',_nbTag + 1);
+        }
+    }
+    if(tags.deleted.length > 0){
+        for(var _i = 0; _i < tags.deleted.length; ++_i){
+            var _tag = '#tag-' + tags.deleted[_i].id;
+            var _nbTag = parseInt($(_tag + ' span.tag-nb-links').eq(0).data('nb-links'));
+            $(_tag + ' span.tag-nb-links').eq(0).text(_nbTag - 1);
+            $(_tag + ' span.tag-nb-links').eq(0).data('nb-links',_nbTag - 1);
+        }
+    } 
 }
 
 //lorsque on soumet le formulaire pour new/edit lien
@@ -297,22 +328,40 @@ $('#form-link').on('submit', function(){
         success: function(resp) { 
             $('#modal-new-link').modal('hide');
             var _res = JSON.parse(resp);
-            var _link = _res.link.link;
+            console.log(_res);
+            var _link = _res.link;
+            var _tags = _res.tags;
+            //si c'est une édition du lien
             if(_res.isEdit){
                 var _idLink = _link.id;
-                var $link = $('#link-' + _idLink);
-                $('#title-' + _idLink + ' > a').html(_link.title);
-                //todo gérer l'actualisation du reste du bouzin
+                var _linkToDisplay = {
+                    'link' : _link,
+                    'tags' : _res.tags.default.concat(_res.tags.new)
+                };
+                displayLinks([_linkToDisplay], _res.token, false, true);
+                //actualisation du nombre de liens pour les tags ajoutés et/ou supprimés
+                updateTag(_tags);
+            //sinon un nouveau lien
             }else{
                 //ajout du lien dans le dom
-                displayLinks([_res.link], _res.token, false);
+                var _linkToDisplay = {
+                    'link' : _link,
+                    'tags' : _res.tags.new
+                };
+                displayLinks([_linkToDisplay], _res.token, false);
+                //reset du formulaire
                 reset();
                 resetTagBox();
                 //actualisation du nombre de liens
                 var _nbLinks = parseInt($('#nbLinks-count').text()) + 1;
-                $('#nbLinks-count').text(_nbLinks);
-                //todo gérer l'actualisation des tags
+                $('#nbLinks-count').text(_nbLinks); 
+                //actualisation du nombre de liens pour les tags ajoutés et/ou supprimés
+                updateTag(_tags);
             }
+
+            //todo gérer les cas :
+            // 1. on ajoute un nouveau tag
+            // 2. on supprime un tag
         }
     });
     return false;
