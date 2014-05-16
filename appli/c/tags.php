@@ -3,7 +3,7 @@
 namespace Appli\C;
 
 class Tags extends \MVC\Controleur {
-
+    
     public static function all() {
         $tags = \Appli\M\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser']);
         $nbTags = sizeof($tags);
@@ -37,7 +37,7 @@ class Tags extends \MVC\Controleur {
             }else{
                 $tag = \Appli\M\Tag::getInstance()->newItem();
             }
-            $tag->label = strtolower(htmlentities(trim(\MVC\A::get('tagName'))));
+            $tag->label = htmlspecialchars(strtolower(trim(\MVC\A::get('tagName'))));
             //if the tag doesn't exist
             if(!\Appli\M\Tag::getInstance()->getTagByLabel($tag->label, $_SESSION['idUser'])){
                 $tag->store();
@@ -49,7 +49,21 @@ class Tags extends \MVC\Controleur {
     }
     
     public static function data_searchTag(){
-        self::getVue()->data = json_encode(\Appli\M\Tag::getInstance()->getSearchTag(\MVC\A::get('search'),$_SESSION['idUser']));
+        $tags = \Appli\M\Tag::getInstance()->getSearchTag(\MVC\A::get('search'),$_SESSION['idUser']);
+        self::getVue()->data = json_encode($tags);
+    }
+
+    public static function data_linksByTag(){
+        $tag = \Appli\M\Tag::getInstance()->get(\MVC\A::get('tagId'));
+        $nbLinks = \Appli\M\Link::getInstance()->countLinksByTag($tag->id, $_SESSION['idUser'])->count;
+        $pagination = \MVC\Pagination::buildPaging($nbLinks, 1);
+        $links = \Appli\M\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit'], $_SESSION['idUser']);
+        self::getVue()->data = json_encode($links);
+    }
+
+    public static function data_form(){
+        $tag = \MVC\Display::displayTag(\Appli\M\Tag::getInstance()->get(\MVC\A::get('tagId')));
+        self::getVue()->data = json_encode($tag);
     }
 
 }

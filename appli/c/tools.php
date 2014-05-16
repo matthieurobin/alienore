@@ -23,31 +23,32 @@ class Tools extends \MVC\Controleur {
                         if (!\Appli\M\Link::getInstance()->getLinkByUrl($url, $userId)) {
                             //first we process the link
                             $linkBdd = \Appli\M\Link::getInstance()->newItem();
-                            $linkBdd->linkdate = $link['linkdate'];
-                            $linkBdd->title = $link['title'];
-                            $linkBdd->url = $url;
-                            $linkBdd->description = $link['description'];
+                            $linkBdd->linkdate = htmlspecialchars(trim($link['linkdate']));
+                            $linkBdd->title = htmlspecialchars(trim($link['title']));
+                            $linkBdd->url = htmlspecialchars(trim($url));
+                            $linkBdd->description = htmlspecialchars(trim($link['description']));
                             $linkBdd->idUser = $userId;
                             $linkBdd->store();
                             //then we look at the tags
-                            $tags = explode(' ', htmlentities(trim($link['tags'])));
+                            $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
                             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
                                 for ($j = 0; $j < sizeof($tags); ++$j) {
                                     $tag = strtolower($tags[$j]);
-                                    $tagBdd = \Appli\M\Tag::getInstance()->getTagByLabel($tag)[0];
+                                    $tagBdd = \Appli\M\Tag::getInstance()->getTagByLabel($tag);
+                                    var_dump($tag, $tagBdd);
                                     //if there is no result, we create the tag
                                     if (!$tagBdd) {
                                         $tagBdd = \Appli\M\Tag::getInstance()->newItem();
                                         $tagBdd->label = $tag;
                                         $tagBdd->store();
+                                    }else{
+                                        $tagBdd = $tagBdd[0];
                                     }
                                     //if taglist doesn't exist anymore
-                                    if (!\Appli\M\Taglink::getInstance()->exists($linkBdd->id, $tagBdd->id)) {
-                                        $taglink = \Appli\M\Taglink::getInstance()->newItem();
-                                        $taglink->idTag = $tagBdd->id;
-                                        $taglink->idLink = $linkBdd->id;
-                                        $taglink->store();
-                                    }
+                                    $taglink = \Appli\M\Taglink::getInstance()->newItem();
+                                    $taglink->idTag = $tagBdd->id;
+                                    $taglink->idLink = $linkBdd->id;
+                                    $taglink->store();
                                 }
                             }
                         }
