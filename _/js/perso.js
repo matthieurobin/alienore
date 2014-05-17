@@ -264,6 +264,7 @@ function displayLinks(links, tokenUser, isAppend, isReplace) {
                 '</button>' +
                 '</div>' +
                 '<h4 id="title-' + _link.id + '">' +
+                '<img src="http://www.google.com/s2/favicons?domain=' + _link.url + '" />' + 
                 '<a href="' + _link.url + '" target="_blank"> ' + _link.title + ' </a>' +
                 '</h4>' +
                 '<p class="link-description-second">' +

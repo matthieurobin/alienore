@@ -125,7 +125,10 @@
                                         </button>
                                     </div>
                                     <h4 id="title-<?php echo $link['link']->id ?>">
-                                        <a href="<?php echo $link['link']->url ?>" target="_blank"><?php echo $link['link']->title ?></a>
+                                        <a href="<?php echo $link['link']->url ?>" target="_blank">
+                                            <img src="http://www.google.com/s2/favicons?domain=<?php echo $link['link']->url ?>" />
+                                            <?php echo $link['link']->title ?>
+                                        </a>
                                     </h4>
                                     <p class="link-description-second">
                                         <small><?php echo \MVC\Date::displayDate($link['link']->linkdate) ?></small> - 
