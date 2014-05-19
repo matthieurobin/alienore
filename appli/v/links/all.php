@@ -158,7 +158,7 @@
                             </li>
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <div class="nolinks"><?php echo $this->helper ?></div>
+                        <div id="empty-result"><?php echo $this->helper ?></div>
                     <?php endif; ?>
                 </ul>
                 <div class="paging pointer" onclick="nextPage()">

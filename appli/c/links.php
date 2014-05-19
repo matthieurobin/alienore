@@ -34,6 +34,9 @@ class Links extends \MVC\Controleur {
     public static function data_search(){
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $search = htmlspecialchars(trim(\MVC\A::get('search')));
+        $nbLinks = 0;
+        $pagination['nbPages'] = 0;
+        $links = array();
         if(strlen($search) > 2){
             $nbLinks = \Appli\M\Link::getInstance()->countSearch($search, $_SESSION['idUser'])->count;
             $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);

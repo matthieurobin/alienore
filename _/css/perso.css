@@ -158,8 +158,9 @@ li{
     color : #999;
 }
 
-.nolinks{
+#empty-result{
     text-align: center;
+    font-size: 2em;
 }
 
 /* MODAL */
@@ -186,13 +187,25 @@ li{
     background-color: #e74c3c;
 }
 
-.paging, .paging a{
+.paging{
     background-color: #2A72AD;
     text-align: center;
     color: #ededed;
-    height: 20px;
+    height: 25px;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    margin: 5px 10px;
+    padding: 2px 0px;
 }
+
+.paging a{
+    text-decoration: none;
+    color: #ededed;
+}
+
+.paging:hover{
+    background-color: #2980b9;
+}
+
 #account{
     padding-bottom: 10px;
 }
