@@ -62,6 +62,7 @@ $language = array (
     'Unsaved' => 'Unsaved',
     'Url' => 'Url',
     'Username' => 'Username',
+    'Version' => 'Version',
     'You do not have any tag' => 'You don\t have any tag',
     'You do not have links already' => 'You don\'t have any links'
     

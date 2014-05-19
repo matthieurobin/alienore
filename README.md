@@ -1,6 +1,26 @@
 Changelog :
 ==========
 
+Version 0.11.1:
+---------------
+- Affichage des favicons des liens à côté du titre du lien
+- Effectuer une recherche en ajax
+- Amélioration côté client pour ne pas chercher deux fois la même chose
+- Vérification côté client pour ne pas effectuer une recherche de moins de 3 caractères
+
+Version 0.11.0 :
+----------------
+- Modification du design
+- Pouvoir supprimer des tags dans un lien
+- Pouvoir en ajax :
+	- afficher les liens (tous et par tag)
+	- modifier un lien
+	- supprimer un lien
+	- actualiser les informations en fonction des actions (nombre de liens, nombre de liens par tag, ...)
+- Correction de l'encodage de la base de données pour l'utf-8
+- Correction de l'affichage des liens pour la modification (htmlsepcialchars_decode)
+- Pouvoir afficher des helper
+
 Version 0.10.0:
 --------------
 - Mise en place token utilisateur (suppression de liens) 

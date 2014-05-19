@@ -56,8 +56,10 @@
         </div>-->
         <div id="wrap">
             <div id="menu">
-                <div>
-                    <a class="navbar-brand" href="."><img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img></a>
+                <div id="logo">
+                    <a class="navbar-brand" href=".">
+                        <img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
+                    </a>
                     <ul class="nav navbar-nav navbar-right">
                         <li id="dropdown-account" class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"</span></a>
