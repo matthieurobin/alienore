@@ -46,7 +46,8 @@ class Links extends \MVC\Controleur {
                 'page' => $page, 
                 'nbPages' => $pagination['nbPages'],
                 'nbLinks' => $nbLinks,
-                'token' => $_SESSION['token']
+                'token' => $_SESSION['token'],
+                'search' => $search
             ));
     }
 

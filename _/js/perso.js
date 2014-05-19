@@ -142,11 +142,17 @@ $(':input[class=type-zone]').eq(0).keyup('input', function() {
 
 });
 
+function resetSearchBar(){
+    $('#search-bar-tag').html('');
+    $('#input-search').val('');
+}
+
 
 
 var _lastTag = undefined;
 var _currentPage = 1;
 var _lastLimit = 1;
+var _lastSearch = '';
 
 /*
  get the next links from all, tag, search
@@ -158,12 +164,13 @@ function nextPage() {
     } else {
         switch ($('.paging a').data('pagination')) {
             case 'default':
-                getLinks();
+                getLinks(_currentPage);
                 break;
             case 'tag':
                 getLinksByTag(_lastTag);
                 break;
             case 'search':
+                getSearch(_lastSearch);
                 break;
         }
     }
@@ -172,10 +179,19 @@ function nextPage() {
 /*
  Get all the links for the next page
  */
-function getLinks() {
+function getLinks(page) {
+    if(page === 1){
+        _currentPage = 1;
+        //on rénitialise le container
+        $('#list').html('');
+        resetSearchBar();
+        $('#tags-list-ul li').removeClass('tags-active');
+        //prévenir d'un bug : si on ne réinitialise pas cette variable, le tag ne s'affichera pas dans la search-bar
+        _lastTag = undefined;
+    }
     $.ajax({
         type: 'GET',
-        url: '?c=links&a=data_all&page=' + _currentPage,
+        url: '?c=links&a=data_all&page=' + page,
         success: function(resp) {
             var _res = JSON.parse(resp);
             _lastLimit = _res.nbPages;
@@ -203,8 +219,13 @@ function getLinksByTag(id) {
             url: '?c=tags&a=data_form&tagId=' + id,
             success: function(resp) {
                 var _res = JSON.parse(resp);
-                editTag(_res);
+                $("#input-tag-title").val(_res.label);
+                $("#input-tag-id").val(_res.id);
                 $('#edit-tag').css('opacity','1');
+                //on affiche le tag dans la search-bar
+                var _tag = '<span class="glyphicon glyphicon-tag"></span> ' + _res.label + 
+                        ' <a href="#" onclick="getLinks(1)"><span class="glyphicon glyphicon-remove"></span></a>';
+                $('#search-bar-tag').html(_tag);
             },
             error: function() {
                 
@@ -231,9 +252,23 @@ function getLinksByTag(id) {
     });
 }
 
-function editTag(tag){
-    $("#input-tag-title").val(tag.label);
-    $("#input-tag-id").val(tag.id);
+/*
+    get the links for the search
+*/
+function getSearch(page, search){
+    $.ajax({
+        type: 'GET',
+        url: '?c=links&a=data_search&search=' + search + '&page=' + _currentPage,
+        success: function(resp) {
+            var _res = JSON.parse(resp);
+            _lastLimit = _res.nbPages;
+            displayLinks(_res.links, _res.token);
+            _lastSearch = search;
+        },
+        error: function() {
+
+        }
+    });
 }
 
 /*
@@ -269,7 +304,7 @@ function displayLinks(links, tokenUser, isAppend, isReplace) {
                 '</h4>' +
                 '<p class="link-description-second">' +
                 '<small>' + _link.linkdate + '</small> - ' +
-                '<a href=' + _link.url + '" target="_blank">' + _link.title + '</a>' +
+                '<a href=' + _link.url + ' target="_blank">' + _link.title + '</a>' +
                 '</p>' +
                 '<p class="link-description">' + _link.description + '</p>' +
                 '<div class="tags">';
@@ -362,7 +397,6 @@ $('#form-link').on('submit', function(){
         success: function(resp) { 
             $('#modal-new-link').modal('hide');
             var _res = JSON.parse(resp);
-            console.log(_res);
             var _link = _res.link;
             var _tags = _res.tags;
             //si c'est une édition du lien
@@ -395,6 +429,38 @@ $('#form-link').on('submit', function(){
                 updateTag(_tags);
                 showAlert('The link was successfully added', 'modal-helper-green');
             }
+        },
+        error: function() {
+            
+        }
+    });
+    return false;
+});
+
+
+//lorsque on soumet le formulaire pour effectuer une recherche
+$('#form-search').on('submit', function(){
+    var $this = $(this);
+    $.ajax({
+        url: $this.attr('action'), 
+        type: $this.attr('method'), 
+        data: $this.serialize(), 
+        success: function(resp) { 
+            var _res = JSON.parse(resp);
+            $('#list').html('');
+            _currentPage = 1;
+            _lastLimit = _res.nbPages;
+            $('#nbLinks-count').text(_res.nbLinks);
+            displayLinks(_res.links, _res.token);
+            $('.paging').removeClass('no-display');
+            $('#tags-list-ul li').removeClass('tags-active');
+            _lastSearch = _res.search;
+
+            //on affiche la recherche dans la search-bar
+            resetSearchBar();
+            var _tag = '<span class="glyphicon glyphicon-search"></span> ' + _res.search + 
+                    ' <a href="#" onclick="getLinks(1)"><span class="glyphicon glyphicon-remove"></span></a>';
+            $('#search-bar-tag').html(_tag);
         },
         error: function() {
             

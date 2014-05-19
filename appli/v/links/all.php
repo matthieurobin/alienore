@@ -96,6 +96,15 @@
             <div id="links">
                 <div id="modal-helper"></div>
                 <div class="tool-bar">
+                    <div id="search-bar">
+                        <div id="search-bar-tag"></div>
+                        <div id='search-bar-form'>
+                            <form id="form-search" action="?c=links&a=data_search" method="post">
+                                <input id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
+                                <input type="submit" style="position: absolute; left: -9999px"/>
+                            </form>  
+                        </div>
+                    </div>
                     <div id="addlink">
                         <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
                             <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
@@ -152,7 +161,9 @@
                         <div class="nolinks"><?php echo $this->helper ?></div>
                     <?php endif; ?>
                 </ul>
-                <div class="paging pointer" onclick="nextPage()"><a data-pagination="default"><?php echo \MVC\Language::T('More') ?></a></div>
+                <div class="paging pointer" onclick="nextPage()">
+                    <a data-pagination="default"><?php echo \MVC\Language::T('More') ?></a>
+                </div>
             </div>
 
 
