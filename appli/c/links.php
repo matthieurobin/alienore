@@ -153,6 +153,7 @@ class Links extends \MVC\Controleur {
             $tagsNoChange = array();
             $tagsAdded = array();
             $tagsDeleted = array();
+            //si c'est une édition
             if($isEdit){
                 $tagsLinkBeforeId = [];
                 for($i = 0 ; $i < sizeof($tagsLinkBefore); ++$i){

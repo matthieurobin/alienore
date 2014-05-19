@@ -209,47 +209,49 @@ function getLinks(page) {
  get the links identified by the tag
  */
 function getLinksByTag(id) {
-    if (_lastTag !== id || _lastLimit == _currentPage) {
-        _currentPage = 1;
-        //on rénitialise le container
-        $('#list').html('');
-        //we load the edit form
+    if (_lastTag !== id){
+        if (_lastTag !== id || _lastLimit == _currentPage) {
+            _currentPage = 1;
+            //on rénitialise le container
+            $('#list').html('');
+            //we load the edit form
+            $.ajax({
+                type: 'GET',
+                url: '?c=tags&a=data_form&tagId=' + id,
+                success: function(resp) {
+                    var _res = JSON.parse(resp);
+                    $("#input-tag-title").val(_res.label);
+                    $("#input-tag-id").val(_res.id);
+                    $('#edit-tag').css('opacity','1');
+                    //on affiche le tag dans la search-bar
+                    var _tag = '<span class="glyphicon glyphicon-tag"></span> ' + _res.label + 
+                            ' <a href="#" onclick="getLinks(1)"><span class="glyphicon glyphicon-remove"></span></a>';
+                    $('#search-bar-tag').html(_tag);
+                },
+                error: function() {
+                    
+                }
+            });
+        }
+        _lastTag = id;
+        $('#tags-list-ul li').removeClass('tags-active');
+        $('.paging').removeClass('no-display');
+        $('#tag-' + id).addClass('tags-active');
         $.ajax({
             type: 'GET',
-            url: '?c=tags&a=data_form&tagId=' + id,
+            url: '?c=links&a=data_getLinksByTag&tagId=' + id,
             success: function(resp) {
                 var _res = JSON.parse(resp);
-                $("#input-tag-title").val(_res.label);
-                $("#input-tag-id").val(_res.id);
-                $('#edit-tag').css('opacity','1');
-                //on affiche le tag dans la search-bar
-                var _tag = '<span class="glyphicon glyphicon-tag"></span> ' + _res.label + 
-                        ' <a href="#" onclick="getLinks(1)"><span class="glyphicon glyphicon-remove"></span></a>';
-                $('#search-bar-tag').html(_tag);
+                _lastLimit = _res.nbPages;
+                displayLinks(_res.links, _res.token);
+                //on change le nb de liens
+                $('#nbLinks-count').text(_res.nbLinks);
             },
             error: function() {
-                
+
             }
         });
     }
-    _lastTag = id;
-    $('#tags-list-ul li').removeClass('tags-active');
-    $('.paging').removeClass('no-display');
-    $('#tag-' + id).addClass('tags-active');
-    $.ajax({
-        type: 'GET',
-        url: '?c=links&a=data_getLinksByTag&tagId=' + id,
-        success: function(resp) {
-            var _res = JSON.parse(resp);
-            _lastLimit = _res.nbPages;
-            displayLinks(_res.links, _res.token);
-            //on change le nb de liens
-            $('#nbLinks-count').text(_res.nbLinks);
-        },
-        error: function() {
-
-        }
-    });
 }
 
 /*
