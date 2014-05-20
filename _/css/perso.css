@@ -33,8 +33,8 @@ li{
     position: fixed;
     float: left;
     background: #24282f;
-    color: #ededed;
-    padding: 5px 10px;
+    color: rgba(255,255,255,0.7);
+    padding: 5px 10px 5px 15px;
 }
 
 .sidebar .table{
@@ -66,9 +66,8 @@ li{
 }
 
 .tags-title{
-    padding: 5px 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    margin-bottom: 10px;
+    padding-bottom: 5px;
+    color: #fff;
 }
 
 #tags-list{
@@ -80,15 +79,19 @@ li{
 
 #tags-list-ul{
     position: absolute;
-    height: 80%;
+    height: 100%;
     right: 0px;
     left: 0px;
+    bottom: 0px;
+    overflow-y: auto;
 }
 
 #tags-list li{
-    padding: 0px 10px;
+    padding: 2px 0px;
     margin-bottom: 5px;
+    border-radius: 10px;
 }
+
 #tags-list li:hover{
     cursor: pointer;
 }
@@ -97,14 +100,22 @@ li{
      color: #A0A5AE;
 }
 
+#tags-list-ul a:hover{
+     color: #fff;
+}
+
 .tag-label{
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 20px;
+    padding: 0px 5px;
 }
 
 .tag-nb-links{
     float: right;
+}
+
+.footer{
+    padding: 4px 5px;
 }
 
 /* TOOLBAR */

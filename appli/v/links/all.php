@@ -78,23 +78,30 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="row collection-list" id="tags-list">
+                    <div class="row">
                         <div class="tags-title">
                             <?php echo \MVC\Language::T('Tags') ?>
+                        </div> 
                         </div>
-                        <div id="tags-list-ul">
-                                    <ul>
-                                        <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
-                                            <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
-                                                <li id="tag-<?php echo $this->tags[$i]->id ?>">
-                                                    <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
-                                                    <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>">
-                                                        <?php echo $this->tags[$i]->count ?>
-                                                    </span>
-                                                </li>
-                                            </a>
-                                        <?php endfor; ?>
-                                    </ul>
+                    <div class="row" id="tags-list">
+                        <div id="tags-list-ul" class="collection-list">
+                            <ul>
+                                <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
+                                    <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
+                                        <li id="tag-<?php echo $this->tags[$i]->id ?>">
+                                            <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
+                                            <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>">
+                                                <?php echo $this->tags[$i]->count ?>
+                                            </span>
+                                        </li>
+                                    </a>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="footer">
+                            <?php echo \MVC\Language::T('Version') .' '. \Install\App::VERSION ?> 
                         </div>
                     </div>
                 </div>
