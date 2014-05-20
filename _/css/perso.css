@@ -12,7 +12,7 @@ body{
 }
 .logo{
     width: 97px;
-    height: 30px;
+    height: 100%;
 }
 li{
     list-style: none;
@@ -26,17 +26,34 @@ li{
 
 /* MENU */
 
-#menu{
-    max-width: 22%;
-    min-width: 22%;
+.sidebar{
+    width: 22%;
+    top: 0px;
     height: 100%;
     position: fixed;
     float: left;
-    left: 0px;
-    padding: 5px 0px 5px 15px;
     background: #24282f;
     color: #ededed;
+    padding: 5px 10px;
+}
+
+.sidebar .table{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+}
+
+.table{
     display: table;
+}
+
+.table .row{
+    display: table-row;
+}
+
+.sidebar .collections-list{
+    height: 100%;
 }
 
 #logo{
@@ -49,25 +66,27 @@ li{
 }
 
 .tags-title{
-    padding: 5px 0px;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    margin-bottom: 10px;
 }
 
 #tags-list{
-    display: table-row;
     color: #A0A5AE;
     width: 100%;
     height: 100%;
-    padding-right: 10px; 
+    position: relative;
 }
 
 #tags-list-ul{
-    padding: 5px 10px 5px 5px;
     position: absolute;
-    width: 98%;
     height: 80%;
+    right: 0px;
+    left: 0px;
 }
 
 #tags-list li{
+    padding: 0px 10px;
     margin-bottom: 5px;
 }
 #tags-list li:hover{
@@ -294,10 +313,10 @@ h4 > a{
 }
 
 #footer {
-    display: table-row;
     color: #999;
-    padding: 5px 10px 0px 0px;
+    padding: 150px;
     bottom: 0px;
+    height: 100%;
 }
 
 .form-signin {

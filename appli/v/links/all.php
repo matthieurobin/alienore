@@ -55,46 +55,50 @@
 
         </div>-->
         <div id="wrap">
-            <div id="menu">
-                <div id="logo">
-                    <a class="navbar-brand" href=".">
-                        <img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
-                    </a>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="dropdown-account" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"</span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
-                                <li><a href="?c=tools&a=all">
-                                        <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
-                                <li><a href="?c=account&a=help">
-                                        <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
-                                <li><a href="?c=account&a=preferences">
-                                        <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
-                                <li role="presentation" class="divider"></li>
-                                <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div id="tags-list">
-                    <div class="tags-title">
-                        <?php echo \MVC\Language::T('Tags') ?>
+            <aside class="sidebar">
+                <div class="table">
+                    <div class="row" id="logo">
+                        <a class="navbar-brand" href=".">
+                            <img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
+                        </a>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="dropdown-account" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"</span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
+                                    <li><a href="?c=tools&a=all">
+                                            <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
+                                    <li><a href="?c=account&a=help">
+                                            <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
+                                    <li><a href="?c=account&a=preferences">
+                                            <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <ul id="tags-list-ul">
-                        <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
-                            <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
-                                <li id="tag-<?php echo $this->tags[$i]->id ?>">
-                                    <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
-                                    <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>">
-                                        <?php echo $this->tags[$i]->count ?>
-                                    </span>
-                                </li>
-                            </a>
-                        <?php endfor; ?>
-                    </ul>
+                    <div class="row collection-list" id="tags-list">
+                        <div class="tags-title">
+                            <?php echo \MVC\Language::T('Tags') ?>
+                        </div>
+                        <div id="tags-list-ul">
+                                    <ul>
+                                        <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
+                                            <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
+                                                <li id="tag-<?php echo $this->tags[$i]->id ?>">
+                                                    <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
+                                                    <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>">
+                                                        <?php echo $this->tags[$i]->count ?>
+                                                    </span>
+                                                </li>
+                                            </a>
+                                        <?php endfor; ?>
+                                    </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </aside>
             <div id="links">
                 <div id="modal-helper"></div>
                 <div class="tool-bar">
