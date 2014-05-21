@@ -192,6 +192,9 @@ function getLinks(page) {
         $('#tags-list-ul li').removeClass('tags-active');
         //prévenir d'un bug : si on ne réinitialise pas cette variable, le tag ne s'affichera pas dans la search-bar
         _lastTag = undefined;
+        if(!$('#edit-tag').hasClass('no-display')){
+            $('#edit-tag').addClass('no-display');
+        }
     }
     $.ajax({
         type: 'GET',
@@ -226,7 +229,9 @@ function getLinksByTag(id) {
                     var _res = JSON.parse(resp);
                     $("#input-tag-title").val(_res.label);
                     $("#input-tag-id").val(_res.id);
-                    $('#edit-tag').css('opacity','1');
+                    if($('#edit-tag').hasClass('no-display')){
+                        $('#edit-tag').removeClass('no-display');
+                    }       
                     //on affiche le tag dans la search-bar
                     var _tag = '<span class="glyphicon glyphicon-tag"></span> ' + _res.label + 
                             ' <a href="#" onclick="getLinks(1)"><span class="glyphicon glyphicon-remove"></span></a>';
@@ -389,7 +394,7 @@ function updateTag(tags){
                 '</a>';
             $('#tags-list-ul .mCSB_container').prepend($(_res));
         }
-        $('#tags-list-ul .mCSB_container').mCustomScrollbar('update');
+        $('#tags-list .mCSB_container').mCustomScrollbar('update');
     }
 }
 

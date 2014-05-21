@@ -15,93 +15,59 @@
         <link rel="icon" type="image/png" href="<?php echo \Install\Path::IMG; ?>favicon.png" />
     </head>
     <body>
-        <!--<div id="header">
-            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="."><img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img></a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="."><?php echo \MVC\Language::T('Home'); ?></a></li>
-                        <li><a href="?c=tags&a=all"><?php echo \MVC\Language::T('Tags'); ?></a></li>
-                        <li><a href="?c=tools&a=all"><?php echo \MVC\Language::T('Tools'); ?></a></li>
-                        <form action="?c=links&a=all" method="post" class="navbar-form navbar-right" role="form">
-                            <div class="form-group">
-                                <input name="search" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
-                            </div>
-                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span> <?php echo \MVC\Language::T('Search'); ?></button>
-                        </form>  
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="dropdown-account" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo \MVC\Language::T('Account'); ?><b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="?c=account&a=help"><?php echo \MVC\Language::T('Help'); ?></a></li>
-                                <li><a href="?c=account&a=preferences"><?php echo \MVC\Language::T('Preferences'); ?></a></li>
-                                <li role="presentation" class="divider"></li>
-                                <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
-                            </ul>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>    
-
-        </div>-->
-        <div id="wrap">
             <aside class="sidebar">
                 <div class="table">
-                    <div class="row" id="logo">
-                        <a class="navbar-brand" href=".">
-                            <img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
-                        </a>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li id="dropdown-account" class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"</span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
-                                    <li><a href="?c=tools&a=all">
-                                            <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
-                                    <li><a href="?c=account&a=help">
-                                            <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
-                                    <li><a href="?c=account&a=preferences">
-                                            <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
-                                    <li role="presentation" class="divider"></li>
-                                    <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
                     <div class="row">
+                        <!-- Menu + logo -->
+                        <header class="nav">
+                            <a href=".">
+                                <img id="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
+                            </a>
+                            <div class="pull-right">
+                                <ul>
+                                    <li id="dropdown-account" class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
+                                            <li><a href="?c=tools&a=all">
+                                                    <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
+                                            <li><a href="?c=account&a=help">
+                                                    <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
+                                            <li><a href="?c=account&a=preferences">
+                                                    <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
+                                            <li role="presentation" class="divider"></li>
+                                            <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </header>
                         <div class="tags-title">
-                            <?php echo \MVC\Language::T('Tags') ?>
-                        </div> 
+                            <p><?php echo \MVC\Language::T('Tags') ?></p>
                         </div>
-                    <div class="row" id="tags-list">
-                        <div id="tags-list-ul" class="collection-list">
-                            <ul>
-                                <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
-                                    <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
-                                        <li id="tag-<?php echo $this->tags[$i]->id ?>">
-                                            <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
-                                            <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>">
-                                                <?php echo $this->tags[$i]->count ?>
-                                            </span>
-                                        </li>
-                                    </a>
-                                <?php endfor; ?>
-                            </ul>
+                    </div>
+                    <div class="row collections-list">
+                        <div class="tags-list">
+                            <div class="tags-list-content" id="tags-list">
+                                <ul id="tags-list-ul">
+                                    <?php for ($i = 0; $i < sizeof($this->tags); ++$i): ?>
+                                        <a onclick="getLinksByTag(<?php echo $this->tags[$i]->id ?>)">
+                                            <li id="tag-<?php echo $this->tags[$i]->id ?>">
+                                                <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> <?php echo $this->tags[$i]->label ?></span>
+                                                <span class="tag-nb-links" data-nb-links="<?php echo $this->tags[$i]->count ?>">
+                                                    <?php echo $this->tags[$i]->count ?>
+                                                </span>
+                                            </li>
+                                        </a>
+                                    <?php endfor; ?>
+                                </ul>
+
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="footer">
-                            <?php echo \MVC\Language::T('Version') .' '. \Install\App::VERSION ?> 
+                            <?php echo \MVC\Language::T('Version') .' '. \Install\App::VERSION ?>
                         </div>
                     </div>
                 </div>
@@ -118,17 +84,17 @@
                             </form>  
                         </div>
                     </div>
-                    <div id="addlink">
-                        <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
-                            <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
-                        </a></span>
-                    <div id="edit-tag">
-                        <span><a href="" data-toggle="modal" data-target="#modal-edit-tag">
-                            <?php echo \MVC\Language::T('EditTag') ?> <span class="glyphicon glyphicon-plus"></span>
-                        </a></span>
-                    </div>
-                    <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') ?> <span id="nbLinks-count"><?php echo $this->nbLinks ?></span></span>
-                </div>
+                    <div id="edit-tag" class="no-display pull-left">
+                            <span><a href="" data-toggle="modal" data-target="#modal-edit-tag">
+                                <?php echo \MVC\Language::T('EditTag') ?> <span class="glyphicon glyphicon-plus"></span>
+                            </a></span>
+                        </div>
+                        <div id="addlink">
+                            <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
+                                <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
+                            </a></span>
+                        <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') ?> <span id="nbLinks-count"><?php echo $this->nbLinks ?></span></span>
+                        </div>
                 </div>
                 <div class="loading no-display">
                     <img width="64" height="64" src="<?php echo \Install\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
@@ -246,7 +212,7 @@
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
                                     $(document).ready(function() {
-                                        $("#tags-list-ul").mCustomScrollbar();
+                                        $("#tags-list").mCustomScrollbar();
                                         $('#modal-new-link').on('hidden.bs.modal', function(e) {
                                             $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
                                             reset();

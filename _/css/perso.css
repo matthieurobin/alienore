@@ -10,10 +10,15 @@ body{
 .pointer{
     cursor: pointer;
 }
-.logo{
-    width: 97px;
-    height: 100%;
+
+.pull-right{
+    float: right !important;
 }
+
+.pull-left{
+    float: left !important;
+}
+
 li{
     list-style: none;
 }
@@ -44,11 +49,11 @@ li{
     vertical-align: top;
 }
 
-.table{
+.sidebar .table{
     display: table;
 }
 
-.table .row{
+.sidebar .row{
     display: table-row;
 }
 
@@ -56,40 +61,42 @@ li{
     height: 100%;
 }
 
-#logo{
-    display: table-row;
-    height: 50px;
+.nav{
+    width: 100%;
+    padding: 5px;
 }
 
-.tags-active{
-    color: #fff;
+#logo{
+    height: 35px;
 }
 
 .tags-title{
-    padding-bottom: 5px;
-    color: #fff;
+    padding: 5px;
+    color: rgba(255,255,255,0.8);
 }
 
-#tags-list{
-    color: #A0A5AE;
-    width: 100%;
+.tags-list{
     height: 100%;
+    overflow: visible;
     position: relative;
+    width: 100%;
 }
 
-#tags-list-ul{
+.tags-list .tags-list-content{
+    bottom: 0;
+    left: 0;
+    margin-left: -8px;
+    margin-right: -8px;
+    overflow-x: hidden;
+    overflow-y: hidden;
     position: absolute;
-    height: 100%;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    overflow-y: auto;
+    right: 0;
+    top: 0;
+    padding: 5px;
 }
 
-#tags-list li{
-    padding: 2px 0px;
-    margin-bottom: 5px;
-    border-radius: 10px;
+#tags-list-ul li{
+    padding: 2px;
 }
 
 #tags-list li:hover{
@@ -98,6 +105,7 @@ li{
 
 #tags-list-ul a{
      color: #A0A5AE;
+     text-decoration: none;
 }
 
 #tags-list-ul a:hover{
@@ -114,8 +122,13 @@ li{
     float: right;
 }
 
+.tags-active{
+    color: white;
+}
+
 .footer{
     padding: 4px 5px;
+    bottom: 0px;
 }
 
 /* TOOLBAR */
@@ -167,9 +180,9 @@ li{
     background-color: white;
 }
 
-#edit-tag{
-    opacity: 0;
-    display: inline-block;
+#edit-tag a{
+    color: #333;
+    padding-right: 10px;
 }
 
 #header{
@@ -257,7 +270,6 @@ li{
     position: absolute;
     height: 100%;
     right: 0px;
-    background-color: #e5e5e5;
 }
 
 #links > ul > li{
