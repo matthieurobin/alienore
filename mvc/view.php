@@ -1,7 +1,7 @@
 <?php
 namespace MVC;
 
-class Vue{
+class View{
     /**
      *
      * @var String
@@ -21,6 +21,9 @@ class Vue{
             include \Install\Path::VUE.'header.php';
         }
         include $this->_fichier;
+        if(file_exists(\Install\Path::VUE.'footer.php')){
+            include \Install\Path::VUE.'footer.php';
+        }
     }
     public function setFichier($fichier){
         if(substr($fichier, -4)!='.php'){

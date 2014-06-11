@@ -1,17 +1,25 @@
 <?php
 
-namespace Appli\M;
+namespace Appli\Models;
 
 class User extends \MVC\Table {
 
     protected $_table = 'user';
-    protected $_tableRow = '\\Appli\\M\\UserRow';
+    protected $_tableRow = '\\Appli\\Models\\UserRow';
 
-    
+    /**
+     * compter le nombre d'utilisateurs
+     * @return [array] [array of sql object]
+     */
     public function countAll(){
         return $this->getInstance()->select('SELECT COUNT(id) AS count FROM user')[0];
     }
     
+    /**
+     * chercher l'utilisateur identiié par son login
+     * @param  [string] $username
+     * @return [array]           [array of user objects]
+     */
     public function getByUsername($username){
         return $this->getInstance()->select('SELECT * FROM user WHERE username = ?', array($username));
     }

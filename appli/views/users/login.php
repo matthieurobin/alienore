@@ -32,7 +32,7 @@
         </div>
         <div class="container">
             <div class="helper">
-                <?php APPLI\V\Helper::display(); ?>
+                <?php APPLI\Views\Helper::display(); ?>
             </div>
             <form class="form-signin" role="form" action="?c=users&a=auth" method="post">
                 <h2 class="form-signin-heading">

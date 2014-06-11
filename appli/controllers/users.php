@@ -1,11 +1,11 @@
 <?php
 
-namespace Appli\C;
+namespace Appli\Controllers;
 
-class Users extends \MVC\Controleur {
+class Users extends \MVC\Controller {
 
     public static function login() {
-        $data = \Appli\M\User::getInstance()->countAll();
+        $data = \Appli\Models\User::getInstance()->countAll();
         if ($data->count == '0') {
             self::redirect('users', 'create');
         }
@@ -23,7 +23,7 @@ class Users extends \MVC\Controleur {
     public static function auth() {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = \MVC\A::get('password');
-        $users = \Appli\M\User::getInstance()->getByUsername($username);
+        $users = \Appli\Models\User::getInstance()->getByUsername($username);
         if (sizeof($users) > 0 ) {
             if (\MVC\Password::validate_password($password, $users[0]->hash)) {
                 $_SESSION['user'] = $users[0]->username;
@@ -38,7 +38,7 @@ class Users extends \MVC\Controleur {
     }
 
     static function create() {
-        $data = \Appli\M\User::getInstance()->countAll();
+        $data = \Appli\Models\User::getInstance()->countAll();
         if (intval($data->count) > 0) {
             self::redirect('users', 'login');
         }
@@ -53,9 +53,9 @@ class Users extends \MVC\Controleur {
         $passwordRepeat = htmlspecialchars(trim(\MVC\A::get('passwordRepeat')));
         if ($password == $passwordRepeat) {
             if ($username != '') {
-                $user = \Appli\M\User::getInstance()->getByUsername($username);
+                $user = \Appli\Models\User::getInstance()->getByUsername($username);
                 if (!$user) {
-                    $user = \Appli\M\User::getInstance()->newItem();
+                    $user = \Appli\Models\User::getInstance()->newItem();
                     $user->username = $username;
                     $user->hash = \MVC\Password::create_hash($password);
                     $user->userdate = \MVC\Date::getDateNow();

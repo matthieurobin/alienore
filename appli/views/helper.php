@@ -1,6 +1,6 @@
 <?php
 
-namespace APPLI\V;
+namespace APPLI\Views;
 
 class Helper {
 

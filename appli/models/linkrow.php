@@ -1,6 +1,6 @@
 <?php
 
-namespace Appli\M;
+namespace Appli\Models;
 
 class LinkRow extends \MVC\TableRow {
     

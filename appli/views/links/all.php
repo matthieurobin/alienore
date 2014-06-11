@@ -211,15 +211,15 @@
         <script src="<?php echo \Install\Path::JS; ?>jquery.mCustomScrollbar.min.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
         <script>
-                                    $(document).ready(function() {
-                                        $("#tags-list").mCustomScrollbar();
-                                        $('#modal-new-link').on('hidden.bs.modal', function(e) {
-                                            $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-                                            reset();
-                                            resetTagBox();
-                                        });
-                                        _lastLimit = <?php echo $this->pagination['nbPages'] ?>;
-                                    });
+            $(document).ready(function() {
+                $("#tags-list").mCustomScrollbar();
+                $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                    $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
+                    reset();
+                    resetTagBox();
+                });
+                _lastLimit = <?php echo $this->pagination['nbPages'] ?>;
+            });
         </script>
     </body>
 </html>

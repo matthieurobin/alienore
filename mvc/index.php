@@ -37,10 +37,10 @@ if (!isset($_SESSION['user'])) {
     $a = \MVC\A::get('a', 'all');
 }
 
-$controleurNom = '\APPLI\\C\\' . $c;
+$controllerName = '\APPLI\\Controllers\\' . $c;
 
-\MVC\Controleur::setVue(new \MVC\Vue($c, $a));
+\MVC\Controller::setVue(new \MVC\View($c, $a));
 
-$controleurNom::$a(\MVC\A::getParams());
+$controllerName::$a(\MVC\A::getParams());
 
-$controleurNom::getVue()->display();
+$controllerName::getVue()->display();

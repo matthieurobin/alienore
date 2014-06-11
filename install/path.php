@@ -5,10 +5,10 @@ namespace Install;
 class Path {
 
     CONST ROOT = '';
-    const VUE = 'appli/v/';
-    CONST CSS = '_/css/';
-    CONST JS = '_/js/';
-    CONST IMG = '_/img/';
+    const VUE = 'appli/views/';
+    CONST CSS = 'assets/css/';
+    CONST JS = 'assets/js/';
+    CONST IMG = 'assets/img/';
     CONST LANGUAGE = 'install/language/';
     
 }

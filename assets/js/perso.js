@@ -89,36 +89,6 @@ function resetTagBox() {
     $('#datalist-tags').html('');
 }
 
-/*function savedLink(id, unsavedText, saveText) {
- var _url = '?c=links&a=data_savedLink&id=' + id;
- $.ajax({
- type: 'GET',
- url: _url,
- success: function(resp) {
- var _res = JSON.parse(resp);
- if (!_res.error) {
- if (_res.link.saved) {
- anteriorValue = $('#title-' + _res.link.linkdate).html();
- $('#title-' + _res.link.linkdate).html('<a href="?c=savedlink&a=display&linkdate=' +
- _res.link.linkdate + '"><span class="glyphicon glyphicon-new-window saved-link"></span></a>' +
- anteriorValue);
- $('#save-' + _res.link.linkdate).html(unsavedText);
- $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
- } else {
- $('#title-' + _res.link.linkdate).html('<a href="' + _res.link.url + '">' + _res.link.title + '</a>');
- $('#save-' + _res.link.linkdate).html(saveText);
- $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
- }
- } else {
- $('#link-' + _res.link.linkdate).prepend($('<div class="box-alert"></div>').html(_res.helper).delay(2200).fadeOut(400));
- }
- },
- error: function() {
- 
- }
- });
- }*/
-
 // displayTags in the input
 $(':input[class=type-zone]').eq(0).keyup('input', function() {
     $(':input[class=type-zone]').eq(0).attr('list', 'datalist-tags');
@@ -184,11 +154,14 @@ function nextPage() {
  Get all the links for the next page
  */
 function getLinks(page) {
+    //si c'est la première page
     if(page === 1){
         _currentPage = 1;
-        //on rénitialise le container
+        //on rénitialise le container contenant les liens
         $('#list').html('');
+        //on reset la barre de recherche
         resetSearchBar();
+        //on reset le tag actif
         $('#tags-list-ul li').removeClass('tags-active');
         //prévenir d'un bug : si on ne réinitialise pas cette variable, le tag ne s'affichera pas dans la search-bar
         _lastTag = undefined;
@@ -287,7 +260,7 @@ function getSearch(page, search){
     @param {array} links 
     @param {string} tokenuser
     @param {boolean} isAppend : switch between .append/.prepend
-    @param {boolean} isRepplace : switch between append/prepend or replace the html in the <li>
+    @param {boolean} isReplace : switch between append/prepend or replace the html in the <li>
  */
 function displayLinks(links, tokenUser, isAppend, isReplace) {
     if(isAppend === undefined) isAppend = true;
@@ -427,7 +400,7 @@ $('#form-link').on('submit', function(){
                 //ajout du lien dans le dom
                 var _linkToDisplay = {
                     'link' : _link,
-                    'tags' : _res.tags.new
+                    'tags' : _res.tags.added
                 };
                 displayLinks([_linkToDisplay], _res.token, false);
                 //reset du formulaire
