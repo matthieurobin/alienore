@@ -1,10 +1,8 @@
-var tagOptions = {
-    "no-duplicate": true,
-    "no-enter": true,
-    "forbidden-chars": [",", ".", "_", "?", "<", ">", "/", "\"","'"]
-};
-$("#tagBox").tagging(tagOptions);
-
+/**
+ * show a notification
+ * @param  {string} message  
+ * @param  {string} classCss : name of the class css (color)
+ */
 function showAlert(message, classCss){
     $('#modal-helper').removeClass().addClass(classCss);
     $('#modal-helper').text(message);
@@ -57,8 +55,10 @@ function reset(form) {
     });
 }
 
-/*
- * @param {String} id
+/**
+ * get link information and show modal
+ * @param  {int} id
+ * @param  {string} languageEdit : modal's title
  */
 function editLink(id, languageEdit) {
     var _url = '?c=links&a=data_form&id=' + id;
@@ -83,13 +83,17 @@ function editLink(id, languageEdit) {
         }
     });
 }
-
+/**
+ * reset the tagbox in new/edit link form
+ */
 function resetTagBox() {
     $('#tagBox').tagging('reset');
     $('#datalist-tags').html('');
 }
 
-// displayTags in the input
+/**
+ * instant search
+ */
 $(':input[class=type-zone]').eq(0).keyup('input', function() {
     $(':input[class=type-zone]').eq(0).attr('list', 'datalist-tags');
     if ($(':input[class=type-zone]').eq(0).val().length >= 3) {
@@ -112,16 +116,26 @@ $(':input[class=type-zone]').eq(0).keyup('input', function() {
 
 });
 
+/**
+ * permit to focus the input when we try to click on the search-bar
+ */
 $('#search-bar').on('click', function(){
     $('#input-search').focus();
 });
 
+/**
+ * reset the search bar
+ */
 function resetSearchBar(){
     $('#search-bar-tag').html('');
     $('#input-search').val('');
 }
 
-
+/* ============================================= */
+/*                                               */
+/*              Page actualisation               */
+/*                                               */
+/* ============================================= */
 
 var _lastTag = undefined;
 var _currentPage = 1;
@@ -151,7 +165,8 @@ function nextPage() {
 }
 
 /*
- Get all the links for the next page
+ * Get all the links for the next page
+ * @param {int} page  
  */
 function getLinks(page) {
     //si c'est la première page
@@ -186,7 +201,8 @@ function getLinks(page) {
 }
 
 /*
- get the links identified by the tag
+ * get the links identified by the tag
+ * @param  {int} id  
  */
 function getLinksByTag(id) {
     if (_lastTag !== id){
@@ -237,7 +253,9 @@ function getLinksByTag(id) {
 }
 
 /*
-    get the links for the search
+ * get the links for the search
+ * @param  {int} page
+ * @param  {string} search    
 */
 function getSearch(page, search){
     $.ajax({
@@ -318,6 +336,11 @@ function displayLinks(links, tokenUser, isAppend, isReplace) {
     }
 }
 
+/**
+ * delete link by ajax and remove it from dom
+ * @param  {int} id : link id
+ * @param  {string} tokenUser : token to prevent CSRF attack
+ */
 function deleteLink(id,tokenUser){
     $.ajax({
         type: 'GET',
@@ -337,7 +360,8 @@ function deleteLink(id,tokenUser){
 }
 
 /*
-    update the nb of links for a tag in the tags list 
+  * update the nb of links for a tag in the tags list 
+  * @param {array} array of tags
 */
 function updateTag(tags){
     if(tags.added != undefined && tags.added.length > 0){
@@ -372,7 +396,7 @@ function updateTag(tags){
 }
 
 //lorsque on soumet le formulaire pour new/edit lien
-$('#form-link').on('submit', function(){
+/*$('#form-link').on('submit', function(){
     var $this = $(this);
     $.ajax({
         url: $this.attr('action'), 
@@ -419,7 +443,7 @@ $('#form-link').on('submit', function(){
         }
     });
     return false;
-});
+});*/
 
 
 //lorsque on soumet le formulaire pour effectuer une recherche

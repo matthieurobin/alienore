@@ -9,7 +9,7 @@ class App {
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr'; //default application language
     CONST COPYRIGHT = '';
-    CONST VERSION = '0.11.2'; 
+    CONST VERSION = '0.12.0'; 
     
     //
     CONST LINKS_PER_PAGE = 20;

@@ -3,31 +3,13 @@
 namespace Appli\Controllers;
 
 class Tags extends \MVC\Controller {
+
+    public static function data_get(){
+        self::getVue()->data = json_encode(\Appli\Models\Tag::getInstance()->get(\MVC\A::get('tagId')));
+    }
     
-    public static function all() {
-        $tags = \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser']);
-        $nbTags = sizeof($tags);
-        $tagsByUse = [];
-        if ($nbTags > 0) {
-            $minSize = 14;
-            $maxSize = 28;
-            $max = $tags[0]->count;
-            $min = end($tags)->count;
-            $difference = ($max === $min) ? 1 : $max - $min;            
-            for ($i = 0; $i < $nbTags; ++$i) {
-                $nb = intval($tags[$i]->count);
-                $label = $tags[$i]->label;
-                $fontSize = intval($minSize + ($nb - $min) * (($maxSize - $minSize) / ($difference)));
-                $tagsByUse[$i]['tag'] = $tags[$i];
-                $tagsByUse[$i]['nbLinks'] = $nb;
-                $tagsByUse[$i]['fontSize'] = $fontSize;
-            }
-        }else{
-            self::getVue()->helper = \MVC\Language::T('You do not have any tag');
-        }
-        shuffle($tagsByUse);
-        self::getVue()->tags = $tagsByUse;
-        self::getVue()->nbTags = $nbTags;
+    public static function data_all() {
+        self::getVue()->data = json_encode( array('tags' => \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser'])));
     }
 
     public static function saved() {

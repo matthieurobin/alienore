@@ -47,11 +47,13 @@ class Link extends \MVC\Table {
      * @param  [int] $idUser
      * @return [array] : array of link objects
      */
-    public function getLinksByTag($tagId, $limit, $idUser) {
-        $query = 'SELECT * FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ? AND link.idUser = ? ORDER BY linkdate DESC LIMIT ' . $limit;
-        return $this->getInstance()->select($query,array($tagId,$idUser));
+    public function getLinksByTags($tags, $limit, $idUser) {
+        $query = 'SELECT * FROM link WHERE id IN ('; 
+        $query .= 'SELECT distinct idLink FROM taglink WHERE idTag IN ('.implode(',',$tags).') GROUP BY idLink HAVING COUNT(*) = '. sizeof($tags);
+        $query .= ') AND link.idUser = ? ORDER BY linkdate DESC LIMIT ' . $limit;
+        return $this->getInstance()->select($query,array($idUser));
     }
-    
+
     /**
      * compter les liens identifiés par le tag
      * utiliser pour effectuer la pagination
@@ -59,9 +61,11 @@ class Link extends \MVC\Table {
      * @param  [int] $idUser
      * @return [array] : array of sql object
      */
-    public function countLinksByTag($tagId, $idUser){
-       $query = 'SELECT COUNT(id) as count FROM link, taglink WHERE link.id = taglink.idLink AND taglink.idTag = ? AND link.idUser = ?';
-        return $this->getInstance()->select($query, array($tagId, $idUser))[0];
+    public function countLinksByTags($tags, $idUser){
+        $query = 'SELECT COUNT(id) as count FROM link WHERE id IN ('; 
+        $query .= 'SELECT distinct idLink FROM taglink WHERE idTag IN ('.implode(',',$tags).') GROUP BY idLink HAVING COUNT(*) = '. sizeof($tags);
+        $query .= ') AND link.idUser = ?';
+        return $this->getInstance()->select($query,array($idUser))[0];
     }
     
     /**
@@ -92,7 +96,7 @@ class Link extends \MVC\Table {
      * @param  [type] $userId [description]
      * @return [type]         [description]
      */
-   /* public function getUserLinks($userId){
+    /* public function getUserLinks($userId){
         $query = 'SELECT * FROM link WHERE idUser = ? ORDER BY linkdate DESC ';
         return $this->getInstance()->select($query, array($userId));
     }*/

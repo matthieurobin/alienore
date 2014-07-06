@@ -15,12 +15,14 @@ class Links extends \MVC\Controller {
         return $linksToDisplay;
     }
 
-    public static function data_getLinksByTag(){
+    public static function data_getLinksByTags(){
+        //todo gérer le choix multiple de tags 
+        //le js nous renvoie une chaine d'id des tags sélectionnés ex : 1,2,6
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
-        $tag = \Appli\Models\Tag::getInstance()->get(\MVC\A::get('tagId'));
-        $nbLinks = \Appli\Models\Link::getInstance()->countLinksByTag($tag->id, $_SESSION['idUser'])->count;
+        $tags = explode(',',\MVC\A::get('tagsId'));
+        $nbLinks = \Appli\Models\Link::getInstance()->countLinksByTags($tags, $_SESSION['idUser'])->count;
         $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
-        $links = \Appli\Models\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit'], $_SESSION['idUser']);
+        $links = \Appli\Models\Link::getInstance()->getLinksByTags($tags, $pagination['limit'], $_SESSION['idUser']);
         $linksToDisplay = self::prepareLinksTodisplay($links);
         self::getVue()->data = json_encode(
             array('links' => $linksToDisplay, 
@@ -70,18 +72,13 @@ class Links extends \MVC\Controller {
             ));
     }
 
+    public static function data_get(){
+        self::getVue()->data = json_encode(self::prepareLinksTodisplay(array(\Appli\Models\Link::getInstance()->get(\MVC\A::get('linkId'))))[0]);
+    }
+
     public static function all() {
-        $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
-        $nbLinks = \Appli\Models\Link::getInstance()->countAll($_SESSION['idUser'])->count;
-        $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
-        $links = \Appli\Models\Link::getInstance()->getLinksForPage($pagination['limit'], $_SESSION['idUser']);
-        $text = \MVC\Language::T('You do not have links already');
-        $linksToDisplay = self::prepareLinksTodisplay($links);
-        self::getVue()->pagination = array('links' => $linksToDisplay, 'page' => $page, 'nbPages' => $pagination['nbPages']);
-        self::getVue()->tags = \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser']);
-        self::getVue()->nbLinks = $nbLinks;
+        $text = \MVC\Language::T('No links');
         self::getVue()->helper = $text;
-        self::getVue()->token = $_SESSION['token'];
     }
 
     public static function data_delete() {
@@ -92,10 +89,12 @@ class Links extends \MVC\Controller {
             $tags = \Appli\Models\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser']);
             $link->delete();
             //on retourne les tags pour le js
-            self::getVue()->data = json_encode(
-                array('tags' => array('deleted' => $tags)));
+            self::getVue()->data = json_encode(array(
+                'tags' => array('deleted' => $tags),
+                'error' => \MVC\Language::T('The link was successfully deleted')
+                ));
         }else{
-            self::redirect('account','error');
+            //self::redirect('account','error');
         }
         
     }
@@ -111,14 +110,17 @@ class Links extends \MVC\Controller {
     public static function data_saved() {
         if (\MVC\A::get('url') != '') {
             $isEdit = 0;
+            $textToDisplay = '';
             if (\MVC\A::get('linkId')) {
                 $link = \Appli\Models\Link::getInstance()->get(\MVC\A::get('linkId'));
                 //on cherche les tags liés au lien avant l'édition
                 $tagsLinkBefore = \Appli\Models\TagLink::getInstance()->getTags($link->id);
                 $isEdit = 1;
+                $textToDisplay = \MVC\Language::T('The link was successfully edited');
             } else {
                 $link = \Appli\Models\Link::getInstance()->newItem();
                 $link->linkdate = \MVC\Date::getDateNow();
+                $textToDisplay = \MVC\Language::T('The link was successfully saved');
             }
             $link->url = htmlspecialchars(trim(\MVC\A::get('url')));
             $link->description = htmlspecialchars(trim(\MVC\A::get('description')));
@@ -126,7 +128,7 @@ class Links extends \MVC\Controller {
             $link->idUser = $_SESSION['idUser'];
             $link->store();
             //we look at the tags
-            $tags = \MVC\A::get('tag');
+            $tags = \MVC\A::get('tags');
             $tagsLinkAfterId = array();
             $tagsNew = array();
             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
@@ -195,7 +197,8 @@ class Links extends \MVC\Controller {
                                     'default' => $tagsNoChange,
                                     'new' => $tagsNew),
                     'isEdit' => $isEdit,
-                    'token' => $_SESSION['token']
+                    'token' => $_SESSION['token'],
+                    'error' => $textToDisplay
                 ));
         }
     }
