@@ -139,7 +139,7 @@ function updateTags(tags){
         }
     } 
 }
-
+/*
 //lorsque on soumet le formulaire pour effectuer une recherche
 $('#form-search').on('submit', function(){
     var $this = $(this);
@@ -190,4 +190,4 @@ $('#form-search').on('submit', function(){
         showAlert('You must search a term with more than 2 characters', 'modal-helper-red');
     }
     return false;
-});
+});*/

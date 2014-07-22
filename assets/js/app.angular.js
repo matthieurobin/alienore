@@ -162,17 +162,31 @@ $scope.submitLink = function (){
 
       // édition d'un lien
     }else{
-      //todo MAJ du lien
+      //MAJ du lien
       var $link = $('#link-' + $scope.formDataLink.id);
       $link.find('.title-url').attr("href",data.link.url);
       $link.find('.title-url').attr("src","http://www.google.com/s2/favicons?domain=" + data.link.url);
       $link.find('.title').html(data.link.title);
+      $link.find('.link-url').attr("href",data.link.url);
       $link.find('.link-url').html(data.link.url);
       $link.find('.link-description').html(data.link.description);
 
-      //todo affichage des tags
-
-      //MAJ des tags
+      //MAJ des tags du lien
+      //on efface du dom les tags supprimés
+      var _nbLinksDeleted = data.tags.deleted.length;
+      for(var i = 0; i < _nbLinksDeleted; ++i){
+        $link.find('#tag-' + data.tags.deleted[i].id).remove();
+      }
+      //on ajoute les tags ajoutés au lien
+      var _nbLinksAdded = data.tags.added.length;
+      for(var i = 0; i < _nbLinksAdded; ++i){
+        var _tag = data.tags.added[i];
+        var _tagDom = '<div id="tag-' + _tag.id + '" class="tag tag-list">' + 
+          '<a class="a-tag pointer" ng-click="selectTag('+ _tag.id +')"><span>#</span>' + _tag.label + '</a></span>' +
+          '</div>';
+        $link.find('.tags').append(_tagDom);
+      }
+      //MAJ des tags dans la sidebar
       updateTags(data.tags);
       var _nbNewTags = data.tags.new.length;
       for( var i = 0; i < _nbNewTags; ++i){
@@ -183,6 +197,7 @@ $scope.submitLink = function (){
         });
       }
     }
+    //on affiche la notification
     showAlert(data.error,'modal-helper-green');
     $('#modal-link').modal('hide');
   });
@@ -210,6 +225,10 @@ $scope.editTag = function(tagId){
   console.log(tagId);
 };
 
+$scope.submitTag = function(tagId){
+
+};
+
 $scope.getLinksByTags = function(tags){
   $http.get('?c=links&a=data_getLinksByTags&tagsId=' + tags.toString())
   .success(function(data){
@@ -219,7 +238,7 @@ $scope.getLinksByTags = function(tags){
     $scope.moreLinks = true;
     $scope.isTagSelection = true;
     $scope.nbLinks = data.nbLinks;
-});
+  });
 };
 
 /**
@@ -252,7 +271,7 @@ if(!find){
 /**
  * chercher les liens pour la page suivante
  */
- $scope.nextPage = function(){
+$scope.nextPage = function(){
   $scope.currentPage += 1;
     //si on est arrivé à la limite
     if ($scope.currentPage > $scope.limit) {
@@ -281,30 +300,34 @@ if(!find){
 }
 };
 
+$scope.submitSearch = function(){
+
+};
+
 $scope.removeSelectedTag = function(tagId){
-    //s'il reste des tags sélectionnés
-    if($scope.tagsSelected.length > 1){
-      var nbTags = $scope.tagsSelected.length;
-      var tags = [];
-      var indexTagToDelete = 0;
-      for(var i = 0; i < nbTags; ++i){
-        if($scope.tagsSelected[i].id === tagId){
-                //on récupère l'index de la valeur à supprimer
-                indexTagToDelete = i;
-            }else{
-                tags.push($scope.tagsSelected[i].id);
-            }
-        }
-        //on supprime le tag du tableau
-        $scope.tagsSelected.splice(indexTagToDelete,1);
-        //on cherche les liens
-        $scope.getLinksByTags(tags);
+  //s'il reste des tags sélectionnés
+  if($scope.tagsSelected.length > 1){
+    var nbTags = $scope.tagsSelected.length;
+    var tags = [];
+    var indexTagToDelete = 0;
+    for(var i = 0; i < nbTags; ++i){
+      if($scope.tagsSelected[i].id === tagId){
+        //on récupère l'index de la valeur à supprimer
+        indexTagToDelete = i;
+      }else{
+        tags.push($scope.tagsSelected[i].id);
+      }
+    }
+    //on supprime le tag du tableau
+    $scope.tagsSelected.splice(indexTagToDelete,1);
+    //on cherche les liens
+    $scope.getLinksByTags(tags);
 
     //s'il n'y a pas d'autre tag, on va chercher tous les liens
-}else{
+  }else{
     $scope.tagsSelected = [];
     $scope.getLinks();
-}
+  }
 };
 
 });

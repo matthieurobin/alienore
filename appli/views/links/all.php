@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div id='search-bar-form'>
-                                <form id="form-search" action="?c=links&a=data_search" method="post">
+                                <form id="form-search" ng-submit="submitSearch()">
                                     <input id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
                                     <input type="submit" style="position: absolute; left: -9999px"/>
                                 </form>  
@@ -125,7 +125,7 @@
                                 </p>
                                 <p class="link-description">{{ link.link.description }}</p>
                                 <div class="tags">
-                                    <div ng-repeat="tag in link.tags" class="tag tag-list">
+                                    <div id="tag-{{ tag.id }}" ng-repeat="tag in link.tags" class="tag tag-list">
                                         <a class="a-tag pointer" ng-click="selectTag(tag.id)"><span>#</span>{{ tag.label }}</a></span>
                                     </div>
                                 </div>
