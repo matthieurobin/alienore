@@ -93,7 +93,7 @@
                             </a></span>
                         </div>
                         <div id="addlink">
-                            <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-new-link">
+                            <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-link">
                                 <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
                             </a></span>
                             <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') ?> <span id="nbLinks-count">{{ nbLinks }}</span></span>
@@ -113,15 +113,15 @@
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </div>
-                                <h4 id="title-{{ link.link.id }}">
-                                    <a href="{{ link.link.url }}" target="_blank">
-                                        <img src="http://www.google.com/s2/favicons?domain={{ link.link.url }}" />
-                                        {{ link.link.title }}
+                                <h4>
+                                    <a class="title-url" href="{{ link.link.url }}" target="_blank">
+                                        <img class="title-img" src="http://www.google.com/s2/favicons?domain={{ link.link.url }}" />
+                                        <span class="title">{{ link.link.title }}</span>
                                     </a>
                                 </h4>
                                 <p class="link-description-second">
-                                    <small>{{ link.link.linkdate }}</small> - 
-                                    <a href="{{ link.link.url }}" target="_blank">{{ link.link.url }}</a>
+                                    <small class="link-date">{{ link.link.linkdate }}</small> - 
+                                    <a class="link-url" href="{{ link.link.url }}" target="_blank">{{ link.link.url }}</a>
                                 </p>
                                 <p class="link-description">{{ link.link.description }}</p>
                                 <div class="tags">
@@ -150,7 +150,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="modal-new-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
                             </div>
-                            <form method="post" id="form-link" ng-submit="submitEditLink()">
+                            <form method="post" id="form-link" ng-submit="submitLink()">
                                 <div class="modal-body">
                                     <?php echo \MVC\Language::T('Title') ?>
                                     <input id="input-title" class="form-control" type="text" name="title" ng-model="formDataLink.title"><br>

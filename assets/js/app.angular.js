@@ -2,7 +2,7 @@
  * module pour réaliser un post comme jQuery
  * Plus d'info : http://victorblog.com/2012/12/20/make-angularjs-http-service-behave-like-jquery-ajax/
  */
-angular.module('postModule', [], function($httpProvider) {
+ angular.module('postModule', [], function($httpProvider) {
   // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
@@ -11,7 +11,7 @@ angular.module('postModule', [], function($httpProvider) {
    * @param {Object} obj
    * @return {String}
    */ 
-  var param = function(obj) {
+   var param = function(obj) {
     var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
 
     for(name in obj) {
@@ -24,28 +24,28 @@ angular.module('postModule', [], function($httpProvider) {
           innerObj = {};
           innerObj[fullSubName] = subValue;
           query += param(innerObj) + '&';
-        }
       }
-      else if(value instanceof Object) {
-        for(subName in value) {
-          subValue = value[subName];
-          fullSubName = name + '[' + subName + ']';
-          innerObj = {};
-          innerObj[fullSubName] = subValue;
-          query += param(innerObj) + '&';
-        }
-      }
-      else if(value !== undefined && value !== null)
-        query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-    }
+  }
+  else if(value instanceof Object) {
+    for(subName in value) {
+      subValue = value[subName];
+      fullSubName = name + '[' + subName + ']';
+      innerObj = {};
+      innerObj[fullSubName] = subValue;
+      query += param(innerObj) + '&';
+  }
+}
+else if(value !== undefined && value !== null)
+    query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+}
 
-    return query.length ? query.substr(0, query.length - 1) : query;
-  };
+return query.length ? query.substr(0, query.length - 1) : query;
+};
 
   // Override $http service's default transformRequest
   $httpProvider.defaults.transformRequest = [function(data) {
     return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-  }];
+}];
 });
 
 var app = angular.module('alienore', ['postModule']);
@@ -99,6 +99,11 @@ $scope.init = function(){
 //initialisation du scope
 $scope.init();
 
+/**
+ * action édition d'un lien
+ * @param  {int} linkId 
+ * @param  {string} editString : titre à remplacer dans la modal
+ */
 $scope.editLink = function(linkId, editString){
     //on réinitialise le formulaire
     $scope.formDataLink = {}
@@ -115,20 +120,78 @@ $scope.editLink = function(linkId, editString){
     $('#modal-link').modal('show');
 };
 
-$scope.submitEditLink = function (){
+/**
+ * action submit the form
+ * @return {object} retourne le lien + les tags
+ */
+$scope.submitLink = function (){
     $scope.formDataLink.tags = $('#tagBox').tagging('getTags');
-    $http.post('?c=links&a=data_saved&linkId=' + $scope.formDataLink.id, $scope.formDataLink)
-    .success(function(data) {
-        console.log(data);
+    var _url = '?c=links&a=data_saved';
+    //si c'est une édition
+    if($scope.formDataLink.id){
+      _url += '&linkId=' + $scope.formDataLink.id;
+  }
+  $http.post(_url, $scope.formDataLink)
+  .success(function(data) {
+    //cas d'un nouveau lien
+    if(!$scope.formDataLink.id){
+      //on cherche à afficher le lien et ses tags
+      var _tagsLink = [];
+      var _nbAddedTags = data.tags.added;
+      for(var i = 0; i < _nbAddedTags; ++i){
+        _tagsLink.push({label : data.tags.added[i].label, id : data.tags.added[i].id});
+      }
+      //on ajoute le nouveau lien au début du tableau
+      $scope.links.splice(0,0,{
+        'link' : data.link,
+        'tags' : _tagsLink
+      });
+      $scope.nbLinks += 1;
+      //on cherche à afficher les tags ajoutés au nouveau lien
+      //cas d'un nouveau tag
+      var _nbNewTags = data.tags.new.length;
+      for( var i = 0; i < _nbNewTags; ++i){
+        $scope.tags.push({
+          'count' : 1,
+          'label' : data.tags.new[i].label, 
+          'id' : data.tags.new[i].id
+        });
+      }
+      //cas d'un lien déjà existant
+      updateTags(data.tags);
 
-        //todo MAJ du lien
-        //todo MAJ des tags
+      // édition d'un lien
+    }else{
+      //todo MAJ du lien
+      var $link = $('#link-' + $scope.formDataLink.id);
+      $link.find('.title-url').attr("href",data.link.url);
+      $link.find('.title-url').attr("src","http://www.google.com/s2/favicons?domain=" + data.link.url);
+      $link.find('.title').html(data.link.title);
+      $link.find('.link-url').html(data.link.url);
+      $link.find('.link-description').html(data.link.description);
 
-        showAlert(data.error,'modal-helper-green');
-        $('#modal-link').modal('hide');
-    });
+      //todo affichage des tags
+
+      //MAJ des tags
+      updateTags(data.tags);
+      var _nbNewTags = data.tags.new.length;
+      for( var i = 0; i < _nbNewTags; ++i){
+        $scope.tags.push({
+          'count' : 1,
+          'label' : data.tags.new[i].label, 
+          'id' : data.tags.new[i].id
+        });
+      }
+    }
+    showAlert(data.error,'modal-helper-green');
+    $('#modal-link').modal('hide');
+  });
 }
 
+/**
+ * action de suppresion d'un lien
+ * @param  {int} linkId
+ */
 $scope.deleteLink = function(linkId){
     $http.get('?c=links&a=data_delete&t=' + $scope.token + '&id=' + linkId)
     .success(function(data){
@@ -139,6 +202,10 @@ $scope.deleteLink = function(linkId){
     });
 };
 
+/**
+ * édition d'un tag
+ * @param  {int} tagId 
+ */
 $scope.editTag = function(tagId){
   console.log(tagId);
 };
