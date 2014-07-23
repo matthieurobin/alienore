@@ -109,6 +109,7 @@ $scope.editLink = function(linkId, editString){
     //on réinitialise le formulaire
     $scope.formDataLink = {}
     $('#tagBox').tagging('reset');
+    $('#modal-link-title').html(editString);
 
     $http.get('?c=links&a=data_get&linkId=' + linkId)
     .success(function(data) {
@@ -199,7 +200,7 @@ $scope.submitLink = function (){
       }
     }
     //on affiche la notification
-    showAlert(data.error,'modal-helper-green');
+    showAlert(data.text,'modal-helper-green');
     $('#modal-link').modal('hide');
   });
 }
@@ -213,7 +214,7 @@ $scope.deleteLink = function(linkId){
     .success(function(data){
         $('#link-' + linkId).fadeOut(400, function(){
             $(this).remove();
-            showAlert(data.error, 'modal-helper-green');
+            showAlert(data.text, 'modal-helper-green');
         });
     });
 };
@@ -315,6 +316,9 @@ $scope.nextPage = function(){
  * @return {object} 
  */
 $scope.submitSearch = function(){
+  //la recherche avec des tags sélectionnés n'est pas implémentée
+  $scope.tagsSelected = [];
+
   $scope.search = $scope.formSearch.search;
   $('#input-search').blur();
   $http.post('?c=links&a=data_search', $scope.formSearch)

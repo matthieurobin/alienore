@@ -96,10 +96,10 @@ class Link extends \MVC\Table {
      * @param  [type] $userId [description]
      * @return [type]         [description]
      */
-    /* public function getUserLinks($userId){
+    public function getUserLinks($userId){
         $query = 'SELECT * FROM link WHERE idUser = ? ORDER BY linkdate DESC ';
         return $this->getInstance()->select($query, array($userId));
-    }*/
+    }
     
     /**
      * chercher un lien par son url

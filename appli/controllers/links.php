@@ -4,11 +4,14 @@ namespace Appli\Controllers;
 
 class Links extends \MVC\Controller {
 
-    private static function prepareLinksTodisplay($links){
+    private static function prepareLinksTodisplay($links,$isForm = false){
         $linksToDisplay = [];
         //search tags of links
         for ($i = 0; $i < sizeof($links); ++$i) {
             $linksToDisplay[$i]['link'] = $links[$i];
+            if($isForm){
+                $linksToDisplay[$i]['link'] = \MVC\Display::displayLink($links[$i]);
+            }
             $tags = \Appli\Models\Link::getInstance()->getLinkTags($links[$i]->id, $_SESSION['idUser']);
             $linksToDisplay[$i]['tags'] = $tags;
         }
@@ -72,7 +75,7 @@ class Links extends \MVC\Controller {
     }
 
     public static function data_get(){
-        self::getVue()->data = json_encode(self::prepareLinksTodisplay(array(\Appli\Models\Link::getInstance()->get(\MVC\A::get('linkId'))))[0]);
+        self::getVue()->data = json_encode(self::prepareLinksTodisplay(array(\Appli\Models\Link::getInstance()->get(\MVC\A::get('linkId'))),true)[0]);
     }
 
     public static function all() {
@@ -90,10 +93,10 @@ class Links extends \MVC\Controller {
             //on retourne les tags pour le js
             self::getVue()->data = json_encode(array(
                 'tags' => array('deleted' => $tags),
-                'error' => \MVC\Language::T('The link was successfully deleted')
+                'text' => \MVC\Language::T('The link was successfully deleted')
                 ));
         }else{
-            //self::redirect('account','error');
+            //self::redirect('account','text');
         }
         
     }
@@ -197,7 +200,7 @@ class Links extends \MVC\Controller {
                                     'new' => $tagsNew),
                     'isEdit' => $isEdit,
                     'token' => $_SESSION['token'],
-                    'error' => $textToDisplay
+                    'text' => $textToDisplay
                 ));
         }
     }
