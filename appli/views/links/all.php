@@ -152,7 +152,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="modal-new-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
+                                <h4 class="modal-title" id="modal-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
                             </div>
                             <form method="post" id="form-link" ng-submit="submitLink()">
                                 <div class="modal-body">
@@ -217,7 +217,7 @@
                     };
                     $("#tagBox").tagging(tagOptions);
                     $("#tags-list").mCustomScrollbar();
-                    $('#modal-new-link').on('hidden.bs.modal', function(e) {
+                    $('#modal-link').on('hidden.bs.modal', function(e) {
                         $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
                         reset();
                         resetTagBox();
