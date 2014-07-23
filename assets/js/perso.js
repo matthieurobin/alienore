@@ -96,28 +96,6 @@ $('#search-bar').on('click', function(){
 });
 
 /*
- * get the links for the search
- * @param  {int} page
- * @param  {string} search    
-*/
-function getSearch(page, search){
-    $.ajax({
-        type: 'GET',
-        url: '?c=links&a=data_search&search=' + search + '&page=' + _currentPage,
-        success: function(resp) {
-            var _res = JSON.parse(resp);
-            _lastLimit = _res.nbPages;
-            displayLinks(_res.links, _res.token);
-            _lastSearch = search;
-        },
-        error: function() {
-
-        }
-    });
-}
-
-
-/*
   * update the nb of links for a tag in the tags list 
   * @param {array} array of tags
 */
@@ -139,55 +117,3 @@ function updateTags(tags){
         }
     } 
 }
-/*
-//lorsque on soumet le formulaire pour effectuer une recherche
-$('#form-search').on('submit', function(){
-    var $this = $(this);
-    if($('#input-search').val().length > 2){
-        $.ajax({
-            url: $this.attr('action'), 
-            type: $this.attr('method'), 
-            data: $this.serialize(), 
-            success: function(resp) { 
-                var _res = JSON.parse(resp);
-                //réinitialiser la liste
-                $('#list').html('');
-                _currentPage = 1;
-                _lastLimit = _res.nbPages;
-                //on actualise le nombre de liens
-                $('#nbLinks-count').text(_res.nbLinks);   
-                //si il y a des liens 
-                if(_res.nbLinks > 0){
-                    //on affiche les liens
-                    displayLinks(_res.links, _res.token);
-                    $('.paging').removeClass('no-display');      
-                    //sinon on affiche un message
-                }else{
-                    if(!$('#empty-result').length){
-                        $('#list').append('<li id="empty-result">Nothing found</li>');
-                    }else{
-                        $('#empty-result').text('Nothing found');
-                    }
-                    if(!$('.paging').hasClass('no-display')){
-                        $('.paging').addClass('no-display');
-                    }
-                }
-                
-                $('#tags-list-ul li').removeClass('tags-active');  
-                _lastSearch = _res.search;
-                //on reset la search-bar
-                resetSearchBar();
-                //on affiche la recherche dans la search-bar
-                var _tag = '<span class="glyphicon glyphicon-search"></span> ' + _res.search + 
-                        ' <a href="#" onclick="getLinks(1)"><span class="glyphicon glyphicon-remove"></span></a>';
-                $('#search-bar-tag').html(_tag);
-            },
-            error: function() {
-                
-            }
-        });
-    }else{
-        showAlert('You must search a term with more than 2 characters', 'modal-helper-red');
-    }
-    return false;
-});*/

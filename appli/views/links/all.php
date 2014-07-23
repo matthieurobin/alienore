@@ -120,14 +120,14 @@
                                 <h4>
                                     <a class="title-url" href="{{ link.link.url }}" target="_blank">
                                         <img class="title-img" src="http://www.google.com/s2/favicons?domain={{ link.link.url }}" />
-                                        <span class="title">{{ link.link.title }}</span>
+                                        <span class="title" ng-bind-html="link.link.title | unsafe"></span>
                                     </a>
                                 </h4>
                                 <p class="link-description-second">
                                     <small class="link-date">{{ link.link.linkdate }}</small> - 
                                     <a class="link-url" href="{{ link.link.url }}" target="_blank">{{ link.link.url }}</a>
                                 </p>
-                                <p class="link-description">{{ link.link.description }}</p>
+                                <p class="link-description" ng-bind-html="link.link.description | unsafe"></p>
                                 <div class="tags">
                                     <div id="tag-{{ tag.id }}" ng-repeat="tag in link.tags" class="tag tag-list">
                                         <a class="a-tag pointer" ng-click="selectTag(tag.id)"><span>#</span>{{ tag.label }}</a></span>

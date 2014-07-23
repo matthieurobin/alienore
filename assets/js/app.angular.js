@@ -50,6 +50,15 @@ return query.length ? query.substr(0, query.length - 1) : query;
 
 var app = angular.module('alienore', ['postModule']);
 
+/**
+ * filtre pour permettre l'affichage des entités html
+ */
+app.filter('unsafe', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});
+
 /*
 * Main controller
 * - display the links
