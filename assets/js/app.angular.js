@@ -61,10 +61,9 @@ app.controller('mainCtrl', function($scope, $http){
 
   $scope.currentPage = 1; //page courante
   $scope.limit = 1; //nombre de page
-  $scope.search = ''; //dernière recherche
-  $scope.pagination = 'default'; //différencier : liens/ liens par tag/ recherche
+  $scope.search = undefined; //dernière recherche
+  $scope.pagination = 'default'; //différencier : liens/ liens par tag/ recherche : default/tags/search
   $scope.moreLinks = true; //si il y a davantage de liens
-  $scope.isTagSelection = false; //si on recherche les liens par tag
   $scope.tagsSelected = [];
   $scope.tags = [];
   $scope.links = [];
@@ -72,6 +71,7 @@ app.controller('mainCtrl', function($scope, $http){
   $scope.token = ''; //token de l'utlisateur pour prévenir des failles CSRF
   $scope.formDataLink = {};
   $scope.formDataTag = {};
+  $scope.formSearch = {};
 
   $scope.getLinks = function(){
     //on cherche les lens à afficher
@@ -81,6 +81,7 @@ app.controller('mainCtrl', function($scope, $http){
       $scope.limit = data.nbPages;
       $scope.token = data.token;
       $scope.nbLinks = data.nbLinks;
+      $scope.pagination = 'default';
   });
 };
 
@@ -121,8 +122,8 @@ $scope.editLink = function(linkId, editString){
 };
 
 /**
- * action submit the form
- * @return {object} retourne le lien + les tags
+ * action submit le formulaire d'édition/d'ajout d'un lien
+ * @return {object} retourne le lien + les tags (ajoutés/supprimés/nouveaux(BDD)/ceux qui n'ont pas été modifiés)
  */
 $scope.submitLink = function (){
     $scope.formDataLink.tags = $('#tagBox').tagging('getTags');
@@ -225,10 +226,20 @@ $scope.editTag = function(tagId){
   console.log(tagId);
 };
 
+/**
+ * soumission du formulaire d'édition d'un tag
+ * @param  {int} tagId
+ * @return {object} nouveau tag + message à afficher
+ */
 $scope.submitTag = function(tagId){
 
 };
 
+/**
+ * chercher les liens identifiés par les tags
+ * @param  {array} tags : tableau des tags sélectionnés
+ * @return {object} objet contenant les liens recherchés + le nombre de page de la recherche + le nombre de lien trouvés
+ */
 $scope.getLinksByTags = function(tags){
   $http.get('?c=links&a=data_getLinksByTags&tagsId=' + tags.toString())
   .success(function(data){
@@ -236,13 +247,12 @@ $scope.getLinksByTags = function(tags){
     $scope.limit = data.nbPages;
     $scope.pagination = 'tags';
     $scope.moreLinks = true;
-    $scope.isTagSelection = true;
     $scope.nbLinks = data.nbLinks;
   });
 };
 
 /**
- * chercher les liens contenant le tag sélectionné
+ * chercher les liens contenant le(s) tag(s) sélectionné(s)
  * @param  {int} tagId
  */
  $scope.selectTag = function(tagId){
@@ -253,18 +263,18 @@ $scope.getLinksByTags = function(tags){
     for(var i = 0; i < nbTags; ++i){
       if($scope.tagsSelected[i].id === tagId){
         find = true;
+      }
+      tags.push($scope.tagsSelected[i].id);
     }
-    tags.push($scope.tagsSelected[i].id);
-}
-if(!find){
-        //on ajoute le tag à la barre de recherche
-        $http.get('?c=tags&a=data_get&tagId=' + tagId)
+    if(!find){
+      //on ajoute le tag à la barre de recherche
+      $http.get('?c=tags&a=data_get&tagId=' + tagId)
         .success(function(data){
           $scope.tagsSelected.push(data);
           tags.push(tagId);
-            //on cherche les liens
-            $scope.getLinksByTags(tags);
-        });
+          //on cherche les liens
+          $scope.getLinksByTags(tags);
+      });
     }
 };
 
@@ -276,34 +286,62 @@ $scope.nextPage = function(){
     //si on est arrivé à la limite
     if ($scope.currentPage > $scope.limit) {
       $scope.moreLinks = false;
-  } else {
+    } else {
       switch ($scope.pagination) {
         case 'default':
-        $http.get('?c=links&a=data_all&page=' + $scope.currentPage)
-        .success(function(data){
-          $scope.links = $scope.links.concat(data.links);
-      });
-        break;
+          $http.get('?c=links&a=data_all&page=' + $scope.currentPage)
+          .success(function(data){
+            $scope.links = $scope.links.concat(data.links);
+          });
+          break;
         case 'tags':
-        $http.get('?c=links&a=data_getLinksByTag&page=' + $scope.currentPage + '&tagId=' + $scope.tagsSelected)
-        .success(function(data){
-          $scope.links = $scope.links.concat(data.links);
-      });
-        break;
+          $http.get('?c=links&a=data_getLinksByTag&page=' + $scope.currentPage + '&tagId=' + $scope.tagsSelected)
+          .success(function(data){
+            $scope.links = $scope.links.concat(data.links);
+          });
+          break;
         case 'search':
-        $http.get('?c=links&a=data_search&page=' + $scope.currentPage + '&search=' + $scope.search)
-        .success(function(data){
-          $scope.links = $scope.links.concat(data.links);
-      });
-        break;
+          $http.get('?c=links&a=data_search&page=' + $scope.currentPage + '&search=' + $scope.search)
+          .success(function(data){
+            $scope.links = $scope.links.concat(data.links);
+          });
+          break;
+      }
     }
-}
 };
 
+/**
+ * soumission du formulaire de recherche
+ * @return {object} 
+ */
 $scope.submitSearch = function(){
-
+  $scope.search = $scope.formSearch.search;
+  $('#input-search').blur();
+  $http.post('?c=links&a=data_search', $scope.formSearch)
+  .success(function(data){
+    console.log(data);
+    $scope.pagination = 'search';
+    $scope.links = data.links;
+    $scope.limit = data.nbPages;
+    $scope.moreLinks = true;
+    $scope.nbLinks = data.nbLinks;
+  });
 };
 
+/**
+ * supprimer la recherche
+ */
+$scope.removeSearch = function(){
+  $scope.search = undefined;
+  $('#input-search').val('').blur();
+  //on cherche tous les tags
+  $scope.getLinks();
+};
+
+/**
+ * supprimer le tag des tags sélectionnés
+ * @param  {int} tagId
+ */
 $scope.removeSelectedTag = function(tagId){
   //s'il reste des tags sélectionnés
   if($scope.tagsSelected.length > 1){

@@ -79,19 +79,23 @@
                                     <span class="glyphicon glyphicon-tag"></span> {{ tag.label }} 
                                     <a href="#" ng-click="removeSelectedTag(tag.id)"><span class="glyphicon glyphicon-remove"></span></a>
                                 </div>
+                                <div style="display:inline-block" ng-if="search">
+                                    <span class="glyphicon glyphicon-search"></span> {{ search }} 
+                                    <a href="#" ng-click="removeSearch()"><span class="glyphicon glyphicon-remove"></span></a>
+                                </div>
                             </div>
                             <div id='search-bar-form'>
                                 <form id="form-search" ng-submit="submitSearch()">
-                                    <input id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
+                                    <input ng-model="formSearch.search" id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
                                     <input type="submit" style="position: absolute; left: -9999px"/>
                                 </form>  
                             </div>
                         </div>
-                        <div ng-if="isTagSelection" id="edit-tag" class="pull-left pointer">
+                        <!--<div ng-if="isTagSelection" id="edit-tag" class="pull-left pointer">
                             <span><a data-toggle="modal" data-target="#modal-edit-tag">
                                 <?php echo \MVC\Language::T('EditTag') ?> <span class="glyphicon glyphicon-plus"></span>
                             </a></span>
-                        </div>
+                        </div>-->
                         <div id="addlink">
                             <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-link">
                                 <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>

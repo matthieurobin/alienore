@@ -16,7 +16,6 @@ class Links extends \MVC\Controller {
     }
 
     public static function data_getLinksByTags(){
-        //todo gérer le choix multiple de tags 
         //le js nous renvoie une chaine d'id des tags sélectionnés ex : 1,2,6
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $tags = explode(',',\MVC\A::get('tagsId'));
