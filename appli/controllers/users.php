@@ -24,7 +24,7 @@ class Users extends \MVC\Controller {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = \MVC\A::get('password');
         $users = \Appli\Models\User::getInstance()->getByUsername($username);
-        if (sizeof($users) > 0 ) {
+        if (sizeof($users) > 0) {
             if (\MVC\Password::validate_password($password, $users[0]->hash)) {
                 $_SESSION['user'] = $users[0]->username;
                 $_SESSION['idUser'] = $users[0]->id;
@@ -38,10 +38,7 @@ class Users extends \MVC\Controller {
     }
 
     static function create() {
-        $data = \Appli\Models\User::getInstance()->countAll();
-        if (intval($data->count) > 0) {
-            self::redirect('users', 'login');
-        }
+        
     }
 
     /**
@@ -51,15 +48,19 @@ class Users extends \MVC\Controller {
         $username = htmlspecialchars(trim(\MVC\A::get('username')));
         $password = htmlspecialchars(trim(\MVC\A::get('password')));
         $passwordRepeat = htmlspecialchars(trim(\MVC\A::get('passwordRepeat')));
+        $language = htmlspecialchars(trim(\MVC\A::get('language')));
+        $email = htmlspecialchars(trim(\MVC\A::get('email')));
         if ($password == $passwordRepeat) {
-            if ($username != '') {
+            if ($username != '' AND $email != '') {
                 $user = \Appli\Models\User::getInstance()->getByUsername($username);
-                if (!$user) {
+                $mail = \Appli\Models\User::getInstance()->getByMail($email);
+                if (!$user AND !$mail) {
                     $user = \Appli\Models\User::getInstance()->newItem();
                     $user->username = $username;
                     $user->hash = \MVC\Password::create_hash($password);
                     $user->userdate = \MVC\Date::getDateNow();
-                    $user->language = \Install\App::LANGUAGE;
+                    $user->language = $language;
+                    $user->email = $email;
                     $user->token = md5(uniqid(mt_rand(), true));
                     $user->store();
                     self::redirect('users', 'login');

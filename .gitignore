@@ -1,4 +1,5 @@
 nbproject/
-data/
-dbv/data/
+/data
+dbv/data/meta/revision
+dbv/config.php
 /.project

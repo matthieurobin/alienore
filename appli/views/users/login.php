@@ -32,24 +32,31 @@
         </div>
         <div class="container">
             <div class="helper">
-                <?php APPLI\Views\Helper::display(); ?>
+<?php APPLI\Views\Helper::display(); ?>
             </div>
             <form class="form-signin" role="form" action="?c=users&a=auth" method="post">
                 <h2 class="form-signin-heading">
-                    <?php echo \MVC\Language::T('SignIn')?>
+<?php echo \MVC\Language::T('SignIn') ?>
                 </h2><br>
-                <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>"><br>
-                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>"><br>
+                <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>"><br>
+                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>"><br>
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>-->
-                <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo \MVC\Language::T('SignIn')?></button>
+                <div class="btn-toolbar" role="toolbar">
+                     <div class="btn-group">
+                           <button class="btn btn-lg btn-primary  " type="submit"><?php echo \MVC\Language::T('SignIn') ?></button>
+                     </div>
+                     <div class="btn-group">
+                            <a class="btn btn-lg btn-primary  " href="?c=users&a=create"><?php echo \MVC\Language::T('Register') ?></a>         
+                    </div>
+            </div>
             </form>
             
         </div> <!-- /container -->
 
         <div id="footer">
-            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
+<?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
         <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
         <script>

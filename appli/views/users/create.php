@@ -32,26 +32,32 @@
         </div>
         <div class="container">
             <div class="helper">
-                <?php APPLI\Views\Helper::display(); ?>
+<?php APPLI\Views\Helper::display(); ?>
             </div>
 
             <form class="form-signin" role="form" action="?c=users&a=saved" method="post">
                 <h2 class="form-signin-heading">
-                    <?php echo \MVC\Language::T('CreateAnAccount')?>
+<?php echo \MVC\Language::T('CreateAnAccount') ?>
                 </h2><br>
-                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username')?>" required autofocus><br>
-                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password')?>" required><br>
-                <input name="passwordRepeat" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Repeat password')?>" required><br>
+                <input name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>" required autofocus><br>
+                <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>" required><br>
+                <input name="passwordRepeat" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Repeat password') ?>" required><br>
+
+<?php echo \MVC\Language::T('Language') ?> <select name="language" class="form-control">
+                                                               <option selected value="en"><?php echo MVC\Language::T('English') ?></option>
+                                                               <option  value="fr"><?php echo MVC\Language::T('French') ?></option>
+                                                          </select><br>
+               <input name="email" type="email" class="form-control" placeholder="<?php echo \MVC\Language::T('Email Address') ?>" required><br>
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>-->
-                <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo \MVC\Language::T('Submit')?></button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo \MVC\Language::T('Submit') ?></button>
             </form>
 
         </div> <!-- /container -->
 
         <div id="footer">
-            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
+<?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
         </div>
         <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
         <script src="<?php echo \Install\Path::JS; ?>bootstrap.js"></script>
