@@ -222,8 +222,9 @@ $scope.deleteLink = function(linkId){
     $http.get('?c=links&a=data_delete&t=' + $scope.token + '&id=' + linkId)
     .success(function(data){
         $('#link-' + linkId).fadeOut(400, function(){
-            $(this).remove();
-            showAlert(data.text, 'modal-helper-green');
+          $scope.nbLinks -=1;
+          $(this).remove();
+          showAlert(data.text, 'modal-helper-green');
         });
     });
 };
