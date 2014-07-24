@@ -54,6 +54,9 @@ class Users extends \MVC\Controller {
             if ($username != '' AND $email != '') {
                 $user = \Appli\Models\User::getInstance()->getByUsername($username);
                 $mail = \Appli\Models\User::getInstance()->getByMail($email);
+                // pourquoi ne pas faire :
+                // if (!user AND $user->email != $email){
+                // ça évite une requête à la base
                 if (!$user AND !$mail) {
                     $user = \Appli\Models\User::getInstance()->newItem();
                     $user->username = $username;
