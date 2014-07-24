@@ -25,8 +25,8 @@ class User extends \MVC\Table {
     }
 
     public function getByMail($mail) {
-        $query = 'SELECT * FROM user WHERE email = ' . "'$mail'";
-        return $this->getInstance()->select($query);
+        $query = 'SELECT * FROM user WHERE email = ?';
+        return $this->getInstance()->select($query,array($mail));
     }
 
 }
