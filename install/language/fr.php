@@ -66,6 +66,7 @@ $language = array(
     'The link was successfully saved' => 'Le lien a été enregistré',
     'The passwords are differents' => 'Les mots de passe sont différents.',
     'The tag always exsits' => 'Le tag existe déjà',
+    'The tag was edited' =>'Le tag a été édité',
     'The url is not valid' => 'L\'url n\'est pas valide',
     'Unsaved' => 'Ne plus sauvegarder',
     'Url' => 'Url',

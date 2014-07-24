@@ -50,16 +50,22 @@
                             <div class="tags-list">
                                 <div class="tags-list-content" id="tags-list">
                                     <ul id="tags-list-ul">
-                                        <a ng-repeat="tag in tags" ng-click="selectTag(tag.id)">
-                                            <li id="tag-{{ tag.id }}">
-                                                <span class="tag-label"><span class="glyphicon glyphicon-tag"></span> {{ tag.label }}</span>
-                                                <span class="tag-nb-links" data-nb-links="{{ tag.count }}">
+                                        <li id="tag-{{ tag.id }}" ng-repeat="tag in tags">
+                                            <a ng-click="editTag(tag.id)" data-toggle="modal" data-target="#modal-tag">
+                                                <span class="tag-edit">
+                                                    <button type="button" class="btn btn-xs btn-primary">
+                                                        <span class="glyphicon glyphicon-pencil"></span>
+                                                    </button>
+                                                </span>
+                                            </a>
+                                            <a ng-click="selectTag(tag.id)">
+                                                <span class="glyphicon glyphicon-tag"></span> <span class="tag-label">{{ tag.label }}</span>
+                                                <span class="tag-nb-links pull-right" data-nb-links="{{ tag.count }}">
                                                     {{ tag.count }}
                                                 </span>
-                                            </li>
-                                        </a>
+                                            </a>
+                                        </li> 
                                     </ul>
-
                                 </div>
                             </div>
                         </div>
@@ -86,7 +92,7 @@
                             </div>
                             <div id='search-bar-form'>
                                 <form id="form-search" ng-submit="submitSearch()">
-                                    <input ng-model="formSearch.search" id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
+                                    <input ng-model="formDataSearch.search" id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
                                     <input type="submit" style="position: absolute; left: -9999px"/>
                                 </form>  
                             </div>
@@ -129,8 +135,8 @@
                                 </p>
                                 <p class="link-description" ng-bind-html="link.link.description | unsafe"></p>
                                 <div class="tags">
-                                    <div id="tag-{{ tag.id }}" ng-repeat="tag in link.tags" class="tag tag-list">
-                                        <a class="a-tag pointer" ng-click="selectTag(tag.id)"><span>#</span>{{ tag.label }}</a></span>
+                                    <div ng-repeat="tag in link.tags" class="tag tag-list link-tag-{{ tag.id }}">
+                                        <a class="a-tag pointer" ng-click="selectTag(tag.id)"><span>#</span><span class="tag-label">{{ tag.label }}</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -185,11 +191,10 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title" id="myModalLabel"><?php echo \MVC\Language::T('EditTag') ?></h4>
                             </div>
-                            <form action="?c=tags&a=saved" method="post" id="form-tag">
+                            <form ng-submit="submitTag()" method="post" id="form-tag">
                                 <div class="modal-body">
                                     <?php echo \MVC\Language::T('Title') ?>
-                                    <input id="input-tag-title" class="form-control" type="text" name="tagName" value="" required><br>
-                                    <input id="input-tag-id" type="hidden" name="tagId" value="">
+                                    <input ng-model="formDataTag.label" id="input-tag-title" class="form-control" type="text" name="label" required><br>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T('Cancel') ?></button>
@@ -216,7 +221,7 @@
                         "forbidden-chars": [",", ".", "_", "?", "<", ">", "/", "\"","'"]
                     };
                     $("#tagBox").tagging(tagOptions);
-                    $("#tags-list").mCustomScrollbar();
+                    //$("#tags-list").mCustomScrollbar();
                     $('#modal-link').on('hidden.bs.modal', function(e) {
                         $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
                         reset();

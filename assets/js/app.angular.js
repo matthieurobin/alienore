@@ -80,7 +80,7 @@ app.controller('mainCtrl', function($scope, $http){
   $scope.token = ''; //token de l'utlisateur pour prévenir des failles CSRF
   $scope.formDataLink = {};
   $scope.formDataTag = {};
-  $scope.formSearch = {};
+  $scope.formDataSearch = {};
 
   $scope.getLinks = function(){
     //on cherche les lens à afficher
@@ -234,16 +234,33 @@ $scope.deleteLink = function(linkId){
  * @param  {int} tagId 
  */
 $scope.editTag = function(tagId){
-  console.log(tagId);
+  $http.get('?c=tags&a=data_form&tagId=' + tagId)
+  .success(function(data){
+    $scope.formDataTag.label = data.label;
+    $scope.formDataTag.id = data.id;
+  });
 };
 
 /**
  * soumission du formulaire d'édition d'un tag
- * @param  {int} tagId
  * @return {object} nouveau tag + message à afficher
  */
-$scope.submitTag = function(tagId){
-
+$scope.submitTag = function(){
+  $http.post('?c=tags&a=data_saved&tagId=' + $scope.formDataTag.id, $scope.formDataTag)
+  .success(function(data){
+    if(data.saved){
+      //MAJ le dom
+      $('#tag-' + $scope.formDataTag.id + ' .tag-label ').html(data.tag.label);
+      console.log($('.link-tag-' + $scope.formDataTag.id + ' .tag-label '));
+      $('.link-tag-' + $scope.formDataTag.id + ' .tag-label ').each(function(){
+        $(this).html(data.tag.label);
+      });
+      showAlert(data.text,'modal-helper-green');
+    }else{
+      showAlert(data.text,'modal-helper-red');
+    }
+  });
+  $('#modal-tag').modal('hide');
 };
 
 /**
@@ -329,9 +346,9 @@ $scope.submitSearch = function(){
   //la recherche avec des tags sélectionnés n'est pas implémentée
   $scope.tagsSelected = [];
 
-  $scope.search = $scope.formSearch.search;
+  $scope.search = $scope.formDataSearch.search;
   $('#input-search').blur();
-  $http.post('?c=links&a=data_search', $scope.formSearch)
+  $http.post('?c=links&a=data_search', $scope.formDataSearch)
   .success(function(data){
     console.log(data);
     $scope.pagination = 'search';

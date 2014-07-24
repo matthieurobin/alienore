@@ -12,21 +12,28 @@ class Tags extends \MVC\Controller {
         self::getVue()->data = json_encode( array('tags' => \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser'])));
     }
 
-    public static function saved() {
-        if (\MVC\A::get('tagName') != '') {
+    public static function data_saved() {
+        if (\MVC\A::get('label') != '') {
             if(\MVC\A::get('tagId') != ''){
                 $tag = \Appli\Models\Tag::getInstance()->get(\MVC\A::get('tagId'));
             }else{
                 $tag = \Appli\Models\Tag::getInstance()->newItem();
             }
-            $tag->label = htmlspecialchars(strtolower(trim(\MVC\A::get('tagName'))));
+            $tag->label = htmlspecialchars(strtolower(trim(\MVC\A::get('label'))));
             //if the tag doesn't exist
             if(!\Appli\Models\Tag::getInstance()->getTagByLabel($tag->label, $_SESSION['idUser'])){
                 $tag->store();
+                $saved = true;
+                $text = \MVC\Language::T('The tag was edited');
             }else{
-                $_SESSION['errors']['danger'][] = \MVC\Language::T('The tag always exsits');
+                $text = \MVC\Language::T('The tag always exsits');
+                $saved = false;
             }
-            
+            self::getVue()->data = json_encode(array(
+                'tag' => $tag,
+                'saved' => $saved,
+                'text' => $text
+            )); 
         }
     }
     

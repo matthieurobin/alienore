@@ -88,7 +88,7 @@ li{
     margin-left: -8px;
     margin-right: -8px;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     position: absolute;
     right: 0;
     top: 0;
@@ -113,13 +113,25 @@ li{
 }
 
 .tag-label{
-    overflow: hidden;
-    text-overflow: ellipsis;
     padding: 0px 5px;
 }
 
-.tag-nb-links{
-    float: right;
+.tag-edit{
+    visibility: hidden;
+    right: 6px;
+    position: absolute;
+}
+
+#tags-list li:hover > a{
+    display: block; 
+}
+
+#tags-list li:hover > a > .tag-nb-links{
+    visibility: hidden;
+}
+
+#tags-list li:hover > a >.tag-edit{
+    visibility: visible;
 }
 
 .tags-active{
