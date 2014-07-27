@@ -1,6 +1,6 @@
 <?php
 
-namespace Install;
+namespace Config;
 
 class App {
     

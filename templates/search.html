@@ -1,0 +1,10 @@
+<div id="search-bar-tag">
+    <div style="display:inline-block" ng-repeat="tag in tagsSelected">
+        <span class="glyphicon glyphicon-tag"></span> {{ tag.label }} 
+        <a href="#" ng-click="removeSelectedTag(tag.id)"><span class="glyphicon glyphicon-remove"></span></a>
+    </div>
+    <div style="display:inline-block" ng-if="search">
+        <span class="glyphicon glyphicon-search"></span> {{ search }} 
+        <a href="#" ng-click="removeSearch()"><span class="glyphicon glyphicon-remove"></span></a>
+    </div>
+</div>

@@ -7,9 +7,9 @@ abstract class Language {
 
     public static function loadLanguage($language = null){
         if($language){
-            self::$lang[(string) $language] = include \Install\Path::LANGUAGE . $language.'.php';
+            self::$lang[(string) $language] = include \Config\Path::LANGUAGE . $language.'.php';
         }else{
-            self::$lang[(string) \Install\App::LANGUAGE] = include \Install\Path::LANGUAGE . \Install\App::LANGUAGE.'.php';
+            self::$lang[(string) \Config\App::LANGUAGE] = include \Config\Path::LANGUAGE . \Config\App::LANGUAGE.'.php';
         }
     }
     
@@ -18,7 +18,7 @@ abstract class Language {
             if (!isset(self::$lang[$_SESSION['language']])) self::loadLanguage($_SESSION['language']);
             return self::$lang[$_SESSION['language']][$expression];
         }else{
-            return self::$lang[\Install\App::LANGUAGE][$expression];
+            return self::$lang[\Config\App::LANGUAGE][$expression];
         }
         
     }

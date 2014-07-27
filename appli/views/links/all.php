@@ -5,14 +5,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
+    <title><?php echo Config\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
-    <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
-    <link href="<?php echo \Install\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="<?php echo \Install\Path::IMG; ?>favicon.png" />
+    <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
+    <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
 </head>
 <body ng-app="alienore" ng-controller="mainCtrl">
     <aside class="sidebar">
@@ -21,7 +23,7 @@
                 <!-- Menu + logo -->
                 <header class="nav">
                     <a href=".">
-                        <img id="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
+                        <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
                     </a>
                     <div class="pull-right">
                         <ul>
@@ -50,28 +52,14 @@
                             <div class="tags-list">
                                 <div class="tags-list-content" id="tags-list">
                                     <ul id="tags-list-ul">
-                                        <li id="tag-{{ tag.id }}" ng-repeat="tag in tags">
-                                            <a ng-click="editTag(tag.id)" data-toggle="modal" data-target="#modal-tag">
-                                                <span class="tag-edit">
-                                                    <button type="button" class="btn btn-xs btn-primary">
-                                                        <span class="glyphicon glyphicon-pencil"></span>
-                                                    </button>
-                                                </span>
-                                            </a>
-                                            <a ng-click="selectTag(tag.id)">
-                                                <span class="glyphicon glyphicon-tag"></span> <span class="tag-label">{{ tag.label }}</span>
-                                                <span class="tag-nb-links pull-right" data-nb-links="{{ tag.count }}">
-                                                    {{ tag.count }}
-                                                </span>
-                                            </a>
-                                        </li> 
+                                        <ng-include src="'templates/list_tags.html'"></ng-include> 
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="footer">
-                                <?php echo \MVC\Language::T('Version') .' '. \Install\App::VERSION ?>
+                                <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
                             </div>
                         </div>
                     </div>
@@ -80,16 +68,7 @@
                     <div id="modal-helper"></div>
                     <div class="tool-bar">
                         <div id="search-bar">
-                            <div id="search-bar-tag">
-                                <div style="display:inline-block" ng-repeat="tag in tagsSelected">
-                                    <span class="glyphicon glyphicon-tag"></span> {{ tag.label }} 
-                                    <a href="#" ng-click="removeSelectedTag(tag.id)"><span class="glyphicon glyphicon-remove"></span></a>
-                                </div>
-                                <div style="display:inline-block" ng-if="search">
-                                    <span class="glyphicon glyphicon-search"></span> {{ search }} 
-                                    <a href="#" ng-click="removeSearch()"><span class="glyphicon glyphicon-remove"></span></a>
-                                </div>
-                            </div>
+                            <ng-include src="'templates/search.html'"></ng-include>
                             <div id='search-bar-form'>
                                 <form id="form-search" ng-submit="submitSearch()">
                                     <input ng-model="formDataSearch.search" id="input-search" class="search-input" name="search" type="text" placeholder="<?php echo \MVC\Language::T('Search'); ?>">
@@ -97,11 +76,6 @@
                                 </form>  
                             </div>
                         </div>
-                        <!--<div ng-if="isTagSelection" id="edit-tag" class="pull-left pointer">
-                            <span><a data-toggle="modal" data-target="#modal-edit-tag">
-                                <?php echo \MVC\Language::T('EditTag') ?> <span class="glyphicon glyphicon-plus"></span>
-                            </a></span>
-                        </div>-->
                         <div id="addlink">
                             <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-link">
                                 <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
@@ -110,7 +84,7 @@
                         </div>
                     </div>
                     <div class="loading no-display">
-                        <img width="64" height="64" src="<?php echo \Install\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
+                        <img width="64" height="64" src="<?php echo \Config\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
                     </div>
                     <ul id="list">
                         <li ng-repeat="link in links" id="link-{{ link.link.id }}">
@@ -205,14 +179,11 @@
                     </div>
                 </div>
             </div>
-            <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>tagging.min.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>jquery.mCustomScrollbar.min.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>angular.min.js"></script>
-            <script src="<?php echo \Install\Path::JS; ?>app.angular.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>keymaster.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
             <script>
                 $(document).ready(function() {
                     var tagOptions = {
@@ -221,7 +192,6 @@
                         "forbidden-chars": [",", ".", "_", "?", "<", ">", "/", "\"","'"]
                     };
                     $("#tagBox").tagging(tagOptions);
-                    //$("#tags-list").mCustomScrollbar();
                     $('#modal-link').on('hidden.bs.modal', function(e) {
                         $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
                         reset();

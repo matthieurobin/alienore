@@ -1,0 +1,15 @@
+<li id="tag-{{ tag.id }}" ng-repeat="tag in tags">
+    <a ng-click="editTag(tag.id)" data-toggle="modal" data-target="#modal-tag">
+        <span class="tag-edit">
+            <button type="button" class="btn btn-xs btn-primary">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+        </span>
+    </a>
+    <a ng-click="selectTag(tag.id)">
+        <span class="glyphicon glyphicon-tag"></span> <span class="tag-label">{{ tag.label }}</span>
+        <span class="tag-nb-links pull-right">
+            {{ tag.count }}
+        </span>
+    </a>
+</li>

@@ -5,13 +5,13 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
+        <title><?php echo Config\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
         <!-- Application CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
-        <link rel="icon" type="image/png" href="<?php echo \Install\Path::IMG; ?>favicon.png" />
+        <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
     </head>
     <body>
         <div id="header">
@@ -23,7 +23,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="."><img class="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img></a>
+                    <a class="navbar-brand" href="."><img class="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img></a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -68,12 +68,12 @@
         <!-- <br> -->
         <div class="paging"></div>
         <div id="footer">
-            <?php echo \MVC\Language::T('By') ?> <?php echo \Install\App::COPYRIGHT ?> - <?php echo \Install\App::VERSION ?>
+            <?php echo \MVC\Language::T('By') ?> <?php echo \Config\App::COPYRIGHT ?> - <?php echo \Config\App::VERSION ?>
         </div>
-        <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>keymaster.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
         <script>
             $(document).ready(function() {
                 duplicatePaging();

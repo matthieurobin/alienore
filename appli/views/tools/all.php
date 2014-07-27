@@ -5,14 +5,14 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title><?php echo Install\App::NAME; ?> - <?php echo \MVC\Language::T('Tools'); ?></title>
+        <title><?php echo Config\App::NAME; ?> - <?php echo \MVC\Language::T('Tools'); ?></title>
 
         <!-- Bootstrap core CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
         <!-- Application CSS -->
-        <link href="<?php echo \Install\Path::CSS; ?>perso.css" rel="stylesheet">
-        <link href="<?php echo \Install\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
-        <link rel="icon" type="image/png" href="<?php echo \Install\Path::IMG; ?>favicon.png" />
+        <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
+        <link href="<?php echo \Config\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
     </head>
     <body>
             <aside class="sidebar">
@@ -21,7 +21,7 @@
                         <!-- Menu + logo -->
                         <header class="nav">
                             <a href=".">
-                                <img id="logo" src="<?php echo \Install\Path::IMG; ?>logo.png"></img>
+                                <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
                             </a>
                             <div class="pull-right">
                                 <ul>
@@ -45,16 +45,13 @@
                     </div>
                     <div class="row">
                         <div class="footer">
-                            <?php echo \MVC\Language::T('Version') .' '. \Install\App::VERSION ?>
+                            <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
                         </div>
                     </div>
                 </div>
             </aside>
             <div id="links">
                 <div id="tools">
-                    <div class="helper">
-                        <?php \APPLI\Views\Helper::display(); ?>
-                    </div>
                     <div class="container">
                         <h4><?php echo \MVC\Language::T('Export') ?> :</h4>
                         <div class="tool-body">
@@ -76,11 +73,11 @@
                 </div>
             </div>
         </div>
-        <script src="<?php echo \Install\Path::JS; ?>jquery.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>bootstrap.min.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>keymaster.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>tagging.min.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>jquery.mCustomScrollbar.min.js"></script>
-        <script src="<?php echo \Install\Path::JS; ?>perso.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>keymaster.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>jquery.mCustomScrollbar.min.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
     </body>
 </html>
