@@ -23,12 +23,16 @@ class Users extends \MVC\Controller {
     public static function auth() {
         $username = htmlspecialchars(\MVC\A::get('username'));
         $password = \MVC\A::get('password');
-        $users = \Appli\Models\User::getInstance()->getByUsername($username);
+        $users = \Appli\Models\User::getInstance()->getByMail($username);
+        if (sizeof($users) == 0) {
+            $users = \Appli\Models\User::getInstance()->getByUsername($username);
+        }
         if (sizeof($users) > 0) {
             if (\MVC\Password::validate_password($password, $users[0]->hash)) {
                 $_SESSION['user'] = $users[0]->username;
                 $_SESSION['idUser'] = $users[0]->id;
                 $_SESSION['language'] = $users[0]->language;
+                $_SESSION['email'] = $users[0]->email;
                 $_SESSION['token'] = $users[0]->token;
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
