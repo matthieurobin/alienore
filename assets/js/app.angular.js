@@ -285,8 +285,8 @@ $scope.init();
     $scope.pagination = 'tags';
     $scope.moreLinks = true;
     $scope.nbLinks = data.nbLinks;
-    ngProgress.complete();
   });
+  ngProgress.complete();
 };
 
 /**
@@ -307,11 +307,11 @@ $scope.init();
         tags.push($scope.tagsSelected[i].id);
       }
       if(!find){
-      //on ajoute le tag à la barre de recherche
-      $http.get('?c=tags&a=data_get&tagId=' + tagId)
-      .success(function(data){
-        $scope.tagsSelected.push(data);
-        tags.push(tagId);
+        //on ajoute le tag à la barre de recherche
+        $http.get('?c=tags&a=data_get&tagId=' + tagId)
+        .success(function(data){
+          $scope.tagsSelected.push(data);
+          tags.push(tagId);
           //on cherche les liens
           $scope.getLinksByTags(tags);
         });
@@ -397,7 +397,6 @@ $scope.init();
  * @param  {int} tagId
  */
  $scope.removeSelectedTag = function(tagId){
-  ngProgress.start();
   //s'il reste des tags sélectionnés
   if($scope.tagsSelected.length > 1){
     var nbTags = $scope.tagsSelected.length;
@@ -418,11 +417,11 @@ $scope.init();
 
     //s'il n'y a pas d'autre tag, on va chercher tous les liens
   }else{
+    ngProgress.start();
     $scope.tagsSelected = [];
     $scope.getLinks();
   }
   $('#tag-' + tagId + ' .tag-label').removeClass('tags-active');
-  ngProgress.complete();
 };
 
 });
