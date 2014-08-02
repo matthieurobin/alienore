@@ -48,7 +48,7 @@
   }];
 });
 
-var app = angular.module('alienore', ['postModule']);
+var app = angular.module('alienore', ['postModule','ngAnimate','ngProgress']);
 
 /**
  * filtre pour permettre l'affichage des entités html
@@ -66,7 +66,8 @@ var app = angular.module('alienore', ['postModule']);
 * - search tool
 *
 */
-app.controller('mainCtrl', function($scope, $http){
+app.controller('mainCtrl', function($scope, $http, ngProgress){
+  ngProgress.color('#F08000');
 
   $scope.currentPage = 1; //page courante
   $scope.limit = 1; //nombre de page
@@ -96,6 +97,7 @@ app.controller('mainCtrl', function($scope, $http){
 
 //initialiser le scope
 $scope.init = function(){
+    ngProgress.start();
     //on cherche les lens à afficher
     $scope.getLinks();
 
@@ -104,6 +106,7 @@ $scope.init = function(){
     .success(function(data){
       $scope.tags = data.tags;
     });
+    ngProgress.complete();
   };
 
 //initialisation du scope
@@ -136,6 +139,7 @@ $scope.init();
  * @return {object} retourne le lien + les tags (ajoutés/supprimés/nouveaux(BDD)/ceux qui n'ont pas été modifiés)
  */
  $scope.submitLink = function (){
+  ngProgress.start();
   $scope.formDataLink.tags = $('#tagBox').tagging('getTags');
   var _url = '?c=links&a=data_saved';
     //si c'est une édition
@@ -208,9 +212,10 @@ $scope.init();
         });
       }
     }
+    $('#modal-link').modal('hide');
+    ngProgress.complete();
     //on affiche la notification
     showAlert(data.text,'modal-helper-green');
-    $('#modal-link').modal('hide');
   });
 }
 
@@ -219,6 +224,7 @@ $scope.init();
  * @param  {int} linkId
  */
  $scope.deleteLink = function(linkId){
+  ngProgress.start();
   $http.get('?c=links&a=data_delete&t=' + $scope.token + '&id=' + linkId)
   .success(function(data){
     $('#link-' + linkId).fadeOut(400, function(){
@@ -227,6 +233,7 @@ $scope.init();
       showAlert(data.text, 'modal-helper-green');
     });
   });
+  ngProgress.complete();
 };
 
 /**
@@ -246,6 +253,7 @@ $scope.init();
  * @return {object} nouveau tag + message à afficher
  */
  $scope.submitTag = function(){
+  ngProgress.start();
   $http.post('?c=tags&a=data_saved&tagId=' + $scope.formDataTag.id, $scope.formDataTag)
   .success(function(data){
     if(data.saved){
@@ -260,6 +268,7 @@ $scope.init();
     }
   });
   $('#modal-tag').modal('hide');
+  ngProgress.complete();
 };
 
 /**
@@ -268,6 +277,7 @@ $scope.init();
  * @return {object} objet contenant les liens recherchés + le nombre de page de la recherche + le nombre de lien trouvés
  */
  $scope.getLinksByTags = function(tags){
+  ngProgress.start();
   $http.get('?c=links&a=data_getLinksByTags&tagsId=' + tags.toString())
   .success(function(data){
     $scope.links = data.links;
@@ -275,6 +285,7 @@ $scope.init();
     $scope.pagination = 'tags';
     $scope.moreLinks = true;
     $scope.nbLinks = data.nbLinks;
+    ngProgress.complete();
   });
 };
 
@@ -316,6 +327,7 @@ $scope.init();
  * chercher les liens pour la page suivante
  */
  $scope.nextPage = function(){
+  ngProgress.start();
   $scope.currentPage += 1;
     //si on est arrivé à la limite
     if ($scope.currentPage > $scope.limit) {
@@ -342,6 +354,7 @@ $scope.init();
         break;
       }
     }
+    ngProgress.complete();
   };
 
 /**
@@ -349,6 +362,7 @@ $scope.init();
  * @return {object} 
  */
  $scope.submitSearch = function(){
+  ngProgress.start();
   //la recherche avec des tags sélectionnés n'est pas implémentée
   $scope.tagsSelected = [];
 
@@ -363,16 +377,19 @@ $scope.init();
     $scope.moreLinks = true;
     $scope.nbLinks = data.nbLinks;
   });
+  ngProgress.complete();
 };
 
 /**
  * supprimer la recherche
  */
  $scope.removeSearch = function(){
+  ngProgress.start();
   $scope.search = undefined;
   $('#input-search').val('').blur();
   //on cherche tous les tags
   $scope.getLinks();
+  ngProgress.complete();
 };
 
 /**
@@ -380,6 +397,7 @@ $scope.init();
  * @param  {int} tagId
  */
  $scope.removeSelectedTag = function(tagId){
+  ngProgress.start();
   //s'il reste des tags sélectionnés
   if($scope.tagsSelected.length > 1){
     var nbTags = $scope.tagsSelected.length;
@@ -404,6 +422,7 @@ $scope.init();
     $scope.getLinks();
   }
   $('#tag-' + tagId + ' .tag-label').removeClass('tags-active');
+  ngProgress.complete();
 };
 
 });

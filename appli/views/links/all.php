@@ -11,9 +11,10 @@
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
-    <link href="<?php echo \Config\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
     <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-animate.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>ngProgress.min.js"></script>
     <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
 </head>
 <body ng-app="alienore" ng-controller="mainCtrl">
