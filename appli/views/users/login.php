@@ -33,9 +33,9 @@
     <div class="container">
         <form class="form-signin" role="form" action="?c=users&a=auth" method="post">
             <h2 class="form-signin-heading">
-                <?php echo \MVC\Language::T('SignIn') ?>
+<?php echo \MVC\Language::T('SignIn') ?>
             </h2><br>
-            <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>"><br>
+            <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('UsernameOrEmail') ?>"><br>
             <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>"><br>
                 <!--<label class="checkbox">
                     <input type="checkbox" value="remember-me"> Remember me
@@ -53,7 +53,7 @@
     </div> <!-- /container -->
 
     <div id="footer">
-        <?php echo \MVC\Language::T('By') ?> <?php echo \Config\App::COPYRIGHT ?> - <?php echo \Config\App::VERSION ?>
+<?php echo \MVC\Language::T('By') ?> <?php echo \Config\App::COPYRIGHT ?> - <?php echo \Config\App::VERSION ?>
     </div>
     <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
     <script>
