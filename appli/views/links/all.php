@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div id="addlink">
-                            <span><a id="a-new-link" href="" data-toggle="modal" data-target="#modal-link">
+                            <span><a id="a-new-link" href="" ng-click="newLink()">
                                 <?php echo \MVC\Language::T('Addlink') ?> <span class="glyphicon glyphicon-plus"></span>
                             </a></span>
                             <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') ?> <span id="nbLinks-count">{{ nbLinks }}</span></span>
@@ -87,34 +87,7 @@
                         <img width="64" height="64" src="<?php echo \Config\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
                     </div>
                     <ul id="list">
-                        <li ng-repeat="link in links" id="link-{{ link.link.id }}">
-                            <div class="link">
-                                <div class="link-tools">
-                                    <button type="button" class="btn btn-warning" ng-click="editLink(link.link.id,'<?php echo \MVC\Language::T('EditLink') ?>')">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-danger" ng-click="deleteLink(link.link.id)">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </div>
-                                <h4>
-                                    <a class="title-url" href="{{ link.link.url }}" target="_blank">
-                                        <img class="title-img" src="http://www.google.com/s2/favicons?domain={{ link.link.url }}" />
-                                        <span class="title" ng-bind-html="link.link.title | unsafe"></span>
-                                    </a>
-                                </h4>
-                                <p class="link-description-second">
-                                    <small class="link-date">{{ link.link.linkdate }}</small> - 
-                                    <a class="link-url" href="{{ link.link.url }}" target="_blank">{{ link.link.url }}</a>
-                                </p>
-                                <p class="link-description" ng-bind-html="link.link.description | unsafe"></p>
-                                <div class="tags">
-                                    <div ng-repeat="tag in link.tags" class="tag tag-list link-tag-{{ tag.id }}">
-                                        <a class="a-tag pointer" ng-click="selectTag(tag.id)"><span>#</span><span class="tag-label">{{ tag.label }}</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        <ng-include src="'templates/list_links.html'"></ng-include>
                         <div class="empty-result" ng-if="links.length == 0"><?php echo $this->helper ?></div>
                     </ul>
                     <div ng-if="moreLinks && links.length > 0" class="paging pointer" ng-click="nextPage()">
@@ -132,7 +105,8 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="modal-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
+                                <h4 ng-if="!formDataLink.id" class="modal-title" id="modal-link-title"><?php echo \MVC\Language::T('Addlink') ?></h4>
+                                <h4 ng-if="formDataLink.id" class="modal-title" id="modal-link-title"><?php echo \MVC\Language::T('EditLink') ?></h4>
                             </div>
                             <form method="post" id="form-link" ng-submit="submitLink()">
                                 <div class="modal-body">

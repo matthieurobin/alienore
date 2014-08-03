@@ -287,7 +287,7 @@ li{
     z-index: -1
 }
 
-#links > ul > li{
+#links ul li{
     padding: 2px 10px;
 }
 

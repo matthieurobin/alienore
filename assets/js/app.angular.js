@@ -109,16 +109,19 @@ $scope.init = function(){
 //initialisation du scope
 $scope.init();
 
+$scope.newLink = function(){
+  $scope.formDataLink = {};
+  $('#modal-link').modal('show');
+}
+
 /**
  * action édition d'un lien
  * @param  {int} linkId 
- * @param  {string} editString : titre à remplacer dans la modal
  */
- $scope.editLink = function(linkId, editString){
+ $scope.editLink = function(linkId){
     //on réinitialise le formulaire
     $scope.formDataLink = {}
     $('#tagBox').tagging('reset');
-    $('#modal-link-title').html(editString);
 
     $http.get('?c=links&a=data_get&linkId=' + linkId)
     .success(function(data) {
