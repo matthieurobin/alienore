@@ -10,7 +10,7 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
-    <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body>

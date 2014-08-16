@@ -12,20 +12,6 @@ function showAlert(message, classCss){
 }
 
 /**
- * 
- * Shortcuts
- */
-//new link
-key('n', function() {
-    $('#a-new-link').click();
-    return false;
-});
-key('e', function() {
-    $('#a-edit-tag').click();
-    return false;
-});
-
-/**
  * reset a form
  * @param {object} form
  * @returns {undefined}
