@@ -51,33 +51,29 @@
                         </div>
                     </div>
                 </aside>
-                <div id="links">
-                   <div id="tools">
-                    <div class="container">
-                        <h4><?php echo \MVC\Language::T('Export') ?> :</h4>
-                        <div class="tool-body">
-                            <button class="btn btn-default" onclick="location.href = '?c=tools&a=exportHtml'">
-                                <?php echo \MVC\Language::T('Export to html format') ?>
+                <div class="wrap">
+                    <h4><?php echo \MVC\Language::T('Export') ?> :</h4>
+                    <div class="tool-body">
+                        <button class="btn btn-default" onclick="location.href = '?c=tools&a=exportHtml'">
+                            <?php echo \MVC\Language::T('Export to html format') ?>
+                        </button>
+                    </div>
+                    <h4><?php echo \MVC\Language::T('Import') ?> :</h4>
+                    <div class="tool-body">
+                        <form id="form-import" action="?c=tools&a=import" method="post" enctype="multipart/form-data">
+                            <input type="file" name="filePath">                        
+                            <input type="hidden" name="MAX_FILE_SIZE" value="100000"><br>
+                            <button type="submit" class="btn btn-primary">
+                                <?php echo \MVC\Language::T('Submit'); ?>
                             </button>
-                        </div>
-                        <h4><?php echo \MVC\Language::T('Import') ?> :</h4>
-                        <div class="tool-body">
-                            <form id="form-import" action="?c=tools&a=import" method="post" enctype="multipart/form-data">
-                                <input type="file" name="filePath">                        
-                                <input type="hidden" name="MAX_FILE_SIZE" value="100000"><br>
-                                <button type="submit" class="btn btn-primary">
-                                    <?php echo \MVC\Language::T('Submit'); ?>
-                                </button>
-                            </form>
-                        </div>
+                        </form>
                     </div>
                 </div>
-            </div>
-            <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
-        </body>
-        </html>
+                <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+                <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+                <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+                <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+                <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+                <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+            </body>
+            </html>

@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </aside>
-                <div id="links">
+                <div class="wrap" id="links">
                     <div id="modal-helper"></div>
                     <div class="tool-bar">
                         <div id="search-bar">

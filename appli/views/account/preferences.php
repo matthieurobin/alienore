@@ -51,21 +51,19 @@
                         </div>
                     </div>
                 </aside>
-                <div id="links">
-                    <div class="container">
-                        <div>
-                            <h2 class="page-header"><?php echo \MVC\Language::T('Preferences') ?></h2>
-                            <form action="?c=account&a=savedPreferences" method="post">
-                                <p><?php echo \MVC\Language::T('Change the language'); ?> :
-                                    <select name="language">
-                                        <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
-                                        <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
-                                    </select>
-                                </p><br>
-                                <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
-                            </form>
+                <div class="wrap">
+                    <div>
+                        <h2><?php echo \MVC\Language::T('Preferences') ?></h2>
+                        <form action="?c=account&a=savedPreferences" method="post">
+                            <p><?php echo \MVC\Language::T('Change the language'); ?> :
+                                <select name="language">
+                                    <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
+                                    <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
+                                </select>
+                            </p><br>
+                            <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
+                        </form>
 
-                        </div>
                     </div>
                 </div>
             </div>

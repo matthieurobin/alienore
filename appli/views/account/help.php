@@ -51,14 +51,12 @@
                         </div>
                     </div>
                 </aside>
-                <div id="links">
-                    <div class="container">
+                    <div class="wrap">
                         <div>
-                            <h2 class="page-header"><?php echo \MVC\Language::T('Help') ?></h2>
+                            <h2><?php echo \MVC\Language::T('Help') ?></h2>
 
                         </div>
                     </div>
-                </div>
             </div>
             <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
             <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
