@@ -116,10 +116,18 @@ li{
     padding: 0px 5px;
 }
 
+.tag-nb-links{
+    margin-right: 4px;
+}
+
 .tag-edit{
     visibility: hidden;
     right: 6px;
     position: absolute;
+    background-color: #F7931D;
+    color:white;
+    padding: 2px 4px 2px 4px;
+    border-radius: 2px;
 }
 
 #tags-list li:hover > a{

@@ -279,7 +279,6 @@ $scope.newLink = function(){
     $scope.moreLinks = true;
     $scope.nbLinks = data.nbLinks;
   });
-  ngProgress.complete();
 };
 
 /**
@@ -404,7 +403,6 @@ $scope.newLink = function(){
 
     //s'il n'y a pas d'autre tag, on va chercher tous les liens
   }else{
-    ngProgress.start();
     $scope.tagsSelected = [];
     $scope.getLinks();
   }
