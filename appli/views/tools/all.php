@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <title><?php echo Config\App::NAME; ?> - <?php echo \MVC\Language::T('Tools'); ?></title>
+    <title><?php echo Config\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
 
-        <!-- Bootstrap core CSS -->
-        <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
-        <!-- Application CSS -->
-        <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
-        <link href="<?php echo \Config\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
-        <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
-    </head>
-    <body>
-            <aside class="sidebar">
-                <div class="table">
-                    <div class="row">
-                        <!-- Menu + logo -->
-                        <header class="nav">
-                            <a href=".">
-                                <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
-                            </a>
-                            <div class="pull-right">
-                                <ul>
-                                    <li id="dropdown-account" class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
-                                            <li><a href="?c=tools&a=all">
-                                                    <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
-                                            <li><a href="?c=account&a=help">
-                                                    <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
+    <!-- Bootstrap core CSS -->
+    <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
+    <!-- Application CSS -->
+    <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
+</head>
+<body ng-app="alienore">
+    <aside class="sidebar">
+        <div class="table">
+            <div class="row">
+                <!-- Menu + logo -->
+                <header class="nav">
+                    <a href=".">
+                        <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
+                    </a>
+                    <div class="pull-right">
+                        <ul>
+                            <li id="dropdown-account" class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
+                                    <li><a href="?c=tools&a=all">
+                                        <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
+                                        <li><a href="?c=account&a=help">
+                                            <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
                                             <li><a href="?c=account&a=preferences">
-                                                    <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
-                                            <li role="presentation" class="divider"></li>
-                                            <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
-                                        </ul>
-                                    </li>
-                                </ul>
+                                                <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="row collections-list">
+                        </div>
+                        <div class="row">
+                            <div class="footer">
+                                <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
                             </div>
-                        </header>
-                    </div>
-                    <div class="row">
-                        <div class="footer">
-                            <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
                         </div>
                     </div>
-                </div>
-            </aside>
-            <div id="links">
-                <div id="tools">
+                </aside>
+                <div id="links">
+                   <div id="tools">
                     <div class="container">
                         <h4><?php echo \MVC\Language::T('Export') ?> :</h4>
                         <div class="tool-body">
@@ -72,12 +73,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
-        <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
-        <script src="<?php echo \Config\Path::JS; ?>keymaster.js"></script>
-        <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
-        <script src="<?php echo \Config\Path::JS; ?>jquery.mCustomScrollbar.min.js"></script>
-        <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
-    </body>
-</html>
+            <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+        </body>
+        </html>

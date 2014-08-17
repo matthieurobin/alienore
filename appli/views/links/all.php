@@ -10,11 +10,9 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
-    <link href="<?php echo \Config\Path::CSS; ?>perso.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link href="<?php echo \Config\Path::CSS; ?>jquery.mCustomScrollbar.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
-    <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-    <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
 </head>
 <body ng-app="alienore" ng-controller="mainCtrl">
     <aside class="sidebar">
@@ -155,9 +153,10 @@
             </div>
             <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
             <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>keymaster.js"></script>
             <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
             <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+            <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
             <script>
                 $(document).ready(function() {
                     var tagOptions = {

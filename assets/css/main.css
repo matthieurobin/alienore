@@ -96,7 +96,7 @@ li{
 }
 
 #tags-list-ul li{
-    padding: 3px;
+    padding: 2px;
 }
 
 #tags-list li:hover{
@@ -282,9 +282,6 @@ li{
 
 #account{
     padding-bottom: 10px;
-}
-#tags, #account, #tools{
-    background-color: #fff;
 }
 
 #links{

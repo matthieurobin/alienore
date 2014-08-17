@@ -74,6 +74,7 @@ $language = array(
     'Username' => 'Nom d\'utilisateur',
     'UsernameOrEmail' => 'Nom d\'utilsateur ou Adresse mail',
     'Version' => 'Version',
+    'You already have 3 tags selected, deselect one of them or all' => 'Vous avez 3 tags sélectionnés, désélectionnez en un ou tous',
     'You do not have any tag' => 'Vous n\'avez aucun tag',
     'You do not have links already' => 'Vous n\'avez pas encore de liens'
 );

@@ -273,11 +273,15 @@ $scope.newLink = function(){
  $scope.getLinksByTags = function(tags){
   $http.get('?c=links&a=data_getLinksByTags&tagsId=' + tags.toString())
   .success(function(data){
-    $scope.links = data.links;
-    $scope.limit = data.nbPages;
-    $scope.pagination = 'tags';
-    $scope.moreLinks = true;
-    $scope.nbLinks = data.nbLinks;
+    if(data.error){
+      showAlert(data.text,'modal-helper-red');
+    }else{
+      $scope.links = data.links;
+      $scope.limit = data.nbPages;
+      $scope.pagination = 'tags';
+      $scope.moreLinks = true;
+      $scope.nbLinks = data.nbLinks;
+    }
   });
 };
 
@@ -289,20 +293,21 @@ $scope.newLink = function(){
     //on vérifie que le lien n'est pas déjà dans la barre de recherche
     var nbTags = $scope.tagsSelected.length;
     //si il y a plus de trois tags sélectionnés on remplace le dernier
-    if(nbTags !== 3){
-      var find = false;
-      var tags = [];
-      for(var i = 0; i < nbTags; ++i){
-        if($scope.tagsSelected[i].id === tagId){
-          find = true;
-        }
-        tags.push($scope.tagsSelected[i].id);
+    var find = false;
+    var tags = [];
+    for(var i = 0; i < nbTags; ++i){
+      if($scope.tagsSelected[i].id === tagId){
+        find = true;
       }
-      if(!find){
+      tags.push($scope.tagsSelected[i].id);
+    }
+    if(!find){
         //on ajoute le tag à la barre de recherche
         $http.get('?c=tags&a=data_get&tagId=' + tagId)
         .success(function(data){
-          $scope.tagsSelected.push(data);
+          if(nbTags < 3){
+            $scope.tagsSelected.push(data);
+          }
           tags.push(tagId);
           //on cherche les liens
           $scope.getLinksByTags(tags);
@@ -310,10 +315,7 @@ $scope.newLink = function(){
       }
       //on ajoute la classe css 
       $('#tag-' + tagId + ' .tag-label').addClass('tags-active');
-    }else{
-      showAlert('You already have 3 tags selected, deselect one of them or all','modal-helper-red');
-    }
-};
+    };
 
 /**
  * chercher les liens pour la page suivante

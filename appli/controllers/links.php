@@ -22,17 +22,24 @@ class Links extends \MVC\Controller {
         //le js nous renvoie une chaine d'id des tags sélectionnés ex : 1,2,6
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $tags = explode(',',\MVC\A::get('tagsId'));
-        $nbLinks = \Appli\Models\Link::getInstance()->countLinksByTags($tags, $_SESSION['idUser'])->count;
-        $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
-        $links = \Appli\Models\Link::getInstance()->getLinksByTags($tags, $pagination['limit'], $_SESSION['idUser']);
-        $linksToDisplay = self::prepareLinksTodisplay($links);
-        self::getVue()->data = json_encode(
-            array('links' => $linksToDisplay, 
-                'page' => $page, 
-                'nbPages' => $pagination['nbPages'],
-                'nbLinks' => $nbLinks,
-                'token' => $_SESSION['token']
-            ));
+        if(sizeof($tags)<=3){
+            $nbLinks = \Appli\Models\Link::getInstance()->countLinksByTags($tags, $_SESSION['idUser'])->count;
+            $pagination = \MVC\Pagination::buildPaging($nbLinks, $page);
+            $links = \Appli\Models\Link::getInstance()->getLinksByTags($tags, $pagination['limit'], $_SESSION['idUser']);
+            $linksToDisplay = self::prepareLinksTodisplay($links);
+            self::getVue()->data = json_encode(
+                array('links' => $linksToDisplay, 
+                    'page' => $page, 
+                    'nbPages' => $pagination['nbPages'],
+                    'nbLinks' => $nbLinks,
+                    'token' => $_SESSION['token'],
+                    ));
+        }else{
+            self::getVue()->data = json_encode(
+            array('error' => true,
+                'text' => \MVC\Language::T('You already have 3 tags selected, deselect one of them or all')
+                ));
+        }
     }
 
     public static function data_search(){
@@ -55,7 +62,7 @@ class Links extends \MVC\Controller {
                 'nbLinks' => $nbLinks,
                 'token' => $_SESSION['token'],
                 'search' => $search
-            ));
+                ));
     }
 
     public static function data_all(){
@@ -71,7 +78,7 @@ class Links extends \MVC\Controller {
                 'nbPages' => $pagination['nbPages'],
                 'nbLinks' => $nbLinks,
                 'token' => $_SESSION['token']
-            ));
+                ));
     }
 
     public static function data_get(){
@@ -105,8 +112,8 @@ class Links extends \MVC\Controller {
         $link = \MVC\Display::displayLink(\Appli\Models\Link::getInstance()->get(\MVC\A::get('id')));
         $tags = \Appli\Models\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser']);
         self::getVue()->link = json_encode(
-                array('link' => $link,
-                    'tags' => $tags));
+            array('link' => $link,
+                'tags' => $tags));
     }
 
     public static function data_saved() {
@@ -195,13 +202,13 @@ class Links extends \MVC\Controller {
             self::getVue()->data = json_encode(
                 array('link' => $link,
                     'tags' => array('deleted' => $tagsDeleted,
-                                    'added' => $tagsAdded,
-                                    'default' => $tagsNoChange,
-                                    'new' => $tagsNew),
+                        'added' => $tagsAdded,
+                        'default' => $tagsNoChange,
+                        'new' => $tagsNew),
                     'isEdit' => $isEdit,
                     'token' => $_SESSION['token'],
                     'text' => $textToDisplay
-                ));
+                    ));
         }
     }
 
