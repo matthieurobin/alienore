@@ -424,7 +424,6 @@ $scope.newLink = function(){
   $scope.submitInstall = function(){
     $http.post('?c=users&a=data_savedInstall', $scope.formDataInstall)
     .success(function(data){
-      console.log(data);
       if(data.saved){
         $window.location.href = '.';
       }else{
