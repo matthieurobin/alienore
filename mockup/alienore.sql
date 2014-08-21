@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `link` (
   `idUser` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idUser` (`idUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=448 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `label` varchar(40) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `tag_label` (`label`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `token` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_unique` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 --
 -- Contraintes pour les tables exportées

@@ -61,4 +61,5 @@ class TableRow{
         return $queryPrepare->execute(array($this->id));
         
     }
+    
 }

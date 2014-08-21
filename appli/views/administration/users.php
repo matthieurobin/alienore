@@ -13,7 +13,7 @@
     <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
-<body ng-app="alienore">
+<body ng-app="alienore" ng-controller="mainCtrl">
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -54,6 +54,9 @@
                         </ul>
                     </div>
                 </header>
+                <div class="tags-title">
+                    <p><?php echo \MVC\Language::T('Groups') ?></p>
+                </div>
             </div>
             <div class="row collections-list">
             </div>
@@ -65,18 +68,17 @@
         </div>
     </aside>
     <div class="wrap">
-        <div>
-            <h2><?php echo \MVC\Language::T('Help') ?></h2>
-
-        </div>
+        <div id="modal-helper"></div>
+        <?php foreach ($this->users as $user) {
+           echo $user->username;
+        }?>
     </div>
-</div>
-<script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+
+    <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
 </body>
 </html>
-

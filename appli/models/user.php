@@ -29,4 +29,9 @@ class User extends \MVC\Table {
         return $this->getInstance()->select($query,array($mail));
     }
 
+    public function isAdmin($idUser){
+        $query = 'SELECT * FROM groupuser where idGroup = (SELECT idGroup FROM `group` where label = "admin") and idUser = ?';
+        return $this->select($query,array($idUser));
+    }
+
 }

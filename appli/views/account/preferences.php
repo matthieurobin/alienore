@@ -28,50 +28,63 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
-                                    <li><a href="?c=tools&a=all">
-                                        <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?></a></li>
-                                        <li><a href="?c=account&a=help">
-                                            <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?></a></li>
-                                            <li><a href="?c=account&a=preferences">
-                                                <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?></a></li>
-                                                <li role="presentation" class="divider"></li>
-                                                <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </header>
-                        </div>
-                        <div class="row collections-list">
-                        </div>
-                        <div class="row">
-                            <div class="footer">
-                                <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
-                            </div>
-                        </div>
+                                    <li>
+                                        <a href="?c=tools&a=all">
+                                            <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="?c=account&a=help">
+                                            <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="?c=account&a=preferences">
+                                            <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?>
+                                        </a>
+                                    </li>
+                                    <?php if($_SESSION['admin']): ?>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="?c=administration&a=users"><span class="glyphicon glyphicon-user"></span> <?php echo \MVC\Language::T('Users'); ?></a></li>
+                                    <?php endif; ?>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                </aside>
-                <div class="wrap">
-                    <div>
-                        <h2><?php echo \MVC\Language::T('Preferences') ?></h2>
-                        <form action="?c=account&a=savedPreferences" method="post">
-                            <p><?php echo \MVC\Language::T('Change the language'); ?> :
-                                <select name="language">
-                                    <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
-                                    <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
-                                </select>
-                            </p><br>
-                            <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
-                        </form>
-
-                    </div>
+                </header>
+            </div>
+            <div class="row collections-list">
+            </div>
+            <div class="row">
+                <div class="footer">
+                    <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
                 </div>
             </div>
-            <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-            <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
-        </body>
-        </html>
+        </div>
+    </aside>
+    <div class="wrap">
+        <div>
+            <h2><?php echo \MVC\Language::T('Preferences') ?></h2>
+            <form action="?c=account&a=savedPreferences" method="post">
+                <p><?php echo \MVC\Language::T('Change the language'); ?> :
+                    <select name="language">
+                        <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
+                        <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
+                    </select>
+                </p><br>
+                <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+</body>
+</html>

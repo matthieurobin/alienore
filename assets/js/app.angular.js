@@ -412,3 +412,24 @@ $scope.newLink = function(){
 };
 
 });
+
+/**
+ * install controleur
+ * 
+ **/
+ app.controller('installCtrl', function($scope, $http, $window){
+
+  $scope.formDataInstall = {};
+
+  $scope.submitInstall = function(){
+    $http.post('?c=users&a=data_savedInstall', $scope.formDataInstall)
+    .success(function(data){
+      console.log(data);
+      if(data.saved){
+        $window.location.href = '.';
+      }else{
+        showAlert(data.text,'modal-helper-red');
+      }
+    });
+  };
+});
