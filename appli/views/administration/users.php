@@ -13,7 +13,7 @@
     <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
-<body ng-app="alienore" ng-controller="mainCtrl">
+<body ng-app="alienore" ng-controller="usersCtrl">
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -55,7 +55,7 @@
                     </div>
                 </header>
                 <div class="tags-title">
-                    <p><?php echo \MVC\Language::T('Groups') ?></p>
+                    <!--<p><?php echo \MVC\Language::T('Groups') ?></p>-->
                 </div>
             </div>
             <div class="row collections-list">
@@ -69,9 +69,40 @@
     </aside>
     <div class="wrap">
         <div id="modal-helper"></div>
-        <?php foreach ($this->users as $user) {
-           echo $user->username;
-        }?>
+        <form class="form-inline" ng-submit="submitUser()">
+            <div class="form-group">
+                <input type="text" ng-model="formDataUser.username" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>" />
+            </div>
+            <div class="form-group">
+                <input type="email" ng-model="formDataUser.email" class="form-control" placeholder="<?php echo \MVC\Language::T('Email Address') ?>" />
+            </div>
+            <div class="form-group">
+                <input type="password" ng-model="formDataUser.password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>" />
+            </div> 
+            <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Create') ?></button>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td><?php echo \MVC\Language::T('Username') ?></td>
+                        <td><?php echo \MVC\Language::T('Email Address') ?></td>
+                        <td><?php echo \MVC\Language::T('Password') ?></td>
+                        <td><?php echo \MVC\Language::T('Delete the user') ?></td>
+                    </tr>  
+                </thead>  
+                <tbody>
+                    <tr ng-repeat="user in users" id="user-{{ user.id }}">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td> ●●●●●●● </td>
+                        <td>
+                            <button class="btn btn-danger"><?php echo \MVC\Language::T('Delete') ?></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>

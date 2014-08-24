@@ -34,4 +34,9 @@ class User extends \MVC\Table {
         return $this->select($query,array($idUser));
     }
 
+    public function getUsers(){
+        $query = 'SELECT id, username, email FROM user';
+        return $this->select($query);
+    }
+
 }

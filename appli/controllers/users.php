@@ -28,7 +28,7 @@ class Users extends \MVC\Controller {
       $user = \Appli\Models\User::getInstance()->getByUsername($username);
     }
     if (sizeof($user) > 0) {
-      if (\MVC\Password::validate_password($password, $user[0]->hash)) {
+      if (\MVC\Password::validate_password($password, $user[0]->password)) {
         $_SESSION['user'] = $user[0]->username;
         $_SESSION['idUser'] = $user[0]->id;
         $_SESSION['language'] = $user[0]->language;
@@ -49,6 +49,18 @@ class Users extends \MVC\Controller {
     }
   }
 
+  private static function createUser($username, $email, $password, $language = \Config\App::LANGUAGE){
+    $user = \Appli\Models\User::getInstance()->newItem();
+    $user->username = $username;
+    $user->password = \MVC\Password::create_hash($password);
+    $user->userdate = \MVC\Date::getDateNow();
+    $user->language = $language;
+    $user->email = $email;
+    $user->token = md5(uniqid(mt_rand(), true));
+    $user->store();
+    return $user;
+  }
+
   public static function data_savedInstall(){
     $saved = false;
     $text = '';
@@ -64,14 +76,7 @@ class Users extends \MVC\Controller {
         //on vérifie qu'il n'existe pas d'utilisateur utilisant le même pseudo ou le même email
         if (!$user OR !$mail) {
           //on enregistre l'utilisateur
-          $user = \Appli\Models\User::getInstance()->newItem();
-          $user->username = $username;
-          $user->hash = \MVC\Password::create_hash($password);
-          $user->userdate = \MVC\Date::getDateNow();
-          $user->language = $language;
-          $user->email = $email;
-          $user->token = md5(uniqid(mt_rand(), true));
-          $user->store();
+          $user = self::createUser($username, $email, $password, $language);
           //on crée le groupe admin
           $group = \Appli\Models\Group::getInstance()->newItem();
           $group->label = 'admin';
@@ -92,48 +97,46 @@ class Users extends \MVC\Controller {
       $text= \MVC\Language::T('The passwords are differents');
     }
     self::getVue()->data = json_encode(array(
-          'text' => $text,
-          'saved' => $saved
+      'text' => $text,
+      'saved' => $saved
       ));
   }
 
   /**
-   * permit to save an account
+   * création d'un compte lorqu'on soumet le formulaire de l'écran utilisateurs
    * 
-   *//*
-  public static function saved() {
+   */
+  public static function data_createUser() {
+    $saved = false;
+    $text = '';
     $username = htmlspecialchars(trim(\MVC\A::get('username')));
     $password = htmlspecialchars(trim(\MVC\A::get('password')));
-    $repeatPassword = htmlspecialchars(trim(\MVC\A::get('repeatPassword')));
-    $language = htmlspecialchars(trim(\MVC\A::get('language')));
     $email = htmlspecialchars(trim(\MVC\A::get('email')));
-    if ($password == $repeatPassword) {
-      if ($username != '' AND $email != '') {
-        $user = \Appli\Models\User::getInstance()->getByUsername($username);
-        $mail = \Appli\Models\User::getInstance()->getByMail($email);
+    if ($username != '' AND $email != '') {
+      $user = \Appli\Models\User::getInstance()->getByUsername($username);
+      $mail = \Appli\Models\User::getInstance()->getByMail($email);
                 //on vérifie qu'il n'existe pas d'utilisateur utilisant le même pseudo ou le même email
-        if (!$user AND !$mail) {
-          $user = \Appli\Models\User::getInstance()->newItem();
-          $user->username = $username;
-          $user->hash = \MVC\Password::create_hash($password);
-          $user->userdate = \MVC\Date::getDateNow();
-          $user->language = $language;
-          $user->email = $email;
-          $user->token = md5(uniqid(mt_rand(), true));
-          $user->store();
-          self::redirect('users', 'login');
-        } else {
-          $_SESSION['errors']['danger'][] = \MVC\Language::T('AccountAlreadyExists');
-          self::redirect('users', 'create');
-        }
+      if (!$user AND !$mail) {
+        $user = self::createUser($username, $email, $password);
+        $userJSON = array(
+          'id' => $user->id,
+          'username' => $user->username,
+          'email' => $user->email
+        );
+        $saved = true;
+        $text = \MVC\Language::T('The user was succesfully created');
       } else {
-        $_SESSION['errors']['danger'][] = \MVC\Language::T('EmptyInputs');
-        self::redirect('users', 'create');
+        $text = \MVC\Language::T('AccountAlreadyExists');
+        $userJSON = null;
       }
     } else {
-      $_SESSION['errors']['danger'][] = \MVC\Language::T('The passwords are differents');
-      self::redirect('users', 'create');
+      $text = \MVC\Language::T('EmptyInputs');
     }
-  }*/
+    self::getVue()->data = json_encode(array(
+      'text' => $text,
+      'saved' => $saved,
+      'user' => $userJSON
+      ));
+  }
 
 }

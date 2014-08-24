@@ -432,3 +432,36 @@ $scope.newLink = function(){
     });
   };
 });
+
+
+app.controller('usersCtrl', function($scope, $http){
+  $scope.users = [];
+
+  /**
+   * on cherche les utilisateurs 
+   */
+  $scope.getUsers = function(){
+    $http.get('?c=administration&a=data_getUsers')
+    .success(function(data){
+      $scope.users = data;
+    });
+  };
+  //on initialise le scope
+  $scope.getUsers();
+
+  /**
+   * soumission du formulaire d'un nouvel utilisateur
+   */
+  $scope.submitUser = function(){
+    $http.post('?c=users&a=data_createUser', $scope.formDataUser)
+    .success(function(data){
+      console.log(data);
+      if(data.saved){
+        showAlert(data.text,'modal-helper-green');
+        $scope.users.push(data.user);
+      }else{
+        showAlert(data.text,'modal-helper-red');
+      }
+    });
+  }
+});
