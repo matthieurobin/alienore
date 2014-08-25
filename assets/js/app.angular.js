@@ -307,14 +307,15 @@ $scope.newLink = function(){
         .success(function(data){
           if(nbTags < 3){
             $scope.tagsSelected.push(data);
+            //on ajoute la classe css 
+            $('#tag-' + tagId + ' .tag-label').addClass('tags-active');
           }
           tags.push(tagId);
           //on cherche les liens
           $scope.getLinksByTags(tags);
         });
       }
-      //on ajoute la classe css 
-      $('#tag-' + tagId + ' .tag-label').addClass('tags-active');
+      
     };
 
 /**
