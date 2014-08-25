@@ -23,7 +23,7 @@
                     <a href=".">
                         <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
                     </a>
-                    <div class="pull-right">
+                    <div class="pull-right" id="nav">
                         <ul>
                             <li id="dropdown-account" class="dropdown">
                                 <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
@@ -179,7 +179,7 @@
         $("#tagBox").tagging(tagOptions);
         $('#modal-link').on('hidden.bs.modal', function(e) {
             $('#modal-new-link-title').text('<?php echo \MVC\Language::T('Addlink') ?>');
-            reset();
+            reset('#form-link');
             resetTagBox();
         });
     });
