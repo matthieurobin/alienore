@@ -434,6 +434,24 @@ $scope.newLink = function(){
   };
 });
 
+app.controller('preferencesCtrl', function($scope, $http){
+
+  $scope.formDataPassword = {};
+
+  $scope.submitPassword = function(){
+    $http.post('?c=account&a=data_savedPassword', $scope.formDataPassword)
+    .success(function(data){
+      if(data.saved){
+        reset('#formPassword');
+        showAlert(data.text,'modal-helper-green');
+      }else{
+        showAlert(data.text,'modal-helper-red');
+      }
+    });
+  };
+
+});
+
 
 app.controller('usersCtrl', function($scope, $http){
   $scope.users = [];

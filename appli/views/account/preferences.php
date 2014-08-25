@@ -13,7 +13,8 @@
     <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
-<body ng-app="alienore">
+<body ng-app="alienore" ng-controller="preferencesCtrl">
+<div id="modal-helper"></div>
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -22,10 +23,10 @@
                     <a href=".">
                         <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
                     </a>
-                    <div class="pull-right">
+                    <div class="pull-right" id="nav" id="nav">
                         <ul>
                             <li id="dropdown-account" class="dropdown">
-                               <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
+                                <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
                                     <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
                                 </span>
                                 <ul class="dropdown-menu">
@@ -69,14 +70,34 @@
     <div class="wrap">
         <div>
             <h2><?php echo \MVC\Language::T('Preferences') ?></h2>
-            <form action="?c=account&a=savedPreferences" method="post">
-                <p><?php echo \MVC\Language::T('Change the language'); ?> :
-                    <select name="language">
-                        <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
-                        <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
-                    </select>
-                </p><br>
+            <br>
+            <h3><?php echo \MVC\Language::T('Language'); ?></h3>
+            <br>
+            <form action="?c=account&a=savedLanguagePreference" method="post">
+                <div class="form-group">
+                    <p><?php echo \MVC\Language::T('Change the language'); ?> :
+                        <select name="language">
+                            <option <?php if($this->language == 'en') echo 'selected' ?> value="en"><?php echo \MVC\Language::T('English'); ?></option>
+                            <option <?php if($this->language == 'fr') echo 'selected' ?> value="fr"><?php echo \MVC\Language::T('French'); ?></option>
+                        </select>
+                    </p>
+                </div>
                 <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Submit') ?></button>
+            </form>
+            <br>
+            <h3><?php echo \MVC\Language::T('Password'); ?></h3>
+            <br>
+            <form id="formPassword" ng-submit="submitPassword()">
+                <div class="form-group col-lg-4">
+                    <input ng-model="formDataPassword.oldPassword" type="password" class="form-control" id="oldPassword" placeholder="<?php echo \MVC\Language::T('Old password'); ?>">
+                </div>
+                <div class="form-group col-lg-4">
+                    <input ng-model="formDataPassword.newPassword" type="password" class="form-control" id="newPassword" placeholder="<?php echo \MVC\Language::T('New password'); ?>">
+                </div>
+                <div class="form-group col-lg-4">
+                    <input ng-model="formDataPassword.repeatNewPassword" type="password" class="form-control" id="repeatNewPassword" placeholder="<?php echo \MVC\Language::T('Repeat new password'); ?>">
+                </div>
+                <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Change password') ?></button>
             </form>
 
         </div>

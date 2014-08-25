@@ -17,7 +17,7 @@ function showAlert(message, classCss){
  * @returns {undefined}
  */
 function reset(form) {
-    $('#form-link').find(':input').each(function() {
+    $(form).find(':input').each(function() {
         switch (this.type) {
             case 'password':
             case 'select-multiple':
