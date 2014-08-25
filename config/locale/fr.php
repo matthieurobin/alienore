@@ -52,7 +52,7 @@ $language = array(
     'Repeat password' => 'Répéter le mot de passe',
     'Save' => 'Sauvegarder',
     'Search' => 'Rechercher ...',
-    'Search in users' => 'Chercher parmis les utilisateurs',
+    'Search in users' => 'Chercher parmi les utilisateurs',
     'See this page' => 'Voir cette page',
     'Seesavedversion' => 'Voir la version sauvegardée',
     'Shortcuts' => 'Raccourcis',
@@ -80,7 +80,7 @@ $language = array(
     'UsernameOrEmail' => 'Nom d\'utilsateur ou Adresse mail',
     'Users' => 'Utilisateurs',
     'Version' => 'Version',
-    'You already have 3 tags selected, deselect one of them or all' => 'Vous avez 3 tags sélectionnés, désélectionnez en un ou tous',
+    'You already have 3 tags selected, deselect one of them or all' => 'Vous avez 3 tags sélectionnés, désélectionner en un ou tous',
     'You do not have any tag' => 'Vous n\'avez aucun tag',
     'You do not have links already' => 'Vous n\'avez pas encore de liens'
 );

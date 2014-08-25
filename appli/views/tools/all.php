@@ -23,9 +23,11 @@
                         <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
                     </a>
                     <div class="pull-right">
-                     <ul>
+                       <ul>
                         <li id="dropdown-account" class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-align-justify"></span></a>
+                            <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
+                                <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
+                            </span>
                             <ul class="dropdown-menu">
                                 <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
                                 <li>
