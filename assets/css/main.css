@@ -247,6 +247,7 @@ li{
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
     color: white;
     display: none;
+    text-align: center;
 }
 
 .modal-helper-green{
@@ -373,15 +374,6 @@ h4 > a{
     padding: 10px 15px;
 }
 
-.box-alert{
-    background-color: #f9edbe; 
-    font-weight: bold;
-    color: #8a6d3b; 
-    border: 1px #f0c36d solid;
-    box-shadow: 0pt 1px 3px rgba(0, 0, 0, 0.2);
-    padding:10px;
-    margin-bottom: 5px;
-}
 #tools{
     padding: 10px 8px;
 }
@@ -392,6 +384,14 @@ h4 > a{
 .legend{
     color:#708090;
     padding: 5px 0px;
+}
+
+.users{
+    padding-top: 10px;
+}
+
+.search-users{
+    padding-top: 10px;
 }
 
 /* bootstrap modifications*/
@@ -425,20 +425,6 @@ h4 > a{
 }
 .saved-link{
     font-size: 18px;
-}
-
-/* loading */
-
-.loading{
-    text-align: center;
-}
-
-.no-display{
-    display: none;
-}
-
-.display{
-    display: block;
 }
 
 /* tagging plugin */

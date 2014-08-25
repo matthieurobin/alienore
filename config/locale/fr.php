@@ -52,6 +52,7 @@ $language = array(
     'Repeat password' => 'Répéter le mot de passe',
     'Save' => 'Sauvegarder',
     'Search' => 'Rechercher ...',
+    'Search in users' => 'Chercher parmis les utilisateurs',
     'See this page' => 'Voir cette page',
     'Seesavedversion' => 'Voir la version sauvegardée',
     'Shortcuts' => 'Raccourcis',

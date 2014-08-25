@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body ng-app="alienore" ng-controller="usersCtrl">
+    <div id="modal-helper"></div>
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -68,7 +69,6 @@
         </div>
     </aside>
     <div class="wrap">
-        <div id="modal-helper"></div>
         <form class="form-inline" ng-submit="submitUser()">
             <div class="form-group">
                 <input type="text" ng-model="formDataUser.username" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>" />
@@ -81,24 +81,27 @@
             </div> 
             <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Create') ?></button>
         </form>
-        <div class="table-responsive">
+        <div class="search-users">
+            <input type="text" ng-model="search.$" class="form-control" placeholder="<?php echo \MVC\Language::T('Search in users') ?>" />
+        </div>
+        <div class="users table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <td><?php echo \MVC\Language::T('Username') ?></td>
-                        <td><?php echo \MVC\Language::T('Email Address') ?></td>
-                        <td><?php echo \MVC\Language::T('Password') ?></td>
-                        <td><?php echo \MVC\Language::T('Delete the user') ?></td>
+                        <td><b><?php echo \MVC\Language::T('Username') ?></b></td>
+                        <td><b><?php echo \MVC\Language::T('Email Address') ?></b></td>
+                        <td><b><?php echo \MVC\Language::T('Password') ?></b></td>
+                        <!--<td><?php echo \MVC\Language::T('Delete the user') ?></td>-->
                     </tr>  
                 </thead>  
                 <tbody>
-                    <tr ng-repeat="user in users" id="user-{{ user.id }}">
+                    <tr ng-repeat="user in users | filter: search" id="user-{{ user.id }}">
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
                         <td> ●●●●●●● </td>
-                        <td>
+                        <!--<td>
                             <button class="btn btn-danger"><?php echo \MVC\Language::T('Delete') ?></button>
-                        </td>
+                        </td>-->
                     </tr>
                 </tbody>
             </table>

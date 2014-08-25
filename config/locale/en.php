@@ -51,6 +51,7 @@ $language = array(
     'Repeat password' => 'Repeat password',
     'Save' => 'Save',
     'Search' => 'Search ...',
+    'Search in users' => 'Search in users',
     'See this page' => 'See this page',
     'Seesavedversion' => 'See saved version',
     'Shortcuts' => 'Shortcuts',

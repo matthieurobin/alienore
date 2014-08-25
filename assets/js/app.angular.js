@@ -455,7 +455,6 @@ app.controller('usersCtrl', function($scope, $http){
   $scope.submitUser = function(){
     $http.post('?c=users&a=data_createUser', $scope.formDataUser)
     .success(function(data){
-      console.log(data);
       if(data.saved){
         showAlert(data.text,'modal-helper-green');
         $scope.users.push(data.user);
@@ -463,5 +462,5 @@ app.controller('usersCtrl', function($scope, $http){
         showAlert(data.text,'modal-helper-red');
       }
     });
-  }
+  };
 });
