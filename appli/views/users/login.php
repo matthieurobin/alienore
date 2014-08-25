@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body>
+    <div id="modal-helper"></div>
     <div id="header">
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">

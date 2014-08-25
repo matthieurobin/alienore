@@ -14,6 +14,7 @@
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body ng-app="alienore" ng-controller="mainCtrl">
+<div id="modal-helper"></div>
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -75,7 +76,7 @@
         </div>
     </aside>
     <div class="wrap" id="links">
-        <div id="modal-helper"></div>
+        
         <div class="tool-bar">
             <div id="search-bar">
                 <ng-include src="'templates/search.html'"></ng-include>
@@ -92,9 +93,6 @@
                 </a></span>
                 <span id="nbLinks"><?php echo \MVC\Language::T('NbLinks') ?> <span id="nbLinks-count">{{ nbLinks }}</span></span>
             </div>
-        </div>
-        <div class="loading no-display">
-            <img width="64" height="64" src="<?php echo \Config\Path::IMG; ?>loading-bars.svg" alt="Loading icon" />
         </div>
         <ul id="list">
             <ng-include src="'templates/list_links.html'"></ng-include>
