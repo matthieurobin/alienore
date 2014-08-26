@@ -13,7 +13,7 @@
     <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
-<body>
+<body ng-app="alienore" ng-controller="loginCtrl">
     <div id="modal-helper"></div>
     <div id="header">
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -32,38 +32,29 @@
 
     </div>
     <div class="container">
-        <form class="form-signin" role="form" action="?c=users&a=auth" method="post">
+        <form id="formLogin" class="form-signin" role="form" ng-submit="submitLogin()">
             <h2 class="form-signin-heading">
                 <?php echo \MVC\Language::T('SignIn') ?>
             </h2><br>
-            <input id="inputUsername" name="username" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('UsernameOrEmail') ?>"><br>
-            <input name="password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>"><br>
-                <!--<label class="checkbox">
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>-->
+            <input ng-model="formDataLogin.usernameEmail" id="inputToFocus" type="text" class="form-control" placeholder="<?php echo \MVC\Language::T('UsernameOrEmail') ?>"><br>
+            <input ng-model="formDataLogin.password" type="password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>"><br>
                 <div class="btn-toolbar" role="toolbar">
                     <div class="btn-group">
                         <button class="btn btn-lg btn-primary " type="submit"><?php echo \MVC\Language::T('SignIn') ?></button>
                     </div>
-                <!--
-                <div class="btn-group">
-                    <a class="btn btn-lg btn-primary" href="?c=users&a=create"><?php echo \MVC\Language::T('Register') ?></a>         
-                </div>-->
-            </div>
-        </form>
-        
-    </div> <!-- /container -->
+                </div>
+            </form>
 
-    <div id="footer">
-        <?php echo \MVC\Language::T('By') ?> <?php echo \Config\App::COPYRIGHT ?> - <?php echo \Config\App::VERSION ?>
-    </div>
-    <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#inputUsername').focus();
-        });
-    </script>
-    <script src="<?php echo \Config\Path::JS; ?>bootstrap.js"></script>
-    <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
-</body>
-</html>
+        </div> <!-- /container -->
+        <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#inputToFocus').focus();
+            });
+        </script>
+        <script src="<?php echo \Config\Path::JS; ?>bootstrap.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+        <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+    </body>
+    </html>

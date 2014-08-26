@@ -20,26 +20,35 @@ class Users extends \MVC\Controller {
     self::redirect('users', 'login');
   }
 
-  public static function auth() {
-    $username = htmlspecialchars(\MVC\A::get('username'));
-    $password = \MVC\A::get('password');
-    $user = \Appli\Models\User::getInstance()->getByMail($username);
+  public static function data_auth() {
+    $text = '';
+    $error = false;
+    $usernameEmail = htmlspecialchars(trim(\MVC\A::get('usernameEmail')));
+    $password      = htmlspecialchars(trim(\MVC\A::get('password')));
+    $user          = \Appli\Models\User::getInstance()->getByMail($usernameEmail);
     if (sizeof($user) == 0) {
-      $user = \Appli\Models\User::getInstance()->getByUsername($username);
+      $user = \Appli\Models\User::getInstance()->getByUsername($usernameEmail);
     }
     if (sizeof($user) > 0) {
       if (\MVC\Password::validate_password($password, $user[0]->password)) {
-        $_SESSION['user'] = $user[0]->username;
-        $_SESSION['idUser'] = $user[0]->id;
+        $_SESSION['user']     = $user[0]->username;
+        $_SESSION['idUser']   = $user[0]->id;
         $_SESSION['language'] = $user[0]->language;
-        $_SESSION['email'] = $user[0]->email;
-        $_SESSION['token'] = $user[0]->token;
-        $_SESSION['admin'] = \Appli\Models\User::getInstance()->isAdmin($user[0]->id);
+        $_SESSION['email']    = $user[0]->email;
+        $_SESSION['token']    = $user[0]->token;
+        $_SESSION['admin']    = \Appli\Models\User::getInstance()->isAdmin($user[0]->id);
       } else {
-        $_SESSION['errors']['danger'][] = \MVC\Language::T('IncorrectUsername');
-        self::redirect('users', 'login');
+        $text = \MVC\Language::T('Incorrect username/email or password');
+        $error = true;
       }
+    }else{
+      $text = \MVC\Language::T('Incorrect username/email or password');
+      $error = true;
     }
+    self::getVue()->data = json_encode(array(
+        'error' => $error,
+        'text'  => $text
+      ));
   }
 
   static function install() {
@@ -55,8 +64,8 @@ class Users extends \MVC\Controller {
     $user->password = \MVC\Password::create_hash($password);
     $user->userdate = \MVC\Date::getDateNow();
     $user->language = $language;
-    $user->email = $email;
-    $user->token = md5(uniqid(mt_rand(), true));
+    $user->email    = $email;
+    $user->token    = md5(uniqid(mt_rand(), true));
     $user->store();
     return $user;
   }
@@ -64,11 +73,11 @@ class Users extends \MVC\Controller {
   public static function data_savedInstall(){
     $saved = false;
     $text = '';
-    $username = htmlspecialchars(trim(\MVC\A::get('username')));
-    $password = htmlspecialchars(trim(\MVC\A::get('password')));
+    $username       = htmlspecialchars(trim(\MVC\A::get('username')));
+    $password       = htmlspecialchars(trim(\MVC\A::get('password')));
     $repeatPassword = htmlspecialchars(trim(\MVC\A::get('repeatPassword')));
-    $language = htmlspecialchars(trim(\MVC\A::get('language')));
-    $email = htmlspecialchars(trim(\MVC\A::get('email')));
+    $language       = htmlspecialchars(trim(\MVC\A::get('language')));
+    $email          = htmlspecialchars(trim(\MVC\A::get('email')));
     if ($password == $repeatPassword) {
       if ($username != '' AND $email != '') {
         $user = \Appli\Models\User::getInstance()->getByUsername($username);
@@ -107,11 +116,11 @@ class Users extends \MVC\Controller {
    * 
    */
   public static function data_createUser() {
-    $saved = false;
-    $text = '';
+    $saved    = false;
+    $text     = '';
     $username = htmlspecialchars(trim(\MVC\A::get('username')));
     $password = htmlspecialchars(trim(\MVC\A::get('password')));
-    $email = htmlspecialchars(trim(\MVC\A::get('email')));
+    $email    = htmlspecialchars(trim(\MVC\A::get('email')));
     if ($username != '' AND $email != '') {
       $user = \Appli\Models\User::getInstance()->getByUsername($username);
       $mail = \Appli\Models\User::getInstance()->getByMail($email);
@@ -119,9 +128,9 @@ class Users extends \MVC\Controller {
       if (!$user AND !$mail) {
         $user = self::createUser($username, $email, $password);
         $userJSON = array(
-          'id' => $user->id,
+          'id'       => $user->id,
           'username' => $user->username,
-          'email' => $user->email
+          'email'    => $user->email
         );
         $saved = true;
         $text = \MVC\Language::T('The user was succesfully created');
@@ -133,9 +142,9 @@ class Users extends \MVC\Controller {
       $text = \MVC\Language::T('EmptyInputs');
     }
     self::getVue()->data = json_encode(array(
-      'text' => $text,
+      'text'  => $text,
       'saved' => $saved,
-      'user' => $userJSON
+      'user'  => $userJSON
       ));
   }
 

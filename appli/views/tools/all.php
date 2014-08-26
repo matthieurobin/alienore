@@ -67,13 +67,13 @@
     </div>
 </aside>
 <div class="wrap">
-    <h4><?php echo \MVC\Language::T('Export') ?> :</h4>
+    <h3><?php echo \MVC\Language::T('Export') ?> :</h3>
     <div class="tool-body">
         <button class="btn btn-default" onclick="location.href = '?c=tools&a=exportHtml'">
             <?php echo \MVC\Language::T('Export to html format') ?>
         </button>
     </div>
-    <h4><?php echo \MVC\Language::T('Import') ?> :</h4>
+    <h3><?php echo \MVC\Language::T('Import') ?> :</h3>
     <div class="tool-body">
         <form id="form-import" action="?c=tools&a=import" method="post" enctype="multipart/form-data">
             <input type="file" name="filePath">                        
