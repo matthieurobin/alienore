@@ -11,6 +11,7 @@ $language = array(
     'ChangeEmailAddress' => 'Modifier l\'addresse mail',
     'Change password' => 'Changer le mot de passe',
     'Change the language' => 'Modifier la langue',
+    'Choose your language' => 'Choisissez votre langue',
     'Close' => 'Fermer',
     'Create' => 'Créer',
     'CreateAnAccount' => 'Créer un compte',

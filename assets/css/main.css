@@ -242,6 +242,63 @@ li{
     padding-bottom: 10px;
 }
 
+/* Login */
+
+#login {
+    background-color: #24282F;
+    text-align: center;
+    color: white;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0px auto;
+}
+
+.table{
+    display: table;
+}
+
+form .table{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table-center{
+    width: 100%;
+    height: 100%;
+}
+
+.cell {
+    display: table-cell;
+}
+
+.row{
+    display: table-row;
+}
+
+.table-center > .cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.center-block{
+    display: inline-block;
+    min-width: 30%;
+    margin: 0px auto;
+    position: relative;
+    /*background-color: white;*/
+    margin-top: 10%;
+    /*border: 1px solid #d8d8d8;*/
+    padding: 15px;
+}
+
+.img-center{
+    text-align: center;
+    padding: 5px;
+}
+
 /* MODAL */
 
 #modal-helper{
@@ -368,12 +425,6 @@ h4 > a{
     padding: 150px;
     bottom: 0px;
     height: 100%;
-}
-
-.form-signin {
-    max-width: 330px;
-    padding: 15px;
-    margin: 0px auto;
 }
 
 .helper{

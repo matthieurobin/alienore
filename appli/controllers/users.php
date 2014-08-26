@@ -83,7 +83,7 @@ class Users extends \MVC\Controller {
         $user = \Appli\Models\User::getInstance()->getByUsername($username);
         $mail = \Appli\Models\User::getInstance()->getByMail($email);
         //on vérifie qu'il n'existe pas d'utilisateur utilisant le même pseudo ou le même email
-        if (!$user OR !$mail) {
+        if (!$user AND !$mail) {
           //on enregistre l'utilisateur
           $user = self::createUser($username, $email, $password, $language);
           //on crée le groupe admin
