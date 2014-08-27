@@ -24,16 +24,30 @@ class User extends \MVC\Table {
         return $this->getInstance()->select('SELECT * FROM user WHERE username = ?', array($username));
     }
 
+    /**
+     * chercher l'utilisateur par son email
+     * @param  string $mail 
+     * @return array     
+     */
     public function getByMail($mail) {
         $query = 'SELECT * FROM user WHERE email = ?';
         return $this->getInstance()->select($query,array($mail));
     }
 
+    /**
+     * savoir si l'utilisateur fait parti du groupe admin
+     * @param  id  $idUser
+     * @return boolean 
+     */
     public function isAdmin($idUser){
         $query = 'SELECT * FROM groupuser where idGroup = (SELECT idGroup FROM `group` where label = "admin") and idUser = ?';
         return $this->select($query,array($idUser));
     }
 
+    /**
+     * chercher tous les utilisateurs de l'application
+     * @return array 
+     */
     public function getUsers(){
         $query = 'SELECT id, username, email FROM user';
         return $this->select($query);

@@ -4,14 +4,24 @@ namespace Appli\Controllers;
 
 class Tags extends \MVC\Controller {
 
+    /**
+     * cherche le tag identifié par tagId
+     */
     public static function data_get(){
         self::getVue()->data = json_encode(\Appli\Models\Tag::getInstance()->get(\MVC\A::get('tagId')));
     }
     
+
+    /**
+     * méthode appelée lors de l'initialisation de 'links'.'all' , cherche les tags et les tris par le nombre de liens par tag
+     */
     public static function data_all() {
         self::getVue()->data = json_encode( array('tags' => \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser'])));
     }
 
+    /**
+     * enregistrer le tag lors de l'envoi du formulaire
+     */
     public static function data_saved() {
         if (\MVC\A::get('label') != '') {
             if(\MVC\A::get('tagId') != ''){
@@ -36,20 +46,10 @@ class Tags extends \MVC\Controller {
             )); 
         }
     }
-    
-    public static function data_searchTag(){
-        $tags = \Appli\Models\Tag::getInstance()->getSearchTag(\MVC\A::get('search'),$_SESSION['idUser']);
-        self::getVue()->data = json_encode($tags);
-    }
 
-    public static function data_linksByTag(){
-        $tag = \Appli\Models\Tag::getInstance()->get(\MVC\A::get('tagId'));
-        $nbLinks = \Appli\Models\Link::getInstance()->countLinksByTag($tag->id, $_SESSION['idUser'])->count;
-        $pagination = \MVC\Pagination::buildPaging($nbLinks, 1);
-        $links = \Appli\Models\Link::getInstance()->getLinksByTag($tag->id, $pagination['limit'], $_SESSION['idUser']);
-        self::getVue()->data = json_encode($links);
-    }
-
+    /**
+     * cherche le tag identifié par tagId et appelle la méthode displayTag pour décoder les htmlspecialchars
+     */
     public static function data_form(){
         $tag = \MVC\Display::displayTag(\Appli\Models\Tag::getInstance()->get(\MVC\A::get('tagId')));
         self::getVue()->data = json_encode($tag);

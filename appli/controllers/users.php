@@ -4,6 +4,10 @@ namespace Appli\Controllers;
 
 class Users extends \MVC\Controller {
 
+  /**
+   * permet d'accéder à la page de connexion si l'utilisateur n'est pas connecté,
+   * sinon il est redirigé vers la vue par défaut
+   */
   public static function login() {
     $data = \Appli\Models\User::getInstance()->countAll();
     if ($data->count == 0) {
@@ -14,12 +18,18 @@ class Users extends \MVC\Controller {
     }
   }
 
+  /**
+   * déconnexion de l'utilisateur
+   */
   public static function logout() {
     unset($_SESSION['user']);
     session_destroy();
     self::redirect('users', 'login');
   }
 
+  /**
+   * authentification de l'utilisateur
+   */
   public static function data_auth() {
     $text = '';
     $error = false;
@@ -51,6 +61,9 @@ class Users extends \MVC\Controller {
       ));
   }
 
+  /**
+   * accéder à l'installation : création du premier compte de l'application
+   */
   static function install() {
     $data = \Appli\Models\User::getInstance()->countAll();
     if ($data->count > 0) {
@@ -58,6 +71,14 @@ class Users extends \MVC\Controller {
     }
   }
 
+  /**
+   * méthode pour créer un utilisateur
+   * @param  string $username 
+   * @param  string $email    
+   * @param  string $password 
+   * @param  string $language 
+   * @return object       
+   */
   private static function createUser($username, $email, $password, $language = \Config\App::LANGUAGE){
     $user = \Appli\Models\User::getInstance()->newItem();
     $user->username = $username;
@@ -70,6 +91,9 @@ class Users extends \MVC\Controller {
     return $user;
   }
 
+  /**
+   * enregistrer l'installation
+   */
   public static function data_savedInstall(){
     $saved = false;
     $text = '';
@@ -86,6 +110,7 @@ class Users extends \MVC\Controller {
         if (!$user AND !$mail) {
           //on enregistre l'utilisateur
           $user = self::createUser($username, $email, $password, $language);
+          //TODO vérifier si le groupe admin existe déjà
           //on crée le groupe admin
           $group = \Appli\Models\Group::getInstance()->newItem();
           $group->label = 'admin';

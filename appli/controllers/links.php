@@ -4,6 +4,12 @@ namespace Appli\Controllers;
 
 class Links extends \MVC\Controller {
 
+    /**
+     * search links' tags
+     * @param  array  $links
+     * @param  boolean $isForm : if it is for a form, we call the displayLink method to decode htmlspecialchars
+     * @return array : array(array('link' => object, 'tags' => []))
+     */
     private static function prepareLinksTodisplay($links,$isForm = false){
         $linksToDisplay = [];
         //search tags of links
@@ -18,6 +24,9 @@ class Links extends \MVC\Controller {
         return $linksToDisplay;
     }
 
+    /**
+     * chercher les liens identifiés par les tags
+     */
     public static function data_getLinksByTags(){
         //le js nous renvoie une chaine d'id des tags sélectionnés ex : 1,2,6
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
@@ -42,6 +51,7 @@ class Links extends \MVC\Controller {
         }
     }
 
+
     public static function data_search(){
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $search = htmlspecialchars(trim(\MVC\A::get('search')));
@@ -65,6 +75,10 @@ class Links extends \MVC\Controller {
                 ));
     }
 
+    /**
+     * méthode appelée lors de l'initialisation de l'accueil
+     * @return [type] [description]
+     */
     public static function data_all(){
         $page = (\MVC\A::get('page') != '') ? \MVC\A::get('page') : 1;
         $nbLinks = \Appli\Models\Link::getInstance()->countAll($_SESSION['idUser'])->count;
@@ -81,15 +95,25 @@ class Links extends \MVC\Controller {
                 ));
     }
 
+    /**
+     * cherche le lien identifié par linkId pour l'afficher dans le formulaire
+     * @return [type] [description]
+     */
     public static function data_get(){
         self::getVue()->data = json_encode(self::prepareLinksTodisplay(array(\Appli\Models\Link::getInstance()->get(\MVC\A::get('linkId'))),true)[0]);
     }
 
+    /**
+     * action par défaut de l'application
+     */
     public static function all() {
         $text = \MVC\Language::T('No links');
         self::getVue()->helper = $text;
     }
 
+    /**
+     * supprimer un lien
+     */
     public static function data_delete() {
         //si le token passé dans l'url est le même que celui de l'utilisateur
         if(\MVC\A::get('t') == $_SESSION['token']){  
@@ -108,14 +132,9 @@ class Links extends \MVC\Controller {
         
     }
 
-    public static function data_form() {
-        $link = \MVC\Display::displayLink(\Appli\Models\Link::getInstance()->get(\MVC\A::get('id')));
-        $tags = \Appli\Models\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser']);
-        self::getVue()->link = json_encode(
-            array('link' => $link,
-                'tags' => $tags));
-    }
-
+    /**
+     * méthode appelée lors de l'édition/création d'un lien
+     */
     public static function data_saved() {
         if (\MVC\A::get('url') != '') {
             $isEdit = 0;
@@ -176,7 +195,7 @@ class Links extends \MVC\Controller {
                 //on cherche les tags supprimés
                 $tagsLinkDeleted = array_diff($tagsLinkBeforeId,$tagsLinkAfterId);
                 sort($tagsLinkDeleted); //on trie pour supprimer la clé précédente
-                
+                //on supprime les tags dans la bdd
                 for($i = 0 ; $i < sizeof($tagsLinkDeleted); ++$i){
                     $taglink = \Appli\Models\Taglink::getInstance()->getTagLink($link->id, $tagsLinkDeleted[$i])[0];
                     $taglink->deleteTagLink();
@@ -196,19 +215,20 @@ class Links extends \MVC\Controller {
                 }
             }else{
                 $tagsAdded = \Appli\Models\Link::getInstance()->getLinkTags($link->id, $_SESSION['idUser']);
-                //TODO gérer le cas pour connaître les liens ajoutés
             }
             //on retourne le lien pour le js
-            self::getVue()->data = json_encode(
-                array('link' => $link,
-                    'tags' => array('deleted' => $tagsDeleted,
-                        'added' => $tagsAdded,
-                        'default' => $tagsNoChange,
-                        'new' => $tagsNew),
-                    'isEdit' => $isEdit,
-                    'token' => $_SESSION['token'],
-                    'text' => $textToDisplay
-                    ));
+            self::getVue()->data = json_encode(array(
+                'link'   => $link,
+                'tags'   => array(
+                    'deleted' => $tagsDeleted,
+                    'added'   => $tagsAdded,
+                    'default' => $tagsNoChange,
+                    'new'     => $tagsNew
+                ),
+                'isEdit' => $isEdit,
+                'token'  => $_SESSION['token'],
+                'text'   => $textToDisplay
+            ));
         }
     }
 

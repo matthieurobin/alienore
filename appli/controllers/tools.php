@@ -4,10 +4,17 @@ namespace Appli\Controllers;
 
 class Tools extends \MVC\Controller {
 
+    /**
+     * accéder à la vue
+     */
     public static function all() {
         
     }
 
+    /**
+     * méthode appelé lors de l'envoi du formulaire,
+     * permet d'importer à partir d'un fichier des liens et des tags
+     */
     public static function import() {
         if (isset($_FILES['filePath']['tmp_name'])) {
             $fileData = file_get_contents($_FILES['filePath']['tmp_name']);
@@ -61,6 +68,9 @@ class Tools extends \MVC\Controller {
         }
     }
 
+    /**
+     * permet d'exporter les liens et les tags dans un fichier html
+     */
     public static function exportHtml() {
         $userId = $_SESSION['idUser'];
         $links = \Appli\Models\Link::getInstance()->getUserLinks($userId);
