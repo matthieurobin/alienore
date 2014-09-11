@@ -158,7 +158,7 @@ class Users extends \MVC\Controller {
           'email'    => $user->email
         );
         $saved = true;
-        $text = \MVC\Language::T('The user was succesfully created');
+        $text = \MVC\Language::T('The user was successfully created');
       } else {
         $text = \MVC\Language::T('AccountAlreadyExists');
         $userJSON = null;
