@@ -36,6 +36,7 @@ $language = array(
     'More' => 'More',
     'NbLinks' => 'Number of links',
     'No links' => 'No links',
+    'No more links' => 'No more links',
     'No results' => 'No results for',
     'NbTags' => 'Number of tags',
     'NextPage' => 'Next page',
