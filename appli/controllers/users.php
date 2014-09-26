@@ -56,8 +56,8 @@ class Users extends \MVC\Controller {
       $error = true;
     }
     self::getVue()->data = json_encode(array(
-        'error' => $error,
-        'text'  => $text
+      'error' => $error,
+      'text'  => $text
       ));
   }
 
@@ -110,11 +110,16 @@ class Users extends \MVC\Controller {
         if (!$user AND !$mail) {
           //on enregistre l'utilisateur
           $user = self::createUser($username, $email, $password, $language);
-          //TODO vérifier si le groupe admin existe déjà
-          //on crée le groupe admin
-          $group = \Appli\Models\Group::getInstance()->newItem();
-          $group->label = 'admin';
-          $group->store();
+          //vérifier si le groupe admin existe déjà
+          $group = \Appli\Models\Group::getInstance()->getGroupAdmin();
+          if(!$group){
+            //on crée le groupe admin
+            $group = \Appli\Models\Group::getInstance()->newItem();
+            $group->label = 'admin';
+            $group->store();
+          }else{
+            $group = $group[0];
+          }
           //on l'affecte à l'utilisateur
           $groupUser = \Appli\Models\GroupUser::getInstance()->newItem();
           $groupUser->idGroup = $group->id;
@@ -156,7 +161,7 @@ class Users extends \MVC\Controller {
           'id'       => $user->id,
           'username' => $user->username,
           'email'    => $user->email
-        );
+          );
         $saved = true;
         $text = \MVC\Language::T('The user was successfully created');
       } else {
