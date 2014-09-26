@@ -147,73 +147,74 @@ app.controller('mainCtrl', function($scope, $http){
       }
       $http.post(_url, $scope.formDataLink)
       .success(function(data) {
-      //cas d'un nouveau lien
-      if(!$scope.formDataLink.id){
-        //on cherche à afficher le lien et ses tags
-        var _tagsLink = [];
-        var _nbAddedTags = data.tags.added;
-        for(var i = 0; i < _nbAddedTags; ++i){
-          _tagsLink.push({label : data.tags.added[i].label, id : data.tags.added[i].id});
-        }
-        //on ajoute le nouveau lien au début du tableau
-        $scope.links.splice(0,0,{
-          'link' : data.link,
-          'tags' : _tagsLink
-        });
-        $scope.nbLinks += 1;
-        //on cherche à afficher les tags ajoutés au nouveau lien
-        //cas d'un nouveau tag
-        var _nbNewTags = data.tags.new.length;
-        for( var i = 0; i < _nbNewTags; ++i){
-          $scope.tags.push({
-            'count' : 1,
-            'label' : data.tags.new[i].label, 
-            'id' : data.tags.new[i].id
+        console.log(data);
+        //cas d'un nouveau lien
+        if(!$scope.formDataLink.id){
+          //on cherche à afficher le lien et ses tags
+          var _tagsLink = [];
+          var _nbAddedTags = data.tags.added;
+          for(var i = 0; i < _nbAddedTags; ++i){
+            _tagsLink.push({label : data.tags.added[i].label, id : data.tags.added[i].id});
+          }
+          //on ajoute le nouveau lien au début du tableau
+          $scope.links.splice(0,0,{
+            'link' : data.link,
+            'tags' : _tagsLink
           });
-        }
-        //cas d'un lien déjà existant
-        updateTags(data.tags);
+          $scope.nbLinks += 1;
+          //on cherche à afficher les tags ajoutés au nouveau lien
+          //cas d'un nouveau tag
+          var _nbNewTags = data.tags.new.length;
+          for( var i = 0; i < _nbNewTags; ++i){
+            $scope.tags.push({
+              'count' : 1,
+              'label' : data.tags.new[i].label, 
+              'id' : data.tags.new[i].id
+            });
+          }
+          //cas d'un lien déjà existant
+          updateTags(data.tags);
 
-        // édition d'un lien
-      }else{
-        //MAJ du lien
-        var $link = $('#link-' + $scope.formDataLink.id);
-        $link.find('.title-url').attr("href",data.link.url);
-        $link.find('.title-url').attr("src","http://www.google.com/s2/favicons?domain=" + data.link.url);
-        $link.find('.title').html(data.link.title);
-        $link.find('.link-url').attr("href",data.link.url);
-        $link.find('.link-url').html(data.link.url);
-        $link.find('.link-description').html(data.link.description);
+          // édition d'un lien
+        }else{
+          //MAJ du lien
+          var $link = $('#link-' + $scope.formDataLink.id);
+          $link.find('.title-url').attr("href",data.link.url);
+          $link.find('.title-url').attr("src","http://www.google.com/s2/favicons?domain=" + data.link.url);
+          $link.find('.title').html(data.link.title);
+          $link.find('.link-url').attr("href",data.link.url);
+          $link.find('.link-url').html(data.link.url);
+          $link.find('.link-description').html(data.link.description);
 
-        //MAJ des tags du lien
-        //on efface du dom les tags supprimés
-        var _nbLinksDeleted = data.tags.deleted.length;
-        for(var i = 0; i < _nbLinksDeleted; ++i){
-          $link.find('#tag-' + data.tags.deleted[i].id).remove();
+          //MAJ des tags du lien
+          //on efface du dom les tags supprimés
+          var _nbLinksDeleted = data.tags.deleted.length;
+          for(var i = 0; i < _nbLinksDeleted; ++i){
+            $link.find('#tag-' + data.tags.deleted[i].id).remove();
+          }
+          //on ajoute les tags ajoutés au lien
+          var _nbLinksAdded = data.tags.added.length;
+          for(var i = 0; i < _nbLinksAdded; ++i){
+            var _tag = data.tags.added[i];
+            var _tagDom = '<div id="tag-' + _tag.id + '" class="tag tag-list">' + 
+            '<a class="a-tag pointer" ng-click="selectTag('+ _tag.id +')"><span>#</span>' + _tag.label + '</a></span>' +
+            '</div>';
+            $link.find('.tags').append(_tagDom);
+          }
+          //MAJ des tags dans la sidebar
+          updateTags(data.tags);
+          var _nbNewTags = data.tags.new.length;
+          for( var i = 0; i < _nbNewTags; ++i){
+            $scope.tags.push({
+              'count' : 1,
+              'label' : data.tags.new[i].label, 
+              'id' : data.tags.new[i].id
+            });
+          }
         }
-        //on ajoute les tags ajoutés au lien
-        var _nbLinksAdded = data.tags.added.length;
-        for(var i = 0; i < _nbLinksAdded; ++i){
-          var _tag = data.tags.added[i];
-          var _tagDom = '<div id="tag-' + _tag.id + '" class="tag tag-list">' + 
-          '<a class="a-tag pointer" ng-click="selectTag('+ _tag.id +')"><span>#</span>' + _tag.label + '</a></span>' +
-          '</div>';
-          $link.find('.tags').append(_tagDom);
-        }
-        //MAJ des tags dans la sidebar
-        updateTags(data.tags);
-        var _nbNewTags = data.tags.new.length;
-        for( var i = 0; i < _nbNewTags; ++i){
-          $scope.tags.push({
-            'count' : 1,
-            'label' : data.tags.new[i].label, 
-            'id' : data.tags.new[i].id
-          });
-        }
-      }
-      //on affiche la notification
-      showAlert(data.text,'modal-helper-green');
-      $('#modal-link').modal('hide');
+        //on affiche la notification
+        showAlert(data.text,'modal-helper-green');
+        $('#modal-link').modal('hide');
     });
   }
 

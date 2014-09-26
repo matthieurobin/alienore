@@ -6,7 +6,7 @@
     </a>
     <a ng-click="selectTag(tag.id)">
         <span class="glyphicon glyphicon-tag"></span> <span class="tag-label">{{ tag.label }}</span>
-        <span class="tag-nb-links pull-right">
+        <span class="tag-nb-links pull-right" data-nb-links="{{ tag.count }}">
             {{ tag.count }}
         </span>
     </a>
