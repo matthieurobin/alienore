@@ -91,6 +91,7 @@ app.controller('mainCtrl', function($scope, $http){
       $scope.token = data.token;
       $scope.nbLinks = data.nbLinks;
       $scope.pagination = 'default';
+      $scope.moreLinks = true;
     });
   };
 
