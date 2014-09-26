@@ -39,8 +39,8 @@ class Tools extends \MVC\Controller {
                             //then we look at the tags
                             $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
                             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
-                                for ($j = 0; $j < sizeof($tags); ++$j) {
-                                    $tag = strtolower($tags[$j]);
+                                for ($j = 0; $j < sizeof($tags); ++$j) {                     
+                                    $tag = mb_strtolower($tags[$j],'UTF-8');
                                     $tagBdd = \Appli\Models\Tag::getInstance()->getTagByLabel($tag);
                                     //if there is no result, we create the tag
                                     if (!$tagBdd) {
@@ -59,8 +59,7 @@ class Tools extends \MVC\Controller {
                             }
                         }
                     }
-                }
-
+                }   
                 $_SESSION['errors']['info'][] = $res['nbLinks'] . ' ' . \MVC\Language::T('links imported');
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('The file has an unknown file format. Nothing was imported.');
