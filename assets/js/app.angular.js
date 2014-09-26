@@ -147,14 +147,13 @@ app.controller('mainCtrl', function($scope, $http){
       }
       $http.post(_url, $scope.formDataLink)
       .success(function(data) {
-        console.log(data);
         //cas d'un nouveau lien
         if(!$scope.formDataLink.id){
           //on cherche à afficher le lien et ses tags
           var _tagsLink = [];
-          var _nbAddedTags = data.tags.added;
+          var _nbAddedTags = data.tags.added.length;
           for(var i = 0; i < _nbAddedTags; ++i){
-            _tagsLink.push({label : data.tags.added[i].label, id : data.tags.added[i].id});
+            _tagsLink.push({'label' : data.tags.added[i].label, 'id' : data.tags.added[i].id});
           }
           //on ajoute le nouveau lien au début du tableau
           $scope.links.splice(0,0,{
