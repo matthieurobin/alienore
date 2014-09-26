@@ -226,6 +226,7 @@ app.controller('mainCtrl', function($scope, $http){
     .success(function(data){
       $('#link-' + linkId).fadeOut(400, function(){
         $scope.nbLinks -=1;
+        updateTags(data.tags);
         $(this).remove();
         showAlert(data.text, 'modal-helper-green');
       });
