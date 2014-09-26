@@ -36,7 +36,7 @@ Abstract class ImportExport {
         $links = [];
         $importCount = 0;
         foreach (explode('<DT>', $fileData) as $html) { // explode is very fast
-            $link = array('linkdate' => '', 'title' => '', 'url' => '', 'description' => '', 'tags' => '', 'saved' => 0, 'datesaved' => null, 'extensionfile' => '');
+            $link = array('linkdate' => '', 'title' => '', 'url' => '', 'description' => '', 'tags' => '', 'datesaved' => null, 'extensionfile' => '');
             $d = explode('<DD>', $html);
             if (self::startsWith($d[0], '<A ')) {
                 $link['description'] = (isset($d[1]) ? html_entity_decode(trim($d[1]), ENT_QUOTES, 'UTF-8') : '');  // Get description (optional)

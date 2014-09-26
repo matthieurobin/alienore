@@ -4,10 +4,17 @@ namespace Appli\Controllers;
 
 class Tools extends \MVC\Controller {
 
+    /**
+     * accéder à la vue
+     */
     public static function all() {
         
     }
 
+    /**
+     * méthode appelé lors de l'envoi du formulaire,
+     * permet d'importer à partir d'un fichier des liens et des tags
+     */
     public static function import() {
         if (isset($_FILES['filePath']['tmp_name'])) {
             $fileData = file_get_contents($_FILES['filePath']['tmp_name']);
@@ -32,8 +39,8 @@ class Tools extends \MVC\Controller {
                             //then we look at the tags
                             $tags = explode(' ', htmlspecialchars(trim($link['tags'])));
                             if ($tags[0] != '') { //even if there is no space, there is one result at the index 0
-                                for ($j = 0; $j < sizeof($tags); ++$j) {
-                                    $tag = strtolower($tags[$j]);
+                                for ($j = 0; $j < sizeof($tags); ++$j) {                     
+                                    $tag = mb_strtolower($tags[$j],'UTF-8');
                                     $tagBdd = \Appli\Models\Tag::getInstance()->getTagByLabel($tag);
                                     //if there is no result, we create the tag
                                     if (!$tagBdd) {
@@ -52,8 +59,7 @@ class Tools extends \MVC\Controller {
                             }
                         }
                     }
-                }
-
+                }   
                 $_SESSION['errors']['info'][] = $res['nbLinks'] . ' ' . \MVC\Language::T('links imported');
             } else {
                 $_SESSION['errors']['danger'][] = \MVC\Language::T('The file has an unknown file format. Nothing was imported.');
@@ -61,6 +67,9 @@ class Tools extends \MVC\Controller {
         }
     }
 
+    /**
+     * permet d'exporter les liens et les tags dans un fichier html
+     */
     public static function exportHtml() {
         $userId = $_SESSION['idUser'];
         $links = \Appli\Models\Link::getInstance()->getUserLinks($userId);

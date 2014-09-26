@@ -10,7 +10,7 @@ class Pagination {
         return ceil($nbLinks / $linksPerPage);
     }
 
-    public static function buildPaging($nbLinks, $page = 1, $linksPerPage = \Install\App::LINKS_PER_PAGE) {
+    public static function buildPaging($nbLinks, $page = 1, $linksPerPage = \Config\App::LINKS_PER_PAGE) {
         $maxPage = self::getNumberOfPages($nbLinks, $linksPerPage);
         if ($page > 1) {
             if ($page > $maxPage) {

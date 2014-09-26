@@ -1,0 +1,28 @@
+<li ng-repeat="link in links" id="link-{{ link.link.id }}">
+    <div class="link">
+        <div class="link-tools">
+            <button type="button" class="btn btn-warning" ng-click="editLink(link.link.id)">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="deleteLink(link.link.id)">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+        </div>
+        <h4>
+            <a class="title-url" href="{{ link.link.url }}" target="_blank">
+                <img class="title-img" src="http://www.google.com/s2/favicons?domain={{ link.link.url }}" />
+                <span class="title" ng-bind-html="link.link.title | unsafe"></span>
+            </a>
+        </h4>
+        <p class="link-description-second">
+            <small class="link-date">{{ link.link.linkdate }}</small> - 
+            <a class="link-url" href="{{ link.link.url }}" target="_blank">{{ link.link.url }}</a>
+        </p>
+        <p class="link-description" ng-bind-html="link.link.description | unsafe"></p>
+        <div class="tags">
+            <div ng-repeat="tag in link.tags" class="tag tag-list link-tag-{{ tag.id }}">
+                <a class="a-tag pointer" ng-click="selectTag(tag.id)"><span>#</span><span class="tag-label">{{ tag.label }}</span></a>
+            </div>
+        </div>
+    </div>
+</li>

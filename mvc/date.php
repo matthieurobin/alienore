@@ -10,7 +10,7 @@ class Date extends \DateTime {
     
     public static function displayDate($date){
         $dateConverted = $date;
-        switch (\Install\App::LANGUAGE) {
+        switch (\Config\App::LANGUAGE) {
             case 'fr':
                 $dateConverted = date("d/m/Y H:i:s", strtotime($date));
                 break;

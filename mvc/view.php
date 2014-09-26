@@ -13,23 +13,23 @@ class View{
      */
     private $_data;
     public function __construct($c,$a) {
-        $this->_fichier= \Install\Path::VUE.strtolower($c.'/'.$a).'.php';        
+        $this->_fichier= \Config\Path::VIEW.strtolower($c.'/'.$a).'.php';        
         $this->_data=array();
     }
     public function display(){
-        if(file_exists(\Install\Path::VUE.'header.php')){
-            include \Install\Path::VUE.'header.php';
+        if(file_exists(\Config\Path::VIEW.'header.php')){
+            include \Config\Path::VIEW.'header.php';
         }
         include $this->_fichier;
-        if(file_exists(\Install\Path::VUE.'footer.php')){
-            include \Install\Path::VUE.'footer.php';
+        if(file_exists(\Config\Path::VIEW.'footer.php')){
+            include \Config\Path::VIEW.'footer.php';
         }
     }
     public function setFichier($fichier){
         if(substr($fichier, -4)!='.php'){
             $fichier.='.php';
         }
-        $this->_fichier= \Install\Path::VUE.$fichier;        
+        $this->_fichier= \Config\Path::VIEW.$fichier;        
     }
     public function __set($cle,$valeur){
         return $this->_data[$cle]=$valeur;

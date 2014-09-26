@@ -12,26 +12,12 @@ function showAlert(message, classCss){
 }
 
 /**
- * 
- * Shortcuts
- */
-//new link
-key('n', function() {
-    $('#a-new-link').click();
-    return false;
-});
-key('e', function() {
-    $('#a-edit-tag').click();
-    return false;
-});
-
-/**
  * reset a form
  * @param {object} form
  * @returns {undefined}
  */
 function reset(form) {
-    $('#form-link').find(':input').each(function() {
+    $(form).find(':input').each(function() {
         switch (this.type) {
             case 'password':
             case 'select-multiple':
@@ -62,31 +48,6 @@ function resetTagBox() {
     $('#tagBox').tagging('reset');
     $('#datalist-tags').html('');
 }
-
-/**
- * instant search
- */
-$(':input[class=type-zone]').eq(0).keyup('input', function() {
-    $(':input[class=type-zone]').eq(0).attr('list', 'datalist-tags');
-    if ($(':input[class=type-zone]').eq(0).val().length >= 3) {
-        var _url = '?c=tags&a=data_searchTag&search=' + $('#tagBox .type-zone').val();
-        $.ajax({
-            type: 'GET',
-            url: _url,
-            success: function(resp) {
-                var _res = JSON.parse(resp);
-                $('#datalist-tags').html("");
-                for (var _i = 0; _i < _res.length; ++_i) {
-                    $('#datalist-tags').append('<option id="' + _res[_i].id + '" value="' + _res[_i].label + '">');
-                }
-            },
-            error: function() {
-
-            }
-        });
-    }
-
-});
 
 /**
  * permit to focus the input when we try to click on the search-bar

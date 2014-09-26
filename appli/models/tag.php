@@ -27,15 +27,4 @@ class Tag extends \MVC\Table {
         return $this->getInstance()->select($query, array($label));
     }
     
-    /**
-     * chercher les tags correspondant à la recherche (label)
-     * @param  [string] $search
-     * @param  [int] $idUser
-     * @return [array] : array of tag objects
-     */
-    public function getSearchTag($search, $idUser){
-        $query = 'SELECT distinct tag.id, tag.label FROM tag,taglink t,link WHERE t.idTag = tag.id AND link.id = t.idLink AND link.idUser = ? AND label LIKE ?';
-        return $this->getInstance()->select($query, array($idUser, '%'.$search.'%'));
-    }
-    
 }

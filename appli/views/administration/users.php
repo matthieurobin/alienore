@@ -13,7 +13,8 @@
     <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
-<body ng-app="alienore">
+<body ng-app="alienore" ng-controller="usersCtrl">
+    <div id="modal-helper"></div>
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -25,7 +26,7 @@
                     <div class="pull-right" id="nav">
                         <ul>
                             <li id="dropdown-account" class="dropdown">
-                               <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
+                                <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
                                     <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
                                 </span>
                                 <ul class="dropdown-menu">
@@ -56,6 +57,9 @@
                         </ul>
                     </div>
                 </header>
+                <div class="tags-title">
+                    <!--<p><?php echo \MVC\Language::T('Groups') ?></p>-->
+                </div>
             </div>
             <div class="row collections-list">
             </div>
@@ -67,18 +71,50 @@
         </div>
     </aside>
     <div class="wrap">
-        <div>
-            <h2><?php echo \MVC\Language::T('Help') ?></h2>
-
+        <form class="form-inline" ng-submit="submitUser()">
+            <div class="form-group">
+                <input type="text" ng-model="formDataUser.username" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>" />
+            </div>
+            <div class="form-group">
+                <input type="email" ng-model="formDataUser.email" class="form-control" placeholder="<?php echo \MVC\Language::T('Email Address') ?>" />
+            </div>
+            <div class="form-group">
+                <input type="password" ng-model="formDataUser.password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>" />
+            </div> 
+            <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Create') ?></button>
+        </form>
+        <div class="search-users">
+            <input type="text" ng-model="search.$" class="form-control" placeholder="<?php echo \MVC\Language::T('Search in users') ?>" />
+        </div>
+        <div class="users table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td><b><?php echo \MVC\Language::T('Username') ?></b></td>
+                        <td><b><?php echo \MVC\Language::T('Email Address') ?></b></td>
+                        <td><b><?php echo \MVC\Language::T('Password') ?></b></td>
+                        <!--<td><?php echo \MVC\Language::T('Delete the user') ?></td>-->
+                    </tr>  
+                </thead>  
+                <tbody>
+                    <tr ng-repeat="user in users | filter: search" id="user-{{ user.id }}">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td> ●●●●●●● </td>
+                        <!--<td>
+                            <button class="btn btn-danger"><?php echo \MVC\Language::T('Delete') ?></button>
+                        </td>-->
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
-<script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+
+    <script src="<?php echo \Config\Path::JS; ?>jquery.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>bootstrap.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
+    <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
 </body>
 </html>
-

@@ -3,12 +3,12 @@
 date_default_timezone_set('UTC');
 
 define('MVC', 'mvc/');
-define('INSTALL', 'install/');
+define('CONFIG', 'config/');
 
 //load language
 include MVC . 'language.php';
-include INSTALL . 'app.php';
-include INSTALL . 'path.php';
+include CONFIG . 'app.php';
+include CONFIG . 'path.php';
 \MVC\Language::loadLanguage();
 
 //index

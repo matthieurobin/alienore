@@ -1,6 +1,6 @@
 <?php
 
-namespace Install;
+namespace Config;
 
 class App {
     
@@ -8,10 +8,9 @@ class App {
     CONST A = "login"; //default action
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr'; //default application language
-    CONST COPYRIGHT = '';
-    CONST VERSION = '0.12.0'; 
+    CONST VERSION = '0.13.1'; //application version
     
-    //
+    //links per page
     CONST LINKS_PER_PAGE = 20;
     
     //MySQL connection

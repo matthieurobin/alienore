@@ -2,19 +2,17 @@
 
 session_start();
 
-$_SESSION['errors'] = array('danger' => array(), 'info' => array(), 'success' => array());
-
 function __autoload($class) {
     $chemins = explode('\\', strtolower($class));
     switch ($chemins[0]) {
-        case 'install':
-            $fichier = INSTALL . $chemins[1] . '.php';
+        case 'config':
+            $fichier = CONFIG . $chemins[1] . '.php';
             break;
         case 'mvc':
             $fichier = MVC . $chemins[1] . '.php';
             break;
         default:
-            $fichier = \Install\Path::ROOT . implode('/', $chemins) . '.php';
+            $fichier = \Config\Path::ROOT . implode('/', $chemins) . '.php';
     }
     if (file_exists($fichier)) {
         include $fichier;
@@ -29,8 +27,8 @@ if (!isset($_SESSION['user'])) {
         $c = 'users';
         $a = \MVC\A::get('a');
     }else{
-        $c = \Install\App::C;
-        $a = \Install\App::A;
+        $c = \Config\App::C;
+        $a = \Config\App::A;
     }
 } else {
     $c = \MVC\A::get('c', 'links');
