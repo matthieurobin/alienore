@@ -178,28 +178,13 @@ app.controller('mainCtrl', function($scope, $http){
           // édition d'un lien
         }else{
           //MAJ du lien
-          var $link = $('#link-' + $scope.formDataLink.id);
-          $link.find('.title-url').attr("href",data.link.url);
-          $link.find('.title-url').attr("src","http://www.google.com/s2/favicons?domain=" + data.link.url);
-          $link.find('.title').html(data.link.title);
-          $link.find('.link-url').attr("href",data.link.url);
-          $link.find('.link-url').html(data.link.url);
-          $link.find('.link-description').html(data.link.description);
-
-          //MAJ des tags du lien
-          //on efface du dom les tags supprimés
-          var _nbLinksDeleted = data.tags.deleted.length;
-          for(var i = 0; i < _nbLinksDeleted; ++i){
-            $link.find('#tag-' + data.tags.deleted[i].id).remove();
-          }
-          //on ajoute les tags ajoutés au lien
-          var _nbLinksAdded = data.tags.added.length;
-          for(var i = 0; i < _nbLinksAdded; ++i){
-            var _tag = data.tags.added[i];
-            var _tagDom = '<div id="tag-' + _tag.id + '" class="tag tag-list">' + 
-            '<a class="a-tag pointer" ng-click="selectTag('+ _tag.id +')"><span>#</span>' + _tag.label + '</a></span>' +
-            '</div>';
-            $link.find('.tags').append(_tagDom);
+          var _nbLinks = $scope.links.length;
+          for(var i = 0; i < _nbLinks; ++i){
+            if($scope.formDataLink.id == $scope.links[i].link.id){
+              $scope.links[i].link = data.link;
+              $scope.links[i].tags = data.tags.added.concat(data.tags.default);
+              break;
+            }
           }
           //MAJ des tags dans la sidebar
           updateTags(data.tags);
@@ -248,7 +233,6 @@ app.controller('mainCtrl', function($scope, $http){
 
   /**
    * soumission du formulaire d'édition d'un tag
-   * @return {object} nouveau tag + message à afficher
    */
   $scope.submitTag = function(){
     $http.post('?c=tags&a=data_saved&tagId=' + $scope.formDataTag.id, $scope.formDataTag)
