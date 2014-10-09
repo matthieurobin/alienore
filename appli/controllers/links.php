@@ -90,7 +90,7 @@ class Links extends \MVC\Controller {
             array('links' => $linksToDisplay, 
                 'page' => $page, 
                 'nbPages' => $pagination['nbPages'],
-                'nbLinks' => $nbLinks,
+                'nbLinks' => intval($nbLinks),
                 'token' => $_SESSION['token']
                 ));
     }
