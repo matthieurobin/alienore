@@ -358,13 +358,17 @@ app.controller('mainCtrl', function($scope, $http){
    */
    $scope.submitSearch = function(){
     //la recherche avec des tags sélectionnés n'est pas implémentée
+    var _nbTagsSelected = $scope.tagsSelected.length;
+    for(var i = 0; i < _nbTagsSelected; ++i){
+      $('#tag-' + $scope.tagsSelected[i].id + ' .tag-label').removeClass('tags-active');
+    }
     $scope.tagsSelected = [];
+
 
     $scope.search = $scope.formDataSearch.search;
     $('#input-search').blur();
     $http.post('?c=links&a=data_search', $scope.formDataSearch)
     .success(function(data){
-      console.log(data);
       $scope.pagination = 'search';
       $scope.links = data.links;
       $scope.limit = data.nbPages;
