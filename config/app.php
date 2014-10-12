@@ -8,7 +8,7 @@ class App {
     CONST A = "login"; //default action
     CONST NAME = 'alienore'; //application name
     CONST LANGUAGE = 'fr'; //default application language
-    CONST VERSION = '0.13.2'; //application version
+    CONST VERSION = '0.14.0'; //application version
     
     //links per page
     CONST LINKS_PER_PAGE = 20;
