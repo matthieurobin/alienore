@@ -55,26 +55,3 @@ function resetTagBox() {
 $('#search-bar').on('click', function(){
     $('#input-search').focus();
 });
-
-/*
-  * update the nb of links for a tag in the tags list 
-  * @param {array} array of tags
-*/
-function updateTags(tags){
-    if(tags.added != undefined && tags.added.length > 0){
-        for(var _i = 0; _i < tags.added.length; ++_i){
-            var _tag = '#tag-' + tags.added[_i].id;
-            var _nbTag = parseInt($(_tag + ' span.tag-nb-links').eq(0).data('nb-links'));
-            $(_tag + ' span.tag-nb-links').eq(0).text(_nbTag + 1);
-            $(_tag + ' span.tag-nb-links').eq(0).data('nb-links',_nbTag + 1);
-        }
-    }
-    if(tags.deleted != undefined && tags.deleted.length > 0){
-        for(var _i = 0; _i < tags.deleted.length; ++_i){
-            var _tag = '#tag-' + tags.deleted[_i].id;
-            var _nbTag = parseInt($(_tag + ' span.tag-nb-links').eq(0).data('nb-links'));
-            $(_tag + ' span.tag-nb-links').eq(0).text(_nbTag - 1);
-            $(_tag + ' span.tag-nb-links').eq(0).data('nb-links',_nbTag - 1);
-        }
-    } 
-}
