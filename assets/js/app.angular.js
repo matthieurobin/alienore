@@ -2,7 +2,7 @@
  * module pour réaliser un post comme jQuery
  * Plus d'info : http://victorblog.com/2012/12/20/make-angularjs-http-service-behave-like-jquery-ajax/
  */
-angular.module('postModule', [], function($httpProvider) {
+ angular.module('postModule', [], function($httpProvider) {
   // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
@@ -53,7 +53,7 @@ var app = angular.module('alienore', ['postModule']);
 /**
  * filtre pour permettre l'affichage des entités html
  */
-app.filter('unsafe', function($sce) {
+ app.filter('unsafe', function($sce) {
   return function(val) {
     return $sce.trustAsHtml(val);
   };
@@ -119,7 +119,7 @@ app.controller('mainCtrl', function($scope, $http){
    * action édition d'un lien
    * @param  {int} linkId 
    */
-  $scope.editLink = function(linkId){
+   $scope.editLink = function(linkId){
     //on réinitialise le formulaire
     $scope.formDataLink = {}
     $('#tagBox').tagging('reset');
@@ -139,7 +139,7 @@ app.controller('mainCtrl', function($scope, $http){
    * action submit le formulaire d'édition/d'ajout d'un lien
    * @return {object} retourne le lien + les tags (ajoutés/supprimés/nouveaux(BDD)/ceux qui n'ont pas été modifiés)
    */
-  $scope.submitLink = function (){
+   $scope.submitLink = function (){
     $scope.formDataLink.tags = $('#tagBox').tagging('getTags');
     var _url = '?c=links&a=data_saved';
       //si c'est une édition
@@ -173,7 +173,16 @@ app.controller('mainCtrl', function($scope, $http){
             });
           }
           //cas d'un lien déjà existant
-          updateTags(data.tags);
+          _nbTags = $scope.tags.length;
+          _nbTagsAdded = data.tags.added.length;
+          for(var i = 0; i < _nbTags; ++i){
+            for(var j = 0; j < _nbTagsAdded; ++j){
+              if(data.tags.added[j].id == $scope.tags[i].id){
+                $scope.tags[i].count += 1;
+                break;
+              }
+            }
+          }
 
           // édition d'un lien
         }else{
@@ -187,7 +196,28 @@ app.controller('mainCtrl', function($scope, $http){
             }
           }
           //MAJ des tags dans la sidebar
-          updateTags(data.tags);
+          _nbTags = $scope.tags.length;
+          //cas d'un tag ajouté au lien
+          _nbTagsAdded = data.tags.added.length;
+          for(var i = 0; i < _nbTags; ++i){
+            for(var j = 0; j < _nbTagsAdded; ++j){
+              if(data.tags.added[j].id == $scope.tags[i].id){
+                $scope.tags[i].count += 1;
+                break;
+              }
+            }
+          }
+          //cas d'un tag supprimé au lien
+          _nbTagsDeleted = data.tags.deleted.length;
+          for(var i = 0; i < _nbTags; ++i){
+            for(var j = 0; j < _nbTagsDeleted; ++j){
+              if(data.tags.deleted[j].id == $scope.tags[i].id){
+                $scope.tags[i].count -= 1;
+                break;
+              }
+            }
+          }
+          //cas d'un nouveau lien
           var _nbNewTags = data.tags.new.length;
           for( var i = 0; i < _nbNewTags; ++i){
             $scope.tags.push({
@@ -200,19 +230,29 @@ app.controller('mainCtrl', function($scope, $http){
         //on affiche la notification
         showAlert(data.text,'modal-helper-green');
         $('#modal-link').modal('hide');
-    });
-  }
+      });
+}
 
   /**
    * action de suppresion d'un lien
    * @param  {int} linkId
    */
-  $scope.deleteLink = function(linkId){
+   $scope.deleteLink = function(linkId){
     $http.get('?c=links&a=data_delete&t=' + $scope.token + '&id=' + linkId)
     .success(function(data){
       $('#link-' + linkId).fadeOut(400, function(){
         $scope.nbLinks -=1;
-        updateTags(data.tags);
+        _nbTags = $scope.tags.length;
+        _nbTagsDeleted = data.tags.deleted.length;
+        for(var i = 0; i < _nbTags; ++i){
+          for(var j = 0; j < _nbTagsDeleted; ++j){
+            if(data.tags.deleted[j].id == $scope.tags[i].id){
+              $scope.tags[i].count -= 1;
+              break;
+            }
+          }
+        }
+        $scope.$apply()
         $(this).remove();
         showAlert(data.text, 'modal-helper-green');
       });
@@ -223,7 +263,7 @@ app.controller('mainCtrl', function($scope, $http){
    * édition d'un tag
    * @param  {int} tagId 
    */
-  $scope.editTag = function(tagId){
+   $scope.editTag = function(tagId){
     $http.get('?c=tags&a=data_form&tagId=' + tagId)
     .success(function(data){
       $scope.formDataTag.label = data.label;
@@ -234,12 +274,18 @@ app.controller('mainCtrl', function($scope, $http){
   /**
    * soumission du formulaire d'édition d'un tag
    */
-  $scope.submitTag = function(){
+   $scope.submitTag = function(){
     $http.post('?c=tags&a=data_saved&tagId=' + $scope.formDataTag.id, $scope.formDataTag)
     .success(function(data){
       if(data.saved){
         //MAJ le dom
-        $('#tag-' + $scope.formDataTag.id + ' .tag-label ').html(data.tag.label);
+        _nbTags = $scope.tags.length;
+        for(var i = 0; i < _nbTags; ++i){
+          if($scope.formDataTag.id == $scope.tags[i].id){
+            $scope.tags[i].label = data.tag.label;
+            break;
+          }
+        }
         $('.link-tag-' + $scope.formDataTag.id + ' .tag-label ').each(function(){
           $(this).html(data.tag.label);
         });
@@ -256,7 +302,7 @@ app.controller('mainCtrl', function($scope, $http){
    * @param  {array} tags : tableau des tags sélectionnés
    * @return {object} objet contenant les liens recherchés + le nombre de page de la recherche + le nombre de lien trouvés
    */
-  $scope.getLinksByTags = function(tags){
+   $scope.getLinksByTags = function(tags){
     $http.get('?c=links&a=data_getLinksByTags&tagsId=' + tags.toString())
     .success(function(data){
       if(data.error){
@@ -275,7 +321,7 @@ app.controller('mainCtrl', function($scope, $http){
    * chercher les liens contenant le(s) tag(s) sélectionné(s)
    * @param  {int} tagId
    */
-  $scope.selectTag = function(tagId){
+   $scope.selectTag = function(tagId){
     //on vérifie que le lien n'est pas déjà dans la barre de recherche
     var nbTags = $scope.tagsSelected.length;
     //si il y a plus de trois tags sélectionnés on remplace le dernier
@@ -307,7 +353,7 @@ app.controller('mainCtrl', function($scope, $http){
   /**
    * chercher les liens pour la page suivante
    */
-  $scope.nextPage = function(){
+   $scope.nextPage = function(){
     $scope.currentPage += 1;
     //si on est arrivé à la limite
     if ($scope.currentPage > $scope.limit) {
@@ -375,7 +421,7 @@ app.controller('mainCtrl', function($scope, $http){
    * supprimer le tag des tags sélectionnés
    * @param  {int} tagId
    */
-  $scope.removeSelectedTag = function(tagId){
+   $scope.removeSelectedTag = function(tagId){
     //s'il reste des tags sélectionnés
     if($scope.tagsSelected.length > 1){
       var nbTags = $scope.tagsSelected.length;
@@ -419,7 +465,7 @@ app.controller('mainCtrl', function($scope, $http){
  * install controller
  * 
  **/
-app.controller('installCtrl', function($scope, $http, $window){
+ app.controller('installCtrl', function($scope, $http, $window){
 
   $scope.formDataInstall = {};
 
@@ -435,7 +481,7 @@ app.controller('installCtrl', function($scope, $http, $window){
   };
 });
 
-app.controller('loginCtrl', function($scope, $http, $window){
+ app.controller('loginCtrl', function($scope, $http, $window){
 
   $scope.formDataLogin = {};
 
@@ -453,7 +499,7 @@ app.controller('loginCtrl', function($scope, $http, $window){
   };
 });
 
-app.controller('preferencesCtrl', function($scope, $http){
+ app.controller('preferencesCtrl', function($scope, $http){
 
   $scope.formDataPassword = {};
 
@@ -471,13 +517,13 @@ app.controller('preferencesCtrl', function($scope, $http){
 });
 
 
-app.controller('usersCtrl', function($scope, $http){
+ app.controller('usersCtrl', function($scope, $http){
   $scope.users = [];
 
   /**
    * on cherche les utilisateurs 
    */
-  $scope.getUsers = function(){
+   $scope.getUsers = function(){
     $http.get('?c=administration&a=data_getUsers')
     .success(function(data){
       $scope.users = data;
@@ -489,7 +535,7 @@ app.controller('usersCtrl', function($scope, $http){
   /**
    * soumission du formulaire d'un nouvel utilisateur
    */
-  $scope.submitUser = function(){
+   $scope.submitUser = function(){
     $http.post('?c=users&a=data_createUser', $scope.formDataUser)
     .success(function(data){
       if(data.saved){
