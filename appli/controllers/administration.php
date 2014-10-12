@@ -8,6 +8,7 @@ class Administration extends \MVC\Controller {
      * accéder à la vue des utilisateurs, accessible si on fait parti du groupe admin
      */
     public static function users(){
+        //todo faire une requete SQL (plus sécurisé ?)
         if(!$_SESSION['admin']){
             self::redirect('links', 'all');
         }

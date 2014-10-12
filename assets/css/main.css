@@ -7,6 +7,12 @@ body{
     background-color: #f2f2f2;
 }
 
+
+.glyphicon{
+    opacity: 0.8;
+    font-size: 13px;
+}
+
 .pointer{
     cursor: pointer;
 }
@@ -87,7 +93,7 @@ li{
     width: 100%;
 }
 
-.tags-list .tags-list-content{
+.tags-list-content{
     bottom: 0;
     left: 0;
     margin-left: -8px;
@@ -96,7 +102,7 @@ li{
     overflow-y: auto;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 30px;
     padding: 5px;
 }
 
@@ -154,6 +160,33 @@ li{
 .footer{
     padding: 4px 5px;
     bottom: 0px;
+}
+
+/* SEARCH TAGS */
+.search-tags{
+    width: 90%;
+    border-radius: 6px;
+    padding: 2px 6px;
+    background-color: #2D323B;
+    border: 1px solid #464950;
+    color: #BFC4CE;
+    font-size: 13px;
+}
+
+.search-tags:hover{
+    border: 1px solid #686C72;
+}
+
+.search-tags:focus{
+    border: 1px solid #F7931D;
+}
+
+.search-tags-glyph{
+    font-size: 18px;
+}
+
+.search-tags-glyph:hover{
+    cursor: pointer;
 }
 
 /* TOOLBAR */
@@ -465,13 +498,6 @@ h4 > a{
     opacity: 0.9;
     font-weight: normal;
     font-size: 0.85em;
-}
-
-.glyphicon{
-    font-size: 13px;
-}
-.glyphicon{
-    opacity: 0.8;
 }
 
 .active{

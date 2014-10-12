@@ -401,6 +401,18 @@ app.controller('mainCtrl', function($scope, $http){
     }
     $('#tag-' + tagId + ' .tag-label').removeClass('tags-active');
   };
+
+  $scope.sortTagsList = function(){
+    if(!$scope.sort){
+      $scope.sort = 'label';
+    }else{
+      if($scope.sort == 'label'){
+        $scope.sort = '-count';
+      }else{
+        $scope.sort = 'label';
+      }
+    }
+  }
 });
 
 /**

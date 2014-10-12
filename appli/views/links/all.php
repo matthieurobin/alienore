@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body ng-app="alienore" ng-controller="mainCtrl">
-<div id="modal-helper"></div>
+    <div id="modal-helper"></div>
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -62,7 +62,12 @@
                 </div>
             </div>
             <div class="row collections-list">
+                
                 <div class="tags-list">
+                <div>
+                    <span class="search-tags-glyph glyphicon glyphicon-sort pull-right" ng-click="sortTagsList()"></span>
+                    <input class="search-tags" type="text" ng-model="searchTag.label" placeholder="<?php echo \MVC\Language::T('Search in tags') ?>">
+                </div>
                     <div class="tags-list-content" id="tags-list">
                         <ul id="tags-list-ul">
                             <ng-include src="'templates/list_tags.html'"></ng-include> 
@@ -78,7 +83,7 @@
         </div>
     </aside>
     <div class="wrap" id="links">
-        
+
         <div class="tool-bar">
             <div id="search-bar">
                 <ng-include src="'templates/search.html'"></ng-include>
