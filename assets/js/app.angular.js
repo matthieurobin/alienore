@@ -50,6 +50,38 @@
 
 var app = angular.module('alienore', ['postModule']);
 
+/* afficher un loader pendant les requêtes ajax */
+//Credit: http://stackoverflow.com/a/17850865
+app.factory('httpInterceptor', ['$q', '$rootScope', function($q, $rootScope) {
+  var currentRequestsCount = 0;
+  return {
+        //Everytime a request starts, the loader is displayed
+        request: function(config) {
+          currentRequestsCount++;
+          $rootScope.$broadcast('loaderShow');
+          return config || $q.when(config)
+        },
+        //When a request ends, and if there is no request still running, the loader is hidden
+        response: function(response) {
+          if ((--currentRequestsCount) === 0) {
+            $rootScope.$broadcast('loaderHide');
+          }
+          return response || $q.when(response);
+        },
+        //When a request fails, and if there is no request still running, the loader is hidden
+        responseError: function(response) {
+          if (!(--currentRequestsCount)) {
+            $rootScope.$broadcast('loaderHide');
+          }
+          return $q.reject(response);
+        }
+      };
+    }]);
+
+app.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.interceptors.push('httpInterceptor');
+}]);
+
 /**
  * filtre pour permettre l'affichage des entités html
  */
@@ -81,6 +113,7 @@ app.controller('mainCtrl', function($scope, $http){
   $scope.formDataLink = {};
   $scope.formDataTag = {};
   $scope.formDataSearch = {};
+  $scope.showLoader = false;
 
   $scope.getLinks = function(){
     //on cherche les lens à afficher
@@ -459,6 +492,19 @@ app.controller('mainCtrl', function($scope, $http){
       }
     }
   }
+
+  /* EVENT HANDLERS
+  ================================================== */
+
+  //The httpInterceptor will send a message when the loader should be displayed
+  $scope.$on('loaderShow', function () {
+    $scope.showLoader = true;
+  });
+
+  //The httpInterceptor will send a message when the loader should be hidden
+  $scope.$on('loaderHide', function () {
+    $scope.showLoader = false;
+  });
 });
 
 /**

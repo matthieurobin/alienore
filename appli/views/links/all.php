@@ -22,6 +22,7 @@
                 <header class="nav">
                     <a href=".">
                         <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
+                        <span class="loader" ng-show="showLoader"><img src="<?php echo \Config\Path::IMG; ?>loader.svg" /></span>
                     </a>
                     <div class="pull-right" id="nav">
                         <ul>

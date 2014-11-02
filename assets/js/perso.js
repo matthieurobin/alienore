@@ -7,7 +7,7 @@ function showAlert(message, classCss){
     $('#modal-helper').removeClass().addClass(classCss);
     $('#modal-helper').text(message);
     $('#modal-helper').fadeIn(150, function(){
-        $(this).delay(2500).fadeOut();
+        $(this).delay(1600).fadeOut();
     });
 }
 
