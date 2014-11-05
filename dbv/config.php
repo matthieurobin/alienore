@@ -4,9 +4,9 @@
  * Your database authentication information goes here
  * @see http://dbv.vizuina.com/documentation/
  */
-define('DB_HOST', 'localhost');
+define('DB_HOST', '172.17.248.73');
 define('DB_PORT', 3306);
-define('DB_USERNAME', 'root');
+define('DB_USERNAME', 'matthieurobin');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'alienore');
 
@@ -15,7 +15,7 @@ define('DB_NAME', 'alienore');
  * If you leave any of the two constants below blank, authentication will be disabled
  * @see http://dbv.vizuina.com/documentation/#optional-settings
  */
-define('DBV_USERNAME', 'root');
+define('DBV_USERNAME', 'matthieurobin');
 define('DBV_PASSWORD', '');
 
 /**

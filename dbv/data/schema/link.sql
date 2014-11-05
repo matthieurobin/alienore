@@ -1,6 +1,6 @@
 CREATE TABLE `link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `linkdate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `linkdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `title` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `description` text NOT NULL,
