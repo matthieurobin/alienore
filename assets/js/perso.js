@@ -7,7 +7,7 @@ function showAlert(message, classCss){
     $('#modal-helper').removeClass().addClass(classCss);
     $('#modal-helper').text(message);
     $('#modal-helper').fadeIn(150, function(){
-        $(this).delay(1600).fadeOut();
+        $(this).delay(1800).fadeOut();
     });
 }
 
@@ -22,6 +22,9 @@ function reset(form) {
             case 'password':
             case 'select-multiple':
             case 'select-one':
+            case 'email':
+                $(this).val('');
+                break;
             case 'text':
                 $(this).val('');
                 break;

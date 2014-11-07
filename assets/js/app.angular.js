@@ -565,14 +565,18 @@ app.controller('mainCtrl', function($scope, $http){
 
  app.controller('usersCtrl', function($scope, $http){
   $scope.users = [];
-
+  $scope.token = '';
+  $scope.idUserToDelete = null;
+  $scope.formDataDeleteUser = {};
+  $scope.formDataUser = {};
   /**
    * on cherche les utilisateurs 
    */
    $scope.getUsers = function(){
     $http.get('?c=administration&a=data_getUsers')
     .success(function(data){
-      $scope.users = data;
+      $scope.users = data.users;
+      $scope.token = data.token;
     });
   };
   //on initialise le scope
@@ -591,5 +595,32 @@ app.controller('mainCtrl', function($scope, $http){
         showAlert(data.text,'modal-helper-red');
       }
     });
+    reset('#form-new-user');
   };
+  
+  $scope.confirmDelete = function(idUser){
+    $scope.idUserToDelete = idUser;
+  }
+  
+  $scope.deleteUser = function(){
+    $('#modal-delete-user').modal('hide');
+    $scope.formDataDeleteUser.idUser = $scope.idUserToDelete;
+    $scope.formDataDeleteUser.token = $scope.token;
+    $http.post('?c=administration&a=data_deleteUser', $scope.formDataDeleteUser)
+    .success(function(data){
+      if(data.error){
+        showAlert(data.text,'modal-helper-red');
+      }else{
+        showAlert(data.text,'modal-helper-green');
+        var _nbUsers = $scope.users.length;
+        for(var _i = 0; _i < _nbUsers; ++_i){
+          if($scope.users[_i].id == $scope.idUserToDelete){
+            $scope.users.splice(_i, 1);
+            break;
+          }
+        }
+      }
+    });
+    $scope.formDataDeleteUser = {};
+  }
 });

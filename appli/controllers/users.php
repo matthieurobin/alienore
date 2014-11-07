@@ -46,7 +46,11 @@ class Users extends \MVC\Controller {
         $_SESSION['language'] = $user[0]->language;
         $_SESSION['email']    = $user[0]->email;
         $_SESSION['token']    = $user[0]->token;
-        $_SESSION['admin']    = \Appli\Models\User::getInstance()->isAdmin($user[0]->id);
+        if(\Appli\Models\User::getInstance()->isAdmin($user[0]->id)){
+          $_SESSION['admin']  = true;
+        }else{
+          $_SESSION['admin']  = false;
+        }
       } else {
         $text = \MVC\Language::T('Incorrect username/email or password');
         $error = true;

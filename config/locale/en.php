@@ -2,10 +2,12 @@
 
 $language = array(
     'Account' => 'Account',
+    'Account deleted' => 'Account deleted',
     'AccountAlreadyExists' => 'Account already exists',
     'Addlink' => 'Add a link',
     'Add a new link' => 'Add a new link',
     'An error occured' => 'An error occured',
+    'Are you sure to delete this user ?' => 'Are you sure to delete this user ?',
     'By' => 'By',
     'Cancel' => 'Cancel',
     'ChangeEmailAddress' => 'Change Email Address',
@@ -41,6 +43,7 @@ $language = array(
     'Logout' => 'Logout',
     'More' => 'More',
     'NbLinks' => 'Number of links',
+    'No' => 'No',
     'No links' => 'No links',
     'No more links' => 'No more links',
     'No results' => 'No results for',
@@ -89,7 +92,9 @@ $language = array(
     'UsernameOrEmail' => 'Username or Email',
     'Users' => 'Users',
     'Version' => 'Version',
+    'Yes' => 'Yes',
     'You already have 3 tags selected, deselect one of them or all' => 'You already have 3 tags selected, deselect one of them or all',
+    'You can\'t delete an admin account' => 'You can\'t delete an admin account',
     'You do not have any tag' => 'You don\t have any tag',
     'You do not have links already' => 'You don\'t have any links'
 );

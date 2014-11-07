@@ -6,7 +6,7 @@ class App {
     
     CONST C = "users"; //default controller
     CONST A = "login"; //default action
-    CONST NAME = 'alienore'; //application name
+    CONST NAME = 'Alienore'; //application name
     CONST LANGUAGE = 'fr'; //default application language
     CONST VERSION = '0.14.0'; //application version
     

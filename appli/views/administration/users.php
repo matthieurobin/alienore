@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo Config\App::NAME; ?> - <?php echo \MVC\Language::T('Home'); ?></title>
+    <title>
+        <?php echo Config\App::NAME; ?>-
+        <?php echo \MVC\Language::T( 'Home'); ?>
+    </title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
@@ -13,6 +17,7 @@
     <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
+
 <body ng-app="alienore" ng-controller="usersCtrl">
     <div id="modal-helper"></div>
     <aside class="sidebar">
@@ -30,28 +35,37 @@
                                     <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
                                 </span>
                                 <ul class="dropdown-menu">
-                                    <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
+                                    <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a>
+                                    </li>
                                     <li>
                                         <a href="?c=tools&a=all">
-                                            <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?>
+                                            <span class="glyphicon glyphicon-wrench"></span> 
+                                            <?php echo \MVC\Language::T( 'Tools'); ?>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="?c=account&a=help">
-                                            <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?>
+                                            <span class="glyphicon glyphicon-question-sign"></span> 
+                                            <?php echo \MVC\Language::T( 'Help'); ?>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="?c=account&a=preferences">
-                                            <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?>
+                                            <span class="glyphicon glyphicon-cog"></span> 
+                                            <?php echo \MVC\Language::T( 'Preferences'); ?>
                                         </a>
                                     </li>
-                                    <?php if($_SESSION['admin']): ?>
-                                        <li role="presentation" class="divider"></li>
-                                        <li><a href="?c=administration&a=users"><span class="glyphicon glyphicon-user"></span> <?php echo \MVC\Language::T('Users'); ?></a></li>
+                                    <?php if($_SESSION[ 'admin']): ?>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="?c=administration&a=users"><span class="glyphicon glyphicon-user"></span> <?php echo \MVC\Language::T('Users'); ?></a>
+                                    </li>
                                     <?php endif; ?>
                                     <li role="presentation" class="divider"></li>
-                                    <li><a href="?c=users&a=logout"><?php echo \MVC\Language::T('Logout'); ?></a></li>  
+                                    <li>
+                                        <a href="?c=users&a=logout">
+                                            <?php echo \MVC\Language::T( 'Logout'); ?>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -65,13 +79,13 @@
             </div>
             <div class="row">
                 <div class="footer">
-                    <?php echo \MVC\Language::T('Version') .' '. \Config\App::VERSION ?>
+                    <?php echo \MVC\Language::T( 'Version') . ' '. \Config\App::VERSION ?>
                 </div>
             </div>
         </div>
     </aside>
     <div class="wrap">
-        <form class="form-inline" ng-submit="submitUser()">
+        <form id="form-new-user" class="form-inline" ng-submit="submitUser()">
             <div class="form-group">
                 <input type="text" ng-model="formDataUser.username" class="form-control" placeholder="<?php echo \MVC\Language::T('Username') ?>" />
             </div>
@@ -80,8 +94,10 @@
             </div>
             <div class="form-group">
                 <input type="password" ng-model="formDataUser.password" class="form-control" placeholder="<?php echo \MVC\Language::T('Password') ?>" />
-            </div> 
-            <button type="submit" class="btn btn-primary"><?php echo \MVC\Language::T('Create') ?></button>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <?php echo \MVC\Language::T( 'Create') ?>
+            </button>
         </form>
         <div class="search-users">
             <input type="text" ng-model="search.$" class="form-control" placeholder="<?php echo \MVC\Language::T('Search in users') ?>" />
@@ -90,23 +106,49 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <td><b><?php echo \MVC\Language::T('Username') ?></b></td>
-                        <td><b><?php echo \MVC\Language::T('Email Address') ?></b></td>
-                        <td><b><?php echo \MVC\Language::T('Password') ?></b></td>
-                        <!--<td><?php echo \MVC\Language::T('Delete the user') ?></td>-->
-                    </tr>  
-                </thead>  
+                        <td><b><?php echo \MVC\Language::T('Username') ?></b>
+                        </td>
+                        <td><b><?php echo \MVC\Language::T('Email Address') ?></b>
+                        </td>
+                        <td><b><?php echo \MVC\Language::T('Password') ?></b>
+                        </td>
+                        <td>
+                            <?php echo \MVC\Language::T( 'Delete the user') ?>
+                        </td>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr ng-repeat="user in users | filter: search" id="user-{{ user.id }}">
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
-                        <td> ●●●●●●● </td>
-                        <!--<td>
-                            <button class="btn btn-danger"><?php echo \MVC\Language::T('Delete') ?></button>
-                        </td>-->
+                        <td>●●●●●●●</td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="confirmDelete(user.id)" data-toggle="modal" data-target="#modal-delete-user">
+                                <?php echo \MVC\Language::T( 'Delete') ?>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-delete-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo \MVC\Language::T( 'Delete the user') ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo \MVC\Language::T( 'Are you sure to delete this user ?') ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo \MVC\Language::T( 'No') ?></button>
+                    <button type="button" class="btn btn-primary" ng-click="deleteUser()"><?php echo \MVC\Language::T( 'Yes') ?></button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -117,4 +159,5 @@
     <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
     <script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
 </body>
+
 </html>

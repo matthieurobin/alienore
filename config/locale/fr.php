@@ -2,10 +2,12 @@
 
 $language = array(
     'Account' => 'Compte',
+    'Account deleted' => 'Compte supprimé',
     'AccountAlreadyExists' => 'Ce compte existe déjà.',
     'Addlink' => 'Ajouter un lien',
     'Add a new link' => 'Ajouter un lien',
     'An error occured' => 'Une erreur est survenue',
+    'Are you sure to delete this user ?' => 'Etes vous certain de vouloir supprimer cet utilisateur ?',
     'By' => 'Par',
     'Cancel' => 'Annuler',
     'ChangeEmailAddress' => 'Modifier l\'addresse mail',
@@ -41,6 +43,7 @@ $language = array(
     'Logout' => 'Se déconnecter',
     'More' => 'Afficher plus',
     'NbLinks' => 'Nombre de liens',
+    'No' => 'Non',
     'No links' => 'Pas de liens',
     'No more links' => 'Pas davantage de liens',
     'No results' => 'Pas de résultats pour',
@@ -89,7 +92,9 @@ $language = array(
     'UsernameOrEmail' => 'Nom d\'utilsateur ou Adresse mail',
     'Users' => 'Utilisateurs',
     'Version' => 'Version',
+    'Yes' => 'Oui',
     'You already have 3 tags selected, deselect one of them or all' => 'Vous avez 3 tags sélectionnés, désélectionner en un ou tous',
+    'You can\'t delete an admin account' => 'Vous ne pouvez pas supprimer un compte administrateur',
     'You do not have any tag' => 'Vous n\'avez aucun tag',
     'You do not have links already' => 'Vous n\'avez pas encore de liens'
 );
