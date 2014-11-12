@@ -2,17 +2,22 @@ Alienore is a web application to store your bookmarks. It is designed to be mult
 
 Requirements
 ===========
-Alienore needs **PHP 5.0** minimum and **MySQL**.
-You also need **JSON** for PHP5.
+1. Alienore needs **PHP 5.0** minimum and **MySQL**.
+2. You also need **JSON** for PHP5, if you don't have it : 
+    ``sudo apt-get install php5-json``
+3. You have to add in your php.ini  : 
+```
+extension = mcrypt.so;
+allow_url_include = on;
+
+```
 
 Installing
 =======
-
 1. Clone the depo to your web directory
 2. Import the alienore.sql in mockup/ into Mysql
-3. Edit config/app.php
-```
-//MySQL connection
+3. Edit config/app.php ```
+ //MySQL connection
     CONST BDD_USER = 'yourDatabaseUsername';
     ...
     CONST BDD_HOST = 'yourDatabaseIP';
