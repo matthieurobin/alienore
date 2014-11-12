@@ -3,6 +3,7 @@ Alienore is a web application to store your bookmarks. It is designed to be mult
 Requirements
 ===========
 Alienore needs **PHP 5.0** minimum and **MySQL**.
+You also need **JSON** for PHP5.
 
 Installing
 =======
