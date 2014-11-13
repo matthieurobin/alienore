@@ -10,7 +10,7 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
-    <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>main.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body ng-app="alienore">
@@ -78,7 +78,7 @@
 <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
 <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
 <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>app.angular.min.js"></script>
 </body>
 </html>
 

@@ -2,7 +2,7 @@
  * module pour réaliser un post comme jQuery
  * Plus d'info : http://victorblog.com/2012/12/20/make-angularjs-http-service-behave-like-jquery-ajax/
  */
- angular.module('postModule', [], function($httpProvider) {
+ angular.module('postModule', [], ["$httpProvider", function($httpProvider) {
   // Use x-www-form-urlencoded Content-Type
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
@@ -46,7 +46,7 @@
   $httpProvider.defaults.transformRequest = [function(data) {
     return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
   }];
-});
+}]);
 
 var app = angular.module('alienore', ['postModule']);
 
@@ -85,11 +85,11 @@ app.config(['$httpProvider', function($httpProvider) {
 /**
  * filtre pour permettre l'affichage des entités html
  */
- app.filter('unsafe', function($sce) {
+ app.filter('unsafe', ['$sce', function($sce) {
   return function(val) {
     return $sce.trustAsHtml(val);
   };
-});
+}]);
 
 /*
 * Main controller
@@ -98,7 +98,7 @@ app.config(['$httpProvider', function($httpProvider) {
 * - search tool
 *
 */
-app.controller('mainCtrl', function($scope, $http){
+app.controller('mainCtrl', ['$scope', '$http',function($scope, $http){
 
   $scope.currentPage = 1; //page courante
   $scope.limit = 1; //nombre de page
@@ -505,13 +505,13 @@ app.controller('mainCtrl', function($scope, $http){
   $scope.$on('loaderHide', function () {
     $scope.showLoader = false;
   });
-});
+}]);
 
 /**
  * install controller
  * 
  **/
- app.controller('installCtrl', function($scope, $http, $window){
+ app.controller('installCtrl', ['$scope', '$http', '$window', function($scope, $http, $window){
 
   $scope.formDataInstall = {};
 
@@ -525,9 +525,9 @@ app.controller('mainCtrl', function($scope, $http){
       }
     });
   };
-});
+}]);
 
- app.controller('loginCtrl', function($scope, $http, $window){
+ app.controller('loginCtrl', ['$scope', '$http', '$window', function($scope, $http, $window){
 
   $scope.formDataLogin = {};
 
@@ -543,9 +543,9 @@ app.controller('mainCtrl', function($scope, $http){
       }
     });
   };
-});
+}]);
 
- app.controller('preferencesCtrl', function($scope, $http){
+ app.controller('preferencesCtrl', ['$scope', '$http', function($scope, $http){
 
   $scope.formDataPassword = {};
 
@@ -560,10 +560,10 @@ app.controller('mainCtrl', function($scope, $http){
       }
     });
   };
-});
+}]);
 
 
- app.controller('usersCtrl', function($scope, $http){
+ app.controller('usersCtrl', ['$scope', '$http', function($scope, $http){
   $scope.users = [];
   $scope.token = '';
   $scope.idUserToDelete = null;
@@ -623,4 +623,4 @@ app.controller('mainCtrl', function($scope, $http){
     });
     $scope.formDataDeleteUser = {};
   }
-});
+}]);
