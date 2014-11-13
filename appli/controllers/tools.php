@@ -60,10 +60,10 @@ class Tools extends \MVC\Controller {
                         }
                     }
                 }   
-                $_SESSION['errors']['info'][] = $res['nbLinks'] . ' ' . \MVC\Language::T('links imported');
-            } else {
-                $_SESSION['errors']['danger'][] = \MVC\Language::T('The file has an unknown file format. Nothing was imported.');
-            }
+                //$_SESSION['errors']['info'][] = $res['nbLinks'] . ' ' . \MVC\Language::T('links imported');
+            }// else {
+                //$_SESSION['errors']['danger'][] = \MVC\Language::T('The file has an unknown file format. Nothing was imported.');
+            //}
         }
     }
 

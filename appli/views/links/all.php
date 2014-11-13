@@ -28,7 +28,7 @@
                         <ul>
                             <li id="dropdown-account" class="dropdown">
                                 <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <?php echo \MVC\Session::get('login'); ?> <span class="glyphicon glyphicon-chevron-down"></span>
                                 </span>
                                 <ul class="dropdown-menu">
                                     <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
@@ -58,13 +58,13 @@
                         </ul>
                     </div>
                 </header>
-                <div class="tags-title">
+                <div class="tags-title" ng-show="tags">
                     <p><?php echo \MVC\Language::T('Tags') ?></p>
                 </div>
             </div>
             <div class="row collections-list">
                 
-                <div class="tags-list">
+                <div class="tags-list" ng-show="tags">
                 <div>
                     <span class="search-tags-glyph glyphicon glyphicon-sort pull-right" ng-click="sortTagsList()"></span>
                     <input class="search-tags" type="text" ng-model="searchTag.label" placeholder="<?php echo \MVC\Language::T('Search in tags') ?>">

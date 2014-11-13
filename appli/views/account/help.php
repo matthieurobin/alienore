@@ -26,7 +26,7 @@
                         <ul>
                             <li id="dropdown-account" class="dropdown">
                                <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <?php echo $_SESSION['login'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
                                 </span>
                                 <ul class="dropdown-menu">
                                     <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>

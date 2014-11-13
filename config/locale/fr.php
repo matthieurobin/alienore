@@ -96,7 +96,8 @@ $language = array(
     'You already have 3 tags selected, deselect one of them or all' => 'Vous avez 3 tags sélectionnés, désélectionner en un ou tous',
     'You can\'t delete an admin account' => 'Vous ne pouvez pas supprimer un compte administrateur',
     'You do not have any tag' => 'Vous n\'avez aucun tag',
-    'You do not have links already' => 'Vous n\'avez pas encore de liens'
+    'You do not have links already' => 'Vous n\'avez pas encore de liens',
+    'You have been banned for 15 minutes due to many failures attempts to login' => 'Vous avez été bannis pour 15 minutes suite à de trop nombreuses tentatives de connexion'
 );
 
 return $language;

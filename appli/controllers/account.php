@@ -15,14 +15,14 @@ class Account extends \MVC\Controller {
      * accéder à la vue des préférences
      */
     public static function preferences(){
-        self::getVue()->language = \Appli\Models\user::getInstance()->getByUsername($_SESSION['user'])[0]->language;
+        self::getVue()->language = \Appli\Models\user::getInstance()->getByUsername($_SESSION['login'])[0]->language;
     }
     
     /**
      * méthode appelée lors de l'envoi du formulaire pour enregistrer la langue
      */
     public static function savedLanguagePreference(){
-        $user = \Appli\Models\user::getInstance()->getByUsername($_SESSION['user'])[0];
+        $user = \Appli\Models\user::getInstance()->getByUsername($_SESSION['login'])[0];
         $user->language = \MVC\A::get('language');
         $user->store();
         $_SESSION['language'] = \MVC\A::get('language');
@@ -42,7 +42,7 @@ class Account extends \MVC\Controller {
     public static function data_savedPassword(){
         $saved = false;
         $oldPassWord = htmlspecialchars(trim(\MVC\A::get('oldPassword')));
-        $user = \Appli\Models\user::getInstance()->getByUsername($_SESSION['user'])[0];
+        $user = \Appli\Models\user::getInstance()->getByUsername($_SESSION['login'])[0];
         //on vérifie si l'ancien mot de passe correspond avec la bdd
         if(\MVC\Password::validate_password($oldPassWord, $user->password)){
             $newPassword       = htmlspecialchars(trim(\MVC\A::get('newPassword')));
