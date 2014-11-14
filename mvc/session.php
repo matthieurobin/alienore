@@ -2,6 +2,8 @@
 
 namespace MVC;
 
+//https://github.com/tontof/kriss_feed/blob/master/src/class/Session.php
+
 abstract class Session{
 
 	public static $inactivityTimeout = 3600; //1 hour
@@ -13,9 +15,9 @@ abstract class Session{
 	 */
 	public static function init(){
 		if (empty(session_id())) {
-            session_start();
-        }
-    }
+			session_start();
+		}
+	}
 
 	/**
 	 * set a key and its value
@@ -55,7 +57,7 @@ abstract class Session{
 	 * know if the current session is ban
 	 * @return boolean
 	 */
-	public static function isBan(){
+	private static function isBan(){
 		return self::get('ban');
 	}
 
@@ -64,17 +66,17 @@ abstract class Session{
 	 * @return boolean 
 	 */
 	public static function canTryToLogin(){
-        if(self::isBan()){
-            if(self::get('ban') > time()){
-                return false;
-            }else{
-                self::set('nbFailures', 0);
-                unset($_SESSION['ban']);
-                return true;
-            }
-        }
-        return true;
-    }
+		if(self::isBan()){
+			if(self::get('ban') > time()){
+				return false;
+			}else{
+				self::set('nbFailures', 0);
+				unset($_SESSION['ban']);
+				return true;
+			}
+		}
+		return true;
+	}
 
 	/**
 	 * increment the number of failures and ban if nbFailures > nb of possible atempts
@@ -88,6 +90,19 @@ abstract class Session{
 		}
 	}
 
+	 /**
+	* Returns the IP address
+	* (Used to prevent session cookie hijacking.)
+	*
+	* @return string IP addresses
+	*/
+	private static function allIPs(){
+		$ip = $_SERVER["REMOTE_ADDR"];
+		$ip.= isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? '_'.$_SERVER['HTTP_X_FORWARDED_FOR'] : '';
+		$ip.= isset($_SERVER['HTTP_CLIENT_IP']) ? '_'.$_SERVER['HTTP_CLIENT_IP'] : '';
+		return $ip;
+	}
+
 	/**
 	 *  initialize the user session
 	 */
@@ -99,6 +114,7 @@ abstract class Session{
 		self::set('token',$token);
 		self::set('admin',$isAdmin);
 		self::set('expires_on',time() + self::$inactivityTimeout);
+		self::set('ip',self::allIPs());
 	}
 
 	/**
@@ -113,14 +129,16 @@ abstract class Session{
 	 * @return boolean
 	 */
 	public static function isLogged(){
+		//if idUser is defined
 		if(!self::get('idUser')){
 			return false;
 		}else{
 			if(!self::get('expires_on')) self::set('expires_on',time() + self::$inactivityTimeout);
-
-			if(self::get('expires_on') < time()){
+			//if expire timme <  current time OR user ip different then session ip
+			if(self::get('expires_on') < time() || self::get('ip') != self::allIPs()){
 				self::logout();
 				return false;
+			//the user is login
 			}else{
 				self::set('expires_on',time() + self::$inactivityTimeout);
 				return true;
