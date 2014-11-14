@@ -232,6 +232,7 @@ li{
     border: 0px;
     padding: 5px 2px 2px 2px;
     outline: none;
+    width: 90%;
 }
 
 #search-bar-form:focus{
