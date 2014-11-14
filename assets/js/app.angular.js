@@ -355,6 +355,8 @@ app.controller('mainCtrl', ['$scope', '$http',function($scope, $http){
    * @param  {int} tagId
    */
    $scope.selectTag = function(tagId){
+    //si une recherche a été effectuée
+    if($scope.search) $scope.search = undefined;
     //on vérifie que le lien n'est pas déjà dans la barre de recherche
     var nbTags = $scope.tagsSelected.length;
     //si il y a plus de trois tags sélectionnés on remplace le dernier
@@ -393,18 +395,21 @@ app.controller('mainCtrl', ['$scope', '$http',function($scope, $http){
       $scope.moreLinks = false;
     } else {
       switch ($scope.pagination) {
+        //cas tous les liens
         case 'default':
         $http.get('?c=links&a=data_all&page=' + $scope.currentPage)
         .success(function(data){
           $scope.links = $scope.links.concat(data.links);
         });
         break;
+        //cas pour la sélections de tags
         case 'tags':
         $http.get('?c=links&a=data_getLinksByTag&page=' + $scope.currentPage + '&tagId=' + $scope.tagsSelected)
         .success(function(data){
           $scope.links = $scope.links.concat(data.links);
         });
         break;
+        //cas pour la recherche
         case 'search':
         $http.get('?c=links&a=data_search&page=' + $scope.currentPage + '&search=' + $scope.search)
         .success(function(data){
