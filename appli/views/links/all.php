@@ -10,11 +10,11 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
-    <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>main.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body ng-app="alienore" ng-controller="mainCtrl">
-<div id="modal-helper"></div>
+    <div id="modal-helper"></div>
     <aside class="sidebar">
         <div class="table">
             <div class="row">
@@ -22,12 +22,13 @@
                 <header class="nav">
                     <a href=".">
                         <img id="logo" src="<?php echo \Config\Path::IMG; ?>logo.png"></img>
+                        <span class="loader" ng-show="showLoader"><img src="<?php echo \Config\Path::IMG; ?>loader.svg" /></span>
                     </a>
                     <div class="pull-right" id="nav">
                         <ul>
                             <li id="dropdown-account" class="dropdown">
                                 <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <?php echo \MVC\Session::get('login'); ?> <span class="glyphicon glyphicon-chevron-down"></span>
                                 </span>
                                 <ul class="dropdown-menu">
                                     <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
@@ -36,11 +37,11 @@
                                             <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?>
                                         </a>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <a href="?c=account&a=help">
                                             <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?>
                                         </a>
-                                    </li>
+                                    </li>-->
                                     <li>
                                         <a href="?c=account&a=preferences">
                                             <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?>
@@ -57,12 +58,17 @@
                         </ul>
                     </div>
                 </header>
-                <div class="tags-title">
+                <div class="tags-title" ng-show="tags">
                     <p><?php echo \MVC\Language::T('Tags') ?></p>
                 </div>
             </div>
             <div class="row collections-list">
-                <div class="tags-list">
+                
+                <div class="tags-list" ng-show="tags">
+                <div>
+                    <span class="search-tags-glyph glyphicon glyphicon-sort pull-right" ng-click="sortTagsList()"></span>
+                    <input class="search-tags" type="text" ng-model="searchTag.label" placeholder="<?php echo \MVC\Language::T('Search in tags') ?>">
+                </div>
                     <div class="tags-list-content" id="tags-list">
                         <ul id="tags-list-ul">
                             <ng-include src="'templates/list_tags.html'"></ng-include> 
@@ -78,7 +84,7 @@
         </div>
     </aside>
     <div class="wrap" id="links">
-        
+
         <div class="tool-bar">
             <div id="search-bar">
                 <ng-include src="'templates/search.html'"></ng-include>
@@ -168,7 +174,7 @@
 <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
 <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
 <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>app.angular.min.js"></script>
 <script>
     $(document).ready(function() {
         var tagOptions = {

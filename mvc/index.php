@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+\MVC\Session::init();
 
 function __autoload($class) {
     $chemins = explode('\\', strtolower($class));
@@ -22,7 +22,7 @@ function __autoload($class) {
     }
 }
 
-if (!isset($_SESSION['user'])) {
+if (!\MVC\Session::isLogged()) {
     if(\MVC\A::get('c') === 'users'){
         $c = 'users';
         $a = \MVC\A::get('a');

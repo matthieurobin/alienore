@@ -91,7 +91,8 @@ class Links extends \MVC\Controller {
                 'page' => $page, 
                 'nbPages' => $pagination['nbPages'],
                 'nbLinks' => intval($nbLinks),
-                'token' => $_SESSION['token']
+                'token' => $_SESSION['token'],
+                'idUser' => $_SESSION['idUser']
                 ));
     }
 
@@ -126,10 +127,7 @@ class Links extends \MVC\Controller {
                 'tags' => array('deleted' => $tags),
                 'text' => \MVC\Language::T('The link was successfully deleted')
                 ));
-        }else{
-            //self::redirect('account','text');
         }
-        
     }
 
     /**

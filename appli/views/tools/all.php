@@ -10,7 +10,7 @@
     <!-- Bootstrap core CSS -->
     <link href="<?php echo \Config\Path::CSS; ?>bootstrap.min.css" rel="stylesheet">
     <!-- Application CSS -->
-    <link href="<?php echo \Config\Path::CSS; ?>main.css" rel="stylesheet">
+    <link href="<?php echo \Config\Path::CSS; ?>main.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?php echo \Config\Path::IMG; ?>favicon.png" />
 </head>
 <body ng-app="alienore">
@@ -26,7 +26,7 @@
                        <ul>
                         <li id="dropdown-account" class="dropdown">
                             <span style="text-decoration:none" class="pointer" class="dropdown-toggle" data-toggle="dropdown">
-                                <?php echo $_SESSION['user'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
+                                <?php echo $_SESSION['login'] ?> <span class="glyphicon glyphicon-chevron-down"></span>
                             </span>
                             <ul class="dropdown-menu">
                                 <li><a href="."><span class="glyphicon glyphicon-home"></span> <?php echo \MVC\Language::T('Home'); ?></a></li>
@@ -35,11 +35,11 @@
                                         <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?>
                                     </a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="?c=account&a=help">
                                         <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?>
                                     </a>
-                                </li>
+                                </li>-->
                                 <li>
                                     <a href="?c=account&a=preferences">
                                         <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?>
@@ -89,6 +89,6 @@
 <script src="<?php echo \Config\Path::JS; ?>tagging.min.js"></script>
 <script src="<?php echo \Config\Path::JS; ?>perso.js"></script>
 <script src="<?php echo \Config\Path::JS; ?>angular.min.js"></script>
-<script src="<?php echo \Config\Path::JS; ?>app.angular.js"></script>
+<script src="<?php echo \Config\Path::JS; ?>app.angular.min.js"></script>
 </body>
 </html>

@@ -16,7 +16,12 @@ class Tags extends \MVC\Controller {
      * méthode appelée lors de l'initialisation de 'links'.'all' , cherche les tags et les tris par le nombre de liens par tag
      */
     public static function data_all() {
-        self::getVue()->data = json_encode( array('tags' => \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser'])));
+        $tags = \Appli\Models\Tag::getInstance()->getAllTagsByUtilisation($_SESSION['idUser']);
+        $nbTags = sizeof($tags);
+        for($i = 0; $i < $nbTags; ++$i){
+            $tags[$i]->count = intval($tags[$i]->count);
+        }
+        self::getVue()->data = json_encode( array('tags' => $tags));
     }
 
     /**
