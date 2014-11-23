@@ -127,10 +127,7 @@ class Links extends \MVC\Controller {
                 'tags' => array('deleted' => $tags),
                 'text' => \MVC\Language::T('The link was successfully deleted')
                 ));
-        }else{
-            //self::redirect('account','text');
         }
-        
     }
 
     /**

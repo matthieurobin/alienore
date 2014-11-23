@@ -35,11 +35,11 @@
                                         <span class="glyphicon glyphicon-wrench"></span> <?php echo \MVC\Language::T('Tools'); ?>
                                     </a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="?c=account&a=help">
                                         <span class="glyphicon glyphicon-question-sign"></span> <?php echo \MVC\Language::T('Help'); ?>
                                     </a>
-                                </li>
+                                </li>-->
                                 <li>
                                     <a href="?c=account&a=preferences">
                                         <span class="glyphicon glyphicon-cog"></span> <?php echo \MVC\Language::T('Preferences'); ?>
