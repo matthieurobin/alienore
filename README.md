@@ -1,4 +1,4 @@
-![logo_light.png](https://bitbucket.org/repo/oR8ak9/images/2184913115-logo_light.png)
+![logo_light](https://cloud.githubusercontent.com/assets/5453156/5157520/39421eb4-7312-11e4-94e7-d2f789de79bb.png)
 
 Alienore is a web application to store your bookmarks. It is designed to be multi-user, fast and user-friendly. 
 
