@@ -1,8 +1,0 @@
-CREATE TABLE `taglink` (
-  `idLink` int(11) NOT NULL,
-  `idTag` int(11) NOT NULL,
-  PRIMARY KEY (`idLink`,`idTag`),
-  KEY `FK_TAGLINK_id_TAG` (`idTag`),
-  CONSTRAINT `FK_TAGLINK_id` FOREIGN KEY (`idLink`) REFERENCES `link` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_TAGLINK_id_TAG` FOREIGN KEY (`idTag`) REFERENCES `tag` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
