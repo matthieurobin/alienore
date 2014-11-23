@@ -11,9 +11,7 @@ Requirements
 ```
 extension = mcrypt.so;
 allow_url_include = on;
-
 ```
-
 Installing
 =======
 1. Clone the depo to your web directory
@@ -23,8 +21,7 @@ Installing
     CONST BDD_USER = 'yourDatabaseUsername';
     ...
     CONST BDD_HOST = 'yourDatabaseIP';
-    CONST BDD_PASSWORD = 'yourDatabaseUsernamePassword';
-```
+    CONST BDD_PASSWORD = 'yourDatabaseUsernamePassword';```
 4. Go to *http://urlToAlienore* in your favorite browser and check the installation's final step : create the admin account
 5. After the admin account creation, you can log to Alienore
 
