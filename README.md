@@ -14,7 +14,7 @@ allow_url_include = on;
 ```
 Installing
 =======
-1. Clone the depo to your web directory
+1. Clone the repository to your web directory
 2. Import the alienore.sql in config/sql/ into Mysql
 3. Edit config/app.php ```
  //MySQL connection
