@@ -16,6 +16,6 @@ class App {
     //MySQL connection
     CONST BDD_USER = 'matthieurobin';
     CONST BDD_NAME = 'alienore';
-    CONST BDD_HOST = '172.17.248.73';
+    CONST BDD_HOST = 'localhost';
     CONST BDD_PASSWORD = '';
 }
